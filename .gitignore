@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+
+# Local/server artifacts
+wordpress/wp-content/debug.log
+wordpress/wp-config.php
+
+# Large local installer file (cannot be pushed to GitHub)
+xampp-windows-x64-8.2.12-0-VS16-installer.exe
+
+# Optional local uploads cache
+wordpress/wp-content/cache/
+wordpress/wp-content/uploads/
