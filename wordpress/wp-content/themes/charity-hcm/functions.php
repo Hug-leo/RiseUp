@@ -52,8 +52,9 @@ add_action( 'wp_enqueue_scripts', function () {
         true
     );
     wp_localize_script( 'charity-hcm-main', 'charityHCM', [
-        'ajaxurl' => admin_url( 'admin-ajax.php' ),
-        'nonce'   => wp_create_nonce( 'charity_load_more' ),
+        'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+        'nonce'        => wp_create_nonce( 'charity_load_more' ),
+        'loadMoreText' => charity_t( 'Xem thêm bài viết', 'Load more stories' ),
     ] );
 } );
 
@@ -153,8 +154,53 @@ function charity_ajax_load_more() {
 // ─── Excerpt length ───────────────────────────────────────────────────────────
 add_filter( 'excerpt_length', fn() => 25, 999 );
 add_filter( 'excerpt_more',   fn() => '…', 999 );
+// ─── AJAX: Post Reactions (Like) ─────────────────────────────────────────
+add_action( 'wp_ajax_toggle_post_like',        'charity_ajax_toggle_like' );
+add_action( 'wp_ajax_nopriv_toggle_post_like', 'charity_ajax_toggle_like' );
 
+function charity_ajax_toggle_like() {
+    check_ajax_referer( 'charity_load_more', 'nonce' );
+
+    $post_id = absint( $_POST['post_id'] ?? 0 );
+    if ( ! $post_id || ! get_post( $post_id ) ) {
+        wp_send_json_error( [ 'message' => 'Invalid post' ] );
+    }
+
+    $cookie_key = 'charity_liked_' . $post_id;
+    $likes      = (int) get_post_meta( $post_id, '_post_likes', true );
+    $already    = isset( $_COOKIE[ $cookie_key ] );
+
+    if ( $already ) {
+        $likes = max( 0, $likes - 1 );
+        update_post_meta( $post_id, '_post_likes', $likes );
+        setcookie( $cookie_key, '', time() - 3600, '/' );
+        wp_send_json_success( [ 'likes' => $likes, 'liked' => false ] );
+    } else {
+        $likes++;
+        update_post_meta( $post_id, '_post_likes', $likes );
+        setcookie( $cookie_key, '1', time() + YEAR_IN_SECONDS, '/' );
+        wp_send_json_success( [ 'likes' => $likes, 'liked' => true ] );
+    }
+}
 // ─── Flush rewrite rules on activation ───────────────────────────────────────
 add_action( 'after_switch_theme', function () {
     flush_rewrite_rules();
 } );
+
+// ─── Bilingual System (VI/EN) ────────────────────────────────────────────────
+function charity_get_lang() {
+    if ( isset( $_GET['lang'] ) && in_array( $_GET['lang'], [ 'vi', 'en' ], true ) ) {
+        setcookie( 'charity_lang', $_GET['lang'], time() + YEAR_IN_SECONDS, '/' );
+        return $_GET['lang'];
+    }
+    return $_COOKIE['charity_lang'] ?? 'vi';
+}
+
+function charity_t( $vi, $en ) {
+    return charity_get_lang() === 'en' ? $en : $vi;
+}
+
+function charity_lang_url( $lang ) {
+    $url = remove_query_arg( 'lang' );
+    return add_query_arg( 'lang', $lang, $url );
+}

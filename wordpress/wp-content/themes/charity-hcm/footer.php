@@ -16,13 +16,16 @@
                     </div>
                 </div>
                 <p class="footer__about">
-                    Câu lạc bộ hoạt động vì cộng đồng tại Thành phố Hồ Chí Minh. Chúng tôi kết nối những trái tim nhân ái để mang lại nụ cười cho những hoàn cảnh khó khăn.
+                    <?php echo charity_t(
+                        'Câu lạc bộ hoạt động vì cộng đồng tại Thành phố Hồ Chí Minh. Chúng tôi kết nối những trái tim nhân ái để mang lại nụ cười cho những hoàn cảnh khó khăn.',
+                        'A community-driven club in Ho Chi Minh City. We connect compassionate hearts to bring smiles to those in need.'
+                    ); ?>
                 </p>
             </div>
 
             <!-- Col 2: Quick links -->
             <div class="footer__col">
-                <h4 class="footer__heading">Điều hướng</h4>
+                <h4 class="footer__heading"><?php echo charity_t( 'Điều hướng', 'Navigation' ); ?></h4>
                 <?php
                 wp_nav_menu( [
                     'theme_location' => 'footer',
@@ -31,11 +34,11 @@
                     'depth'          => 1,
                     'fallback_cb'    => function () {
                         echo '<ul class="footer__nav">';
-                        echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">Trang chủ</a></li>';
-                        echo '<li><a href="#">Giới thiệu</a></li>';
-                        echo '<li><a href="' . esc_url( get_post_type_archive_link( 'event' ) ) . '">Sự kiện</a></li>';
-                        echo '<li><a href="' . esc_url( get_permalink( get_option( 'page_for_posts' ) ) ) . '">Tin tức</a></li>';
-                        echo '<li><a href="#">Liên hệ</a></li>';
+                        echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . charity_t( 'Trang chủ', 'Home' ) . '</a></li>';
+                        echo '<li><a href="#">' . charity_t( 'Giới thiệu', 'About' ) . '</a></li>';
+                        echo '<li><a href="' . esc_url( get_post_type_archive_link( 'event' ) ) . '">' . charity_t( 'Sự kiện', 'Events' ) . '</a></li>';
+                        echo '<li><a href="' . esc_url( get_permalink( get_option( 'page_for_posts' ) ) ) . '">' . charity_t( 'Tin tức', 'News' ) . '</a></li>';
+                        echo '<li><a href="#">' . charity_t( 'Liên hệ', 'Contact' ) . '</a></li>';
                         echo '</ul>';
                     },
                 ] );
@@ -44,11 +47,11 @@
 
             <!-- Col 3: Contact -->
             <div class="footer__col">
-                <h4 class="footer__heading">Liên hệ</h4>
+                <h4 class="footer__heading"><?php echo charity_t( 'Liên hệ', 'Contact' ); ?></h4>
                 <ul class="footer__contact">
                     <li>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        Thành phố Hồ Chí Minh, Việt Nam
+                        <?php echo charity_t( 'Thành phố Hồ Chí Minh, Việt Nam', 'Ho Chi Minh City, Vietnam' ); ?>
                     </li>
                     <li>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -63,7 +66,7 @@
 
             <!-- Col 4: Social -->
             <div class="footer__col">
-                <h4 class="footer__heading">Theo dõi chúng tôi</h4>
+                <h4 class="footer__heading"><?php echo charity_t( 'Theo dõi chúng tôi', 'Follow Us' ); ?></h4>
                 <div class="footer__social">
                     <a href="#" class="footer__social-btn footer__social-btn--fb" aria-label="Facebook">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
@@ -89,13 +92,18 @@
 
     <div class="footer__bottom">
         <div class="container footer__bottom-inner">
-            <span>&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. All rights reserved.</span>
-            <span>Made with <span style="color:#e74c3c">♥</span> in Ho Chi Minh City</span>
+            <span>&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. <?php echo charity_t( 'Tất cả quyền được bảo lưu.', 'All rights reserved.' ); ?></span>
+            <span><?php echo charity_t( 'Được tạo từ', 'Made with' ); ?> <span style="color:#e74c3c">♥</span> <?php echo charity_t( 'tại Thành phố Hồ Chí Minh', 'in Ho Chi Minh City' ); ?></span>
         </div>
     </div>
 </footer>
 
 </div><!-- #page -->
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="back-to-top" aria-label="<?php echo charity_t( 'Lên đầu trang', 'Back to top' ); ?>">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
 
 <?php wp_footer(); ?>
 </body>

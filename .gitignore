@@ -11,3 +11,6 @@ xampp-windows-x64-8.2.12-0-VS16-installer.exe
 # Optional local uploads cache
 wordpress/wp-content/cache/
 wordpress/wp-content/uploads/
+
+# Backup files
+database/*.bak

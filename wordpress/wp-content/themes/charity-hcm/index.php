@@ -1,13 +1,13 @@
 <?php get_header(); ?>
 
 <div class="page-banner">
-    <div class="container page-banner__inner">
+    <div class="page-banner__inner">
         <div class="page-banner__breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo charity_t( 'Trang chủ', 'Home' ); ?></a>
             <span>/</span>
-            <span>Tin tức</span>
+            <span><?php echo charity_t( 'Tin tức', 'Stories' ); ?></span>
         </div>
-        <h1 class="page-banner__title">Tin Tức &amp; Hoạt Động</h1>
+        <h1 class="page-banner__title"><?php echo charity_t( 'Tin Tức & Hoạt Động', 'Stories & Activities' ); ?></h1>
     </div>
 </div>
 
@@ -24,14 +24,13 @@
 
             <?php
             the_posts_pagination( [
-                'prev_text' => '&larr; Trước',
-                'next_text' => 'Tiếp &rarr;',
-                'before_page_number' => '<span class="meta-nav screen-reader-text">Page </span>',
+                'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
             ] );
             ?>
 
             <?php else : ?>
-            <p class="no-content">Chưa có bài viết nào.</p>
+            <p class="no-content"><?php echo charity_t( 'Chưa có bài viết nào.', 'No posts yet.' ); ?></p>
             <?php endif; ?>
         </main>
     </div>

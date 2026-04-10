@@ -3,9 +3,9 @@
 <?php while ( have_posts() ) : the_post(); ?>
 
 <div class="page-banner">
-    <div class="container page-banner__inner">
+    <div class="page-banner__inner">
         <div class="page-banner__breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo charity_t( 'Trang chủ', 'Home' ); ?></a>
             <span>/</span>
             <?php
             $cats = get_the_category();
@@ -36,7 +36,7 @@
                         <?php endif; ?>
                         <span>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                            <?php echo esc_html( get_the_date( 'd/m/Y' ) ); ?>
+                            <?php echo esc_html( get_the_date() ); ?>
                         </span>
                         <span>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -58,16 +58,15 @@
                     <?php the_content(); ?>
                 </div>
 
-                <footer class="entry-footer" style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);">
+                <footer class="entry-footer">
                     <?php
                     $tags = get_the_tags();
                     if ( $tags ) :
                     ?>
-                    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
-                        <span style="font-size:13px;font-weight:600;color:var(--text-muted);">Tags:</span>
+                    <div class="entry-tags">
+                        <span class="entry-tags__label">Tags:</span>
                         <?php foreach ( $tags as $tag ) : ?>
-                        <a href="<?php echo esc_url( get_tag_link( $tag->term_id ) ); ?>"
-                           style="font-size:12px;background:var(--bg-light);padding:4px 12px;border-radius:100px;color:var(--text-muted);border:1px solid var(--border);transition:all .2s;">
+                        <a href="<?php echo esc_url( get_tag_link( $tag->term_id ) ); ?>" class="entry-tag">
                             #<?php echo esc_html( $tag->name ); ?>
                         </a>
                         <?php endforeach; ?>
@@ -75,31 +74,35 @@
                     <?php endif; ?>
                 </footer>
 
+                <!-- Reactions -->
+                <?php $likes = (int) get_post_meta( get_the_ID(), '_post_likes', true ); ?>
+                <div class="post-reactions">
+                    <button class="reaction-btn" data-post-id="<?php the_ID(); ?>">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                        <span class="reaction-count"><?php echo $likes; ?></span>
+                        <?php echo charity_t( 'Thích', 'Like' ); ?>
+                    </button>
+                </div>
+
             </article>
 
-            <!-- Adjacent posts nav -->
-            <nav class="post-nav" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px;">
+            <!-- Post Navigation -->
+            <nav class="post-nav">
                 <?php
                 $prev = get_previous_post();
                 $next = get_next_post();
                 if ( $prev ) :
                 ?>
-                <a href="<?php echo esc_url( get_permalink( $prev ) ); ?>"
-                   style="background:var(--bg-light);border-radius:var(--radius);padding:18px 20px;border:1px solid var(--border);transition:all .25s;"
-                   onmouseover="this.style.borderColor='var(--red)'"
-                   onmouseout="this.style.borderColor='var(--border)'">
-                    <span style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);font-weight:600;">← Bài trước</span>
-                    <p style="font-weight:700;margin-top:6px;font-size:14px;"><?php echo esc_html( get_the_title( $prev ) ); ?></p>
+                <a href="<?php echo esc_url( get_permalink( $prev ) ); ?>">
+                    <span class="post-nav__label">&larr; <?php echo charity_t( 'Bài trước', 'Previous' ); ?></span>
+                    <p class="post-nav__title"><?php echo esc_html( get_the_title( $prev ) ); ?></p>
                 </a>
                 <?php else : ?><div></div><?php endif; ?>
 
                 <?php if ( $next ) : ?>
-                <a href="<?php echo esc_url( get_permalink( $next ) ); ?>"
-                   style="background:var(--bg-light);border-radius:var(--radius);padding:18px 20px;border:1px solid var(--border);text-align:right;transition:all .25s;"
-                   onmouseover="this.style.borderColor='var(--red)'"
-                   onmouseout="this.style.borderColor='var(--border)'">
-                    <span style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);font-weight:600;">Bài tiếp theo →</span>
-                    <p style="font-weight:700;margin-top:6px;font-size:14px;"><?php echo esc_html( get_the_title( $next ) ); ?></p>
+                <a href="<?php echo esc_url( get_permalink( $next ) ); ?>" style="text-align:right;">
+                    <span class="post-nav__label"><?php echo charity_t( 'Bài tiếp theo', 'Next' ); ?> &rarr;</span>
+                    <p class="post-nav__title"><?php echo esc_html( get_the_title( $next ) ); ?></p>
                 </a>
                 <?php endif; ?>
             </nav>
@@ -112,10 +115,8 @@
 
 <!-- Comments -->
 <?php if ( comments_open() || get_comments_number() ) : ?>
-<div class="comments-wrap">
-    <div class="container comments-container">
-        <?php comments_template(); ?>
-    </div>
+<div style="max-width:var(--container-wide);margin:0 auto;padding:0 20px 64px;">
+    <?php comments_template(); ?>
 </div>
 <?php endif; ?>
 

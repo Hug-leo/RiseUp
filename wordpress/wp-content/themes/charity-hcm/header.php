@@ -16,9 +16,15 @@
     <div class="container topbar__inner">
         <span class="topbar__left">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            Thành phố Hồ Chí Minh, Việt Nam
+            <?php echo charity_t( 'Thành phố Hồ Chí Minh, Việt Nam', 'Ho Chi Minh City, Vietnam' ); ?>
         </span>
-        <div class="topbar__social">
+        <div class="topbar__right">
+            <div class="lang-switcher">
+                <a href="<?php echo esc_url( charity_lang_url( 'vi' ) ); ?>" class="lang-switcher__btn <?php echo charity_get_lang() === 'vi' ? 'active' : ''; ?>">VI</a>
+                <span class="lang-switcher__sep">|</span>
+                <a href="<?php echo esc_url( charity_lang_url( 'en' ) ); ?>" class="lang-switcher__btn <?php echo charity_get_lang() === 'en' ? 'active' : ''; ?>">EN</a>
+            </div>
+            <div class="topbar__social">
             <a href="#" aria-label="Facebook" class="topbar__social-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
             </a>
@@ -80,11 +86,11 @@
 <?php
 function charity_fallback_menu() {
     echo '<ul class="nav-menu">';
-    echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">Trang chủ</a></li>';
-    echo '<li><a href="#">Giới thiệu</a></li>';
-    echo '<li><a href="' . esc_url( get_post_type_archive_link( 'event' ) ) . '">Sự kiện</a></li>';
-    echo '<li><a href="' . esc_url( get_permalink( get_option( 'page_for_posts' ) ) ) . '">Tin tức</a></li>';
-    echo '<li><a href="#">Liên hệ</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . charity_t( 'Trang chủ', 'Home' ) . '</a></li>';
+    echo '<li><a href="#">' . charity_t( 'Giới thiệu', 'About' ) . '</a></li>';
+    echo '<li><a href="' . esc_url( get_post_type_archive_link( 'event' ) ) . '">' . charity_t( 'Sự kiện', 'Events' ) . '</a></li>';
+    echo '<li><a href="' . esc_url( get_permalink( get_option( 'page_for_posts' ) ) ) . '">' . charity_t( 'Tin tức', 'News' ) . '</a></li>';
+    echo '<li><a href="#">' . charity_t( 'Liên hệ', 'Contact' ) . '</a></li>';
     echo '</ul>';
 }
 ?>
