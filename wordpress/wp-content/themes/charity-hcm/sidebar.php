@@ -6,7 +6,7 @@
 <aside id="secondary" class="widget-area" role="complementary">
     <!-- Recent Posts widget fallback -->
     <div class="widget">
-        <h3 class="widget-title">Bài viết gần đây</h3>
+        <h3 class="widget-title"><?php echo charity_t( 'Bài viết gần đây', 'Recent Posts' ); ?></h3>
         <?php
         $recent = new WP_Query( [ 'posts_per_page' => 5, 'post_status' => 'publish' ] );
         if ( $recent->have_posts() ) :
@@ -31,7 +31,7 @@
 
     <!-- Categories widget fallback -->
     <div class="widget">
-        <h3 class="widget-title">Danh mục</h3>
+        <h3 class="widget-title"><?php echo charity_t( 'Danh mục', 'Categories' ); ?></h3>
         <ul style="display:flex;flex-direction:column;gap:8px;">
             <?php
             $cats = get_categories( [ 'orderby' => 'count', 'order' => 'DESC', 'hide_empty' => true ] );

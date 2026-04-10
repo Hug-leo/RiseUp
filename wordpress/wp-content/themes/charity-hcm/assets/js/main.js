@@ -1,4 +1,4 @@
-/* Charity HCM — main.js (v2 — vertical feed) */
+/* Vuon Len Scholarship — main.js (v2 — vertical feed) */
 (function () {
   'use strict';
 
@@ -163,7 +163,7 @@
 
       const postId = btn.dataset.postId;
       // Check cookie for liked state
-      if (document.cookie.includes('charity_liked_' + postId + '=')) {
+      if (document.cookie.includes('vuonlen_liked_' + postId + '=')) {
         btn.classList.add('liked');
       }
 
@@ -200,7 +200,7 @@
       btn.dataset.bound = '1';
 
       const postId = btn.dataset.postId;
-      if (document.cookie.includes('charity_liked_' + postId + '=')) {
+      if (document.cookie.includes('vuonlen_liked_' + postId + '=')) {
         btn.classList.add('active');
       }
 

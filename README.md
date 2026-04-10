@@ -1,41 +1,71 @@
-# RiseUp — Charity Community WordPress Site
+# Vuon Len Scholarship — Dong Du Study Encouragement Fund
 
-A bilingual (Vietnamese / English) WordPress website for a youth volunteer organization in Ho Chi Minh City. Built with a custom theme featuring a **vertical scroll feed** layout inspired by [Reedsy](https://reedsy.com/short-stories/), with post reactions, comments, and fully responsive mobile design.
+A bilingual (Vietnamese / English) WordPress website for **Hoc Bong Vuon Len** (Vuon Len Scholarship), one of three scholarship programs under the **Dong Du Study Encouragement Fund** (Quỹ Khuyến Học Đông Du), founded by teacher Nguyen Duc Hoe — Principal of Dong Du Japanese Language School in Ho Chi Minh City.
+
+Built with a custom WordPress theme featuring a **vertical scroll feed** layout inspired by [Reedsy](https://reedsy.com/short-stories/), with post reactions, comments, frontend post submission, and fully responsive mobile design.
+
+## Table of Contents
+
+- [Features](#features)
+- [Homepage Sections](#homepage-sections)
+- [Page Templates](#page-templates)
+- [Project Structure](#project-structure)
+- [Requirements](#requirements)
+- [Quick Start — Local Development](#quick-start--local-development)
+- [Quick Start — Production Deploy](#quick-start--production-deploy)
+- [Admin Credentials](#admin-credentials)
+- [Organization Info](#organization-info)
+- [Troubleshooting](#troubleshooting)
+- [Tech Stack](#tech-stack)
+- [License](#license)
+- [Standalone Pages (Legacy)](#standalone-pages-legacy)
 
 ## Features
 
 - **Vertical Scroll Feed** — Stories displayed as stacked cards with author info, excerpts, likes, and comment counts (Reedsy-inspired layout)
+- **Frontend Post Submission** — Anyone can submit a post via a clean form; posts go to "pending" for admin review
 - **Post Reactions** — Cookie-based like/heart system with AJAX (no login required)
 - **Comments System** — Threaded comments with avatars, reply support, and custom styling
+- **Announcements Board** — Dedicated page template with category filter tabs and scroll-reveal cards
+- **Contact Page** — Contact form with `wp_mail()`, Google Maps embed, and info cards
 - **Custom Theme** (`charity-hcm`) — Responsive design with Google Fonts (Be Vietnam Pro, Playfair Display)
 - **Bilingual Support** — Built-in VI/EN language switcher via cookies (no plugin required)
-- **Custom Post Types** — Events (`su-kien`) and Programs (`chuong-trinh`)
+- **Custom Post Types** — Events (`su-kien`) and Scholarship Programs (`chuong-trinh`)
 - **Category Tabs** — Filter posts by category on the homepage without page reload
 - **AJAX Load More** — Paginated posts loaded dynamically
 - **Fully Responsive** — Optimized for mobile, tablet, and desktop
 - **Clean URLs** — SEO-friendly permalinks for all content
+- **Education Blue Color Scheme** — Blue (#1565C0) primary + Gold (#F9A825) accent
 
 ## Homepage Sections
 
 1. **Hero** — Gradient banner with site name, description, and CTA buttons
-2. **About** — Organization info with animated stat counters
-3. **Stories Feed** — Vertical card feed with category tabs, likes, comments, and "Read story" links
+2. **About** — Organization info with animated stat counters (30 scholarships/year, 9M VND/scholarship, 8+ years, 3 funds)
+3. **Stories Feed** — Vertical card feed with category tabs, likes, comments, "Submit Post" CTA, and "Read story" links
 4. **Events Grid** — Responsive grid of upcoming events
-5. **Donate CTA** — Call-to-action section for sponsorship
-6. **Programs** — Grid of programs and activities
-7. **Our Journey** — Full-width motivational section
+5. **Support CTA** — Call-to-action section for fund donations
+6. **Scholarship Programs** — Grid of programs (La Xanh, Mai Vang, Vuon Len, and more)
+7. **Our Journey** — Full-width motivational section with scholarship stories
+
+## Page Templates
+
+| Template | Slug | Description |
+|----------|------|-------------|
+| Submit Post | `viet-bai` | Frontend post submission form (pending review) |
+| Announcements Feed | `thong-bao` | Reedsy-style announcement board with filter tabs |
+| Contact | `lien-he` | Contact form + Google Maps + info cards |
 
 ## Project Structure
 
 ```
 RiseUp/
 ├── config/                             # Environment-specific configs
-│   ├── wp-config.local.php             #   → Local dev (XAMPP)
+│   ├── wp-config.local.php             #   → Local dev (XAMPP/Homebrew)
 │   └── wp-config.prod.php              #   → Production hosting
 ├── database/
 │   └── sampleweb_wp_export.sql         # Database dump (UTF-8, ~1.3 MB)
 ├── docs/
-│   ├── LOCAL_SETUP.md                  # Step-by-step local XAMPP setup
+│   ├── LOCAL_SETUP.md                  # Step-by-step local setup
 │   └── DEPLOY_GUIDE.md                 # Step-by-step production deploy
 ├── wordpress/                          # Full WordPress installation
 │   ├── wp-config.php                   # Active config
@@ -44,7 +74,7 @@ RiseUp/
 │       └── themes/
 │           └── charity-hcm/            # Custom theme
 │               ├── style.css           # Theme metadata
-│               ├── functions.php       # Theme setup, CPTs, AJAX, reactions, bilingual
+│               ├── functions.php       # Theme setup, CPTs, AJAX, reactions, bilingual, post submission
 │               ├── header.php          # Topbar + sticky navigation
 │               ├── footer.php          # 4-column footer
 │               ├── front-page.php      # Homepage: hero + feed + events + programs
@@ -52,7 +82,10 @@ RiseUp/
 │               ├── index.php           # Blog archive (vertical card list)
 │               ├── archive.php         # Custom post type archives
 │               ├── page.php            # Static page template
-│               ├── 404.php             # Error page
+│               ├── page-submit-post.php    # Frontend post submission form
+│               ├── page-announcements.php  # Announcements feed (Reedsy-style)
+│               ├── page-contact.php        # Contact page with form + map
+│               ├── 404.php             # Error page (bilingual)
 │               ├── comments.php        # Threaded comments template
 │               ├── sidebar.php         # Sidebar with recent posts + categories
 │               ├── template-parts/
@@ -82,7 +115,14 @@ RiseUp/
 5. Create database `sampleweb_wp` in phpMyAdmin (collation: `utf8mb4_unicode_ci`)
 6. Import `database/sampleweb_wp_export.sql`
 7. Visit `http://localhost/sampleweb/wordpress`
-8. Log into wp-admin → **Settings → Permalinks → Save Changes**
+8. Log into wp-admin → **Settings → General** → Set:
+   - **Site Title**: `Học Bổng Vươn Lên`
+   - **Tagline**: `Quỹ Khuyến Học Đông Du`
+9. Go to **Settings → Permalinks → Save Changes**
+10. Create the following pages in wp-admin:
+    - **Viết bài** (slug: `viet-bai`) → Template: "Submit Post"
+    - **Thông báo** (slug: `thong-bao`) → Template: "Announcements Feed"
+    - **Liên hệ** (slug: `lien-he`) → Template: "Contact"
 
 ## Quick Start — Production Deploy
 
@@ -94,7 +134,9 @@ RiseUp/
 4. Fill in your hosting's DB credentials and generate new security keys
 5. Upload `wordpress/` contents to `public_html/` via FTP or File Manager
 6. Visit `https://yourdomain.com/fix-urls.php` to update all URLs
-7. Save Permalinks, change admin password, delete `fix-urls.php`
+7. Update Site Title and Tagline in Settings → General
+8. Create the three page templates (Submit Post, Announcements, Contact)
+9. Save Permalinks, change admin password, delete `fix-urls.php`
 
 ---
 
@@ -107,6 +149,20 @@ RiseUp/
 
 > **Change these immediately** after first login on production.
 
+## Organization Info
+
+| Field | Value |
+|-------|-------|
+| Organization | Quỹ Khuyến Học Đông Du |
+| Scholarship | Học Bổng Vươn Lên |
+| Founded by | Thầy Nguyễn Đức Hoè |
+| Since | 2018 |
+| Scholarships/year | 30 |
+| Amount | 9,000,000 VND/year (1,000,000/month × 9 months) |
+| Address | 43D/46 Hồ Văn Huê, Phú Nhuận, TP. HCM |
+| Phone | 084 3214 142 (Thanh Vẹn) |
+| Email | quykhuyenhocdongdu@gmail.com |
+
 ## Troubleshooting
 
 | Problem | Solution |
@@ -118,6 +174,8 @@ RiseUp/
 | White screen | Check `wp-content/debug.log`; ensure PHP >= 8.0 |
 | "Too many redirects" (production) | Check SSL + `FORCE_SSL_ADMIN` setting |
 | Likes not saving | Ensure cookies are enabled; check AJAX nonce |
+| Submit Post not working | Ensure page exists with "Submit Post" template assigned |
+| Contact form not sending | Check wp_mail() config; may need SMTP plugin on some hosts |
 
 ## Tech Stack
 
@@ -127,8 +185,19 @@ RiseUp/
 - Google Fonts: Be Vietnam Pro, Playfair Display
 - MariaDB / MySQL with `utf8mb4` charset
 - Cookie-based post reactions (AJAX)
+- Frontend post submission (AJAX + `wp_insert_post`)
+- Contact form via `wp_mail()`
 
 ## License
 
 WordPress is licensed under the [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
-The Charity HCM theme is bundled for educational/demonstration purposes.
+The theme is bundled for educational/demonstration purposes.
+
+---
+
+## Standalone Pages (Legacy)
+
+The `wordpress/` folder also contains standalone PHP pages (`home.php`, `events.php`,
+`contact.php`, `announcement-feed.php`, `announcement-feed.html`) that work without
+WordPress. These have been superseded by the WordPress theme and page templates above.
+They are kept for reference but are not required for the WordPress deployment.

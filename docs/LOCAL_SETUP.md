@@ -140,7 +140,7 @@ Visit in your browser:
 http://localhost/sampleweb/wordpress
 ```
 
-You should see the **Charity HCM homepage**. 🎉
+You should see the **Vuon Len Scholarship homepage**.
 
 ---
 
@@ -220,4 +220,4 @@ If the homepage loads but looks unstyled or links point to the wrong address:
 
 ---
 
-*Built with WordPress + Charity HCM custom theme.*
+*Built with WordPress + Vuon Len Scholarship custom theme.*

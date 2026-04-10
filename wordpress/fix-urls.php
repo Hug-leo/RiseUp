@@ -78,7 +78,7 @@ $current_db_url = get_option( 'siteurl' );
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>URL Fixer — Charity HCM</title>
+<title>URL Fixer — Vuon Len Scholarship</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f4f4; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
@@ -87,10 +87,10 @@ $current_db_url = get_option( 'siteurl' );
   p  { font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.6; }
   label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #333; }
   input { width: 100%; padding: 11px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-family: monospace; margin-bottom: 16px; outline: none; transition: .2s; }
-  input:focus { border-color: #b71c1c; }
+  input:focus { border-color: #1565C0; }
   .hint { font-size: 12px; color: #999; margin-top: -12px; margin-bottom: 16px; }
-  button { background: #b71c1c; color: #fff; padding: 12px 26px; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: .2s; font-family: inherit; }
-  button:hover { background: #7f0000; }
+  button { background: #1565C0; color: #fff; padding: 12px 26px; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: .2s; font-family: inherit; }
+  button:hover { background: #0D47A1; }
   .result { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px 20px; margin-top: 20px; }
   .result h3 { color: #15803d; font-size: 15px; margin-bottom: 10px; }
   .result ul { list-style: disc; padding-left: 18px; }

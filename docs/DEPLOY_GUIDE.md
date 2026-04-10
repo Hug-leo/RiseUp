@@ -1,6 +1,6 @@
 # Deploy Guide — Production Hosting
 
-> How to deploy the Charity HCM website to a real hosting provider (cPanel, Plesk, etc.)
+> How to deploy the Vuon Len Scholarship website to a real hosting provider (cPanel, Plesk, etc.)
 
 ---
 

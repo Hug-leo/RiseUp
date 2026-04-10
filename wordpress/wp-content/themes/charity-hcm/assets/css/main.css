@@ -1,17 +1,17 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   CHARITY HCM — Main Stylesheet
+   VUON LEN SCHOLARSHIP — Main Stylesheet
    Vertical scroll feed inspired by Reedsy
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Variables ─────────────────────────────────────────────────────────── */
 :root {
-  --red:          #b71c1c;
-  --red-dark:     #7f0000;
-  --red-light:    #ef5350;
-  --red-bg:       rgba(183,28,28,.06);
-  --navy:         #1a237e;
-  --gold:         #f9a825;
-  --gold-dark:    #e65100;
+  --red:          #1565C0;
+  --red-dark:     #0D47A1;
+  --red-light:    #42A5F5;
+  --red-bg:       rgba(21,101,192,.06);
+  --navy:         #0D47A1;
+  --gold:         #F9A825;
+  --gold-dark:    #F57F17;
   --text:         #1e1e1e;
   --text-secondary: #555;
   --text-muted:   #888;

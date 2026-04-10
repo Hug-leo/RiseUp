@@ -4,7 +4,7 @@
 <section class="hero" id="home">
     <div class="hero__overlay"></div>
     <div class="container hero__content">
-        <p class="hero__eyebrow"><?php echo charity_t( 'Câu lạc bộ Tình Nguyện', 'Volunteer Club' ); ?></p>
+        <p class="hero__eyebrow"><?php echo charity_t( 'Quỹ Khuyến Học Đông Du', 'Dong Du Study Encouragement Fund' ); ?></p>
         <h1 class="hero__title"><?php bloginfo( 'name' ); ?></h1>
         <p class="hero__subtitle"><?php bloginfo( 'description' ); ?></p>
         <div class="hero__actions">
@@ -26,33 +26,33 @@
             <h2 class="section-title"><?php echo charity_t( 'Chúng tôi là ai?', 'Who Are We?' ); ?></h2>
             <p>
                 <?php echo charity_t(
-                    'Câu lạc bộ tình nguyện của chúng tôi quy tụ những bạn trẻ năng động tại Thành phố Hồ Chí Minh, cùng chung một tấm lòng hướng đến cộng đồng. Từ những buổi gây quỹ nhỏ đến những chuyến công tác thiện nguyện, chúng tôi hành động vì niềm tin rằng mỗi cá nhân đều có thể tạo ra sự thay đổi.',
-                    'Our volunteer club brings together dynamic young people in Ho Chi Minh City, united by a shared commitment to the community. From small fundraisers to volunteer missions, we act on the belief that every individual can make a difference.'
+                    'Quỹ Khuyến Học Đông Du được sáng lập bởi thầy Nguyễn Đức Hoè — Hiệu trưởng Trường Nhật ngữ Đông Du. Quỹ hoạt động từ năm 2018, mỗi năm trao 30 suất học bổng Vươn Lên cho sinh viên các trường đại học tại TP. Hồ Chí Minh.',
+                    'Dong Du Study Encouragement Fund was founded by teacher Nguyen Duc Hoe — Principal of Dong Du Japanese Language School. Since 2018, the fund awards 30 Vuon Len scholarships annually to university students in Ho Chi Minh City.'
                 ); ?>
             </p>
             <p>
                 <?php echo charity_t(
-                    'Kế thừa tinh thần tương thân tương ái của người Việt Nam, chúng tôi tổ chức các hoạt động hỗ trợ trẻ em có hoàn cảnh khó khăn, người cao tuổi neo đơn, và các cộng đồng bị ảnh hưởng bởi thiên tai tại các tỉnh thành khu vực phía Nam.',
-                    'Inheriting the Vietnamese spirit of mutual support, we organize activities to help underprivileged children, elderly people living alone, and communities affected by natural disasters across the southern provinces.'
+                    'Học bổng dành cho sinh viên có ước mơ và hoài bão lớn, có kế hoạch rõ ràng để thực hiện ước mơ. Ngoài học bổng Vươn Lên, Quỹ còn có học bổng Lá Xanh và Mai Vàng, đồng hành cùng hàng trăm sinh viên mỗi năm.',
+                    'The scholarship is for students with big dreams and clear plans to achieve them. Beyond Vuon Len, the fund also offers La Xanh and Mai Vang scholarships, supporting hundreds of students each year.'
                 ); ?>
             </p>
         </div>
         <div class="about__stats">
             <div class="stat-card animate-in">
-                <span class="stat-card__number" data-count="38">38+</span>
-                <span class="stat-card__label"><?php echo charity_t( 'Trẻ em được hỗ trợ', 'Children Supported' ); ?></span>
+                <span class="stat-card__number" data-count="30">30+</span>
+                <span class="stat-card__label"><?php echo charity_t( 'Suất học bổng/năm', 'Scholarships per Year' ); ?></span>
             </div>
             <div class="stat-card animate-in">
-                <span class="stat-card__number" data-count="15">15M</span>
-                <span class="stat-card__label"><?php echo charity_t( 'VND đã gây quỹ', 'VND Raised' ); ?></span>
+                <span class="stat-card__number" data-count="9">9M</span>
+                <span class="stat-card__label"><?php echo charity_t( 'VND/suất/năm', 'VND per Scholarship' ); ?></span>
             </div>
             <div class="stat-card animate-in">
-                <span class="stat-card__number" data-count="22">22</span>
-                <span class="stat-card__label"><?php echo charity_t( 'Thành viên tích cực', 'Active Members' ); ?></span>
+                <span class="stat-card__number" data-count="8">8+</span>
+                <span class="stat-card__label"><?php echo charity_t( 'Năm hoạt động', 'Years Active' ); ?></span>
             </div>
             <div class="stat-card animate-in">
-                <span class="stat-card__number" data-count="3">3+</span>
-                <span class="stat-card__label"><?php echo charity_t( 'Chiến dịch hoàn thành', 'Campaigns Completed' ); ?></span>
+                <span class="stat-card__number" data-count="3">3</span>
+                <span class="stat-card__label"><?php echo charity_t( 'Quỹ học bổng', 'Scholarship Funds' ); ?></span>
             </div>
         </div>
     </div>
@@ -63,6 +63,9 @@
     <div class="container">
         <div class="feed-header">
             <h2><?php echo charity_t( 'Bài Viết Mới Nhất', 'Latest Stories' ); ?></h2>
+            <a href="<?php echo esc_url( home_url( '/viet-bai/' ) ); ?>" class="btn btn--primary" style="margin-left:auto;font-size:14px;">
+                <?php echo charity_t( '✏️ Viết bài', '✏️ Submit Post' ); ?>
+            </a>
             <?php
             $cats = get_categories( [ 'hide_empty' => true, 'number' => 5 ] );
             if ( $cats ) :
@@ -210,12 +213,12 @@
         <?php else : ?>
             <?php
             $placeholders = [
-                [ 'Chiến dịch Xuân Tình Nguyện', 'Spring volunteer campaign supporting families before Tet.' ],
-                [ 'Mùa Hè Xanh', 'Green Summer community service in suburban areas.' ],
-                [ 'Gây quỹ Ánh Sáng', 'Light Fund raising scholarships for underprivileged students.' ],
-                [ 'Ngày hội Trao yêu thương', 'Love Sharing Day distributing essentials to shelters.' ],
-                [ 'Chạy bộ từ thiện', 'Charity marathon fundraising for children.' ],
-                [ 'Trại hè kỹ năng', 'Life skills summer camp for youth.' ],
+                [ 'Lễ trao học bổng Vươn Lên 2026', 'Annual Vuon Len scholarship award ceremony for university students.' ],
+                [ 'Sinh hoạt định kỳ sinh viên nhận học bổng', 'Monthly gathering for scholarship recipients with mentorship activities.' ],
+                [ 'Ngày hội hướng nghiệp', 'Career orientation day connecting students with industry professionals.' ],
+                [ 'Trao học bổng Lá Xanh', 'La Xanh scholarship ceremony for high school students.' ],
+                [ 'Gây quỹ học bổng Mai Vàng', 'Mai Vang scholarship fundraising event.' ],
+                [ 'Hội thảo ước mơ và hành động', 'Dreams and action workshop for aspiring students.' ],
             ];
             foreach ( $placeholders as $p ) :
             ?>
@@ -238,11 +241,11 @@
 <section class="section section--donate">
     <div class="donate__inner">
         <div class="donate__text">
-            <span class="section-label section-label--light"><?php echo charity_t( 'Hỗ trợ chúng tôi', 'Support Us' ); ?></span>
-            <h2 class="donate__title"><?php echo charity_t( 'Tham gia hoạt động tài trợ cho các chương trình', 'Help fund our programs and campaigns' ); ?></h2>
+            <span class="section-label section-label--light"><?php echo charity_t( 'Ủng hộ Quỹ', 'Support Our Fund' ); ?></span>
+            <h2 class="donate__title"><?php echo charity_t( 'Chung tay góp sức cho những ước mơ lớn', 'Help fuel big dreams through education' ); ?></h2>
             <p><?php echo charity_t(
-                'Mỗi đóng góp của bạn, dù nhỏ hay lớn, đều trực tiếp mang lại thay đổi tích cực cho những mảnh đời cần được yêu thương.',
-                'Every contribution you make, big or small, directly creates positive change for lives in need of love and care.'
+                'Mỗi đóng góp của bạn, dù nhỏ hay lớn, đều trực tiếp giúp một sinh viên có thêm cơ hội theo đuổi ước mơ trên giảng đường đại học.',
+                'Every contribution, big or small, directly helps a student pursue their university dreams.'
             ); ?></p>
         </div>
         <div class="donate__actions">
@@ -256,8 +259,8 @@
 <section class="section section--programs section--bg-light" id="programs">
     <div class="container container--wide">
         <div class="section-header">
-            <span class="section-label"><?php echo charity_t( 'Những gì chúng tôi làm', 'What We Do' ); ?></span>
-            <h2 class="section-title"><?php echo charity_t( 'Các Chương Trình &amp; Hoạt Động', 'Programs &amp; Activities' ); ?></h2>
+            <span class="section-label"><?php echo charity_t( 'Các chương trình học bổng', 'Scholarship Programs' ); ?></span>
+            <h2 class="section-title"><?php echo charity_t( 'Học Bổng &amp; Hoạt Động', 'Scholarships &amp; Activities' ); ?></h2>
         </div>
 
         <?php
@@ -290,12 +293,12 @@
         <?php else : ?>
             <?php
             $default_programs = [
-                [ '❤️', 'CLB Tình Nguyện Đom Đóm' ],
-                [ '📚', 'Học Bổng Ánh Sáng' ],
-                [ '🏡', 'Mái Ấm Cộng Đồng' ],
-                [ '🌿', 'Mùa Hè Xanh' ],
-                [ '🎗️', 'Xuân Tình Nguyện' ],
-                [ '🤝', 'Kết Nối Yêu Thương' ],
+                [ '🌿', 'Học Bổng Lá Xanh' ],
+                [ '🌟', 'Học Bổng Mai Vàng' ],
+                [ '🚀', 'Học Bổng Vươn Lên' ],
+                [ '🎯', 'Hướng Nghiệp & Tư Vấn' ],
+                [ '📚', 'Sinh Hoạt Định Kỳ' ],
+                [ '🤝', 'Kết Nối Cựu SV' ],
             ];
             foreach ( $default_programs as $prog ) :
             ?>
@@ -317,10 +320,10 @@
     <div class="history__inner">
         <div class="history__content">
             <span class="section-label section-label--light"><?php echo charity_t( 'Hành trình của chúng tôi', 'Our Journey' ); ?></span>
-            <h2 class="history__title"><?php echo charity_t( 'Những Câu Chuyện Tình Nguyện', 'Volunteer Stories' ); ?></h2>
+            <h2 class="history__title"><?php echo charity_t( 'Câu Chuyện Vươn Lên', 'Vuon Len Stories' ); ?></h2>
             <p><?php echo charity_t(
-                'Mỗi chuyến đi là một trang ký ức. Mỗi nụ cười là một nguồn động lực. Cùng chúng tôi nhìn lại những hành trình đã qua và hướng tới những điều tốt đẹp hơn phía trước.',
-                'Every trip is a page of memories. Every smile is a source of inspiration. Join us as we look back on our journeys and forward to the brighter days ahead.'
+                'Mỗi suất học bổng là một câu chuyện về nghị lực và ước mơ. Cùng chúng tôi lắng nghe những câu chuyện của các bạn sinh viên đã và đang vươn lên từ học bổng Đông Du.',
+                'Every scholarship is a story of resilience and dreams. Join us in hearing the stories of students who have risen through the Dong Du scholarship.'
             ); ?></p>
             <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/blog' ) ); ?>" class="btn btn--gold">
                 <?php echo charity_t( 'Xem thêm câu chuyện', 'More Stories' ); ?>

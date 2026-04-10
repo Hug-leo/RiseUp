@@ -48,9 +48,9 @@
             <?php else : ?>
                 <div class="header__logo-placeholder">
                     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" fill="#b71c1c" stroke="#fff" stroke-width="2"/>
-                        <path d="M30 14l3.09 9.51H43.5l-8.27 6.01 3.16 9.73L30 33.24l-8.39 6.01 3.16-9.73L16.5 23.51H26.91L30 14z" fill="#ffd700"/>
-                        <text x="30" y="48" text-anchor="middle" fill="white" font-size="8" font-family="Arial" font-weight="bold">TN</text>
+                        <circle cx="30" cy="30" r="28" fill="#1565C0" stroke="#fff" stroke-width="2"/>
+                        <path d="M20 40V20h4l6 10 6-10h4v20h-4V28l-6 10-6-10v12z" fill="#F9A825"/>
+                        <text x="30" y="52" text-anchor="middle" fill="white" font-size="7" font-family="Arial" font-weight="bold">VL</text>
                     </svg>
                 </div>
             <?php endif; ?>
@@ -90,6 +90,8 @@ function charity_fallback_menu() {
     echo '<li><a href="#">' . charity_t( 'Giới thiệu', 'About' ) . '</a></li>';
     echo '<li><a href="' . esc_url( get_post_type_archive_link( 'event' ) ) . '">' . charity_t( 'Sự kiện', 'Events' ) . '</a></li>';
     echo '<li><a href="' . esc_url( get_permalink( get_option( 'page_for_posts' ) ) ) . '">' . charity_t( 'Tin tức', 'News' ) . '</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/thong-bao/' ) ) . '">' . charity_t( 'Thông báo', 'Announcements' ) . '</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/viet-bai/' ) ) . '">' . charity_t( 'Viết bài', 'Submit Post' ) . '</a></li>';
     echo '<li><a href="#">' . charity_t( 'Liên hệ', 'Contact' ) . '</a></li>';
     echo '</ul>';
 }

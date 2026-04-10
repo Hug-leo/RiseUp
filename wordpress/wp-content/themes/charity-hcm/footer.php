@@ -7,8 +7,8 @@
             <div class="footer__col footer__col--brand">
                 <div class="footer__brand">
                     <svg width="56" height="56" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" fill="#b71c1c" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-                        <path d="M30 14l3.09 9.51H43.5l-8.27 6.01 3.16 9.73L30 33.24l-8.39 6.01 3.16-9.73L16.5 23.51H26.91L30 14z" fill="#ffd700"/>
+                        <circle cx="30" cy="30" r="28" fill="#1565C0" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                        <path d="M20 40V20h4l6 10 6-10h4v20h-4V28l-6 10-6-10v12z" fill="#F9A825"/>
                     </svg>
                     <div>
                         <strong><?php bloginfo( 'name' ); ?></strong>
@@ -17,8 +17,8 @@
                 </div>
                 <p class="footer__about">
                     <?php echo charity_t(
-                        'Câu lạc bộ hoạt động vì cộng đồng tại Thành phố Hồ Chí Minh. Chúng tôi kết nối những trái tim nhân ái để mang lại nụ cười cho những hoàn cảnh khó khăn.',
-                        'A community-driven club in Ho Chi Minh City. We connect compassionate hearts to bring smiles to those in need.'
+                        'Quỹ Khuyến Học Đông Du hỗ trợ sinh viên có ước mơ và hoài bão lớn tại TP. Hồ Chí Minh thông qua các chương trình học bổng Lá Xanh, Mai Vàng và Vươn Lên.',
+                        'Dong Du Study Encouragement Fund supports university students with big dreams in Ho Chi Minh City through the La Xanh, Mai Vang, and Vuon Len scholarship programs.'
                     ); ?>
                 </p>
             </div>
@@ -51,15 +51,15 @@
                 <ul class="footer__contact">
                     <li>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        <?php echo charity_t( 'Thành phố Hồ Chí Minh, Việt Nam', 'Ho Chi Minh City, Vietnam' ); ?>
+                        <?php echo charity_t( '43D/46 Hồ Văn Huê, Phú Nhuận, TP. HCM', '43D/46 Ho Van Hue, Phu Nhuan, HCMC' ); ?>
                     </li>
                     <li>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        contact@charityhcm.org
+                        quykhuyenhocdongdu@gmail.com
                     </li>
                     <li>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                        0901 234 567
+                        084 3214 142
                     </li>
                 </ul>
             </div>
@@ -93,7 +93,7 @@
     <div class="footer__bottom">
         <div class="container footer__bottom-inner">
             <span>&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. <?php echo charity_t( 'Tất cả quyền được bảo lưu.', 'All rights reserved.' ); ?></span>
-            <span><?php echo charity_t( 'Được tạo từ', 'Made with' ); ?> <span style="color:#e74c3c">♥</span> <?php echo charity_t( 'tại Thành phố Hồ Chí Minh', 'in Ho Chi Minh City' ); ?></span>
+            <span><?php echo charity_t( 'Được tạo từ', 'Made with' ); ?> <span style="color:#1565C0">♥</span> <?php echo charity_t( 'tại Thành phố Hồ Chí Minh', 'in Ho Chi Minh City' ); ?></span>
         </div>
     </div>
 </footer>
