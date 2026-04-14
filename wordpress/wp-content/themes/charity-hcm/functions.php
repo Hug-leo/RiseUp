@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.0.0' );
+define( 'CHARITY_HCM_VERSION', '2.1.0' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
 
@@ -40,7 +40,7 @@ add_action( 'wp_enqueue_scripts', function () {
     );
     wp_enqueue_style(
         'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Noto+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap',
         [],
         null
     );
