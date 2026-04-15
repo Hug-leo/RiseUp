@@ -1,0 +1,51 @@
+{
+  "theme": {
+    "primary": "#1565C0",
+    "primaryDark": "#0D47A1",
+    "primaryLight": "#42A5F5",
+    "accent": "#F9A825",
+    "logo": "code/charity-hcm/assets/img/dong-du-logo.jpg"
+  },
+  "contentGroups": [
+    {
+      "name": "VIET VA DI",
+      "items": [
+        "Gioi thieu dia diem",
+        "Chuyen di trong tuan",
+        "Anh chup thien nhien"
+      ]
+    },
+    {
+      "name": "SANG TAC",
+      "items": [
+        "Tho",
+        "Truyen ngan",
+        "Tan van"
+      ]
+    },
+    {
+      "name": "LAN TOA",
+      "items": [
+        "Guong mat Vuon len",
+        "Goc tri an",
+        "Tiep noi"
+      ]
+    },
+    {
+      "name": "NGHE THUAT",
+      "items": [
+        "Ve",
+        "San pham thu cong",
+        "Am nhac"
+      ]
+    }
+  ],
+  "expansionPlan": {
+    "ready": true,
+    "notes": [
+      "Them content group moi bang cach cap nhat front-page.php",
+      "Them block UI moi theo module trong assets/css/main.css",
+      "Khong sua core WordPress, chi mo rong qua theme"
+    ]
+  }
+}

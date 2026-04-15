@@ -1,19 +1,27 @@
-# 🚀 Charity HCM Website — Setup Guide
+# Local Development Setup (XAMPP)
 > Follow these steps to run the site on your own machine using XAMPP.
+>
+> For deploying to a real hosting provider, see [DEPLOY_GUIDE.md](DEPLOY_GUIDE.md).
 
 ---
 
-## What's in the ZIP
+## Project Structure
 
 ```
-sampleweb/
+RiseUp/
+├── config/
+│   ├── wp-config.local.php        ← config for local dev (XAMPP)
+│   └── wp-config.prod.php         ← config template for hosting
+├── database/
+│   └── sampleweb_wp_export.sql    ← full database dump (UTF-8)
+├── docs/
+│   ├── LOCAL_SETUP.md             ← this file
+│   └── DEPLOY_GUIDE.md            ← production deploy guide
 ├── wordpress/                     ← full WordPress installation + custom theme
 │   ├── wp-content/
 │   │   └── themes/charity-hcm/   ← the custom theme
-│   ├── wp-config.php              ← database config (pre-filled)
 │   └── fix-urls.php               ← URL repair tool (run if CSS is broken)
-├── sampleweb_wp_export.sql        ← full database dump (~2.5 MB)
-└── SETUP_GUIDE.md                 ← this file
+└── README.md
 ```
 
 **What the site contains:**
@@ -99,27 +107,27 @@ sampleweb/
 2. Click the **Import** tab at the top
 3. Click **Choose File** and select:
    ```
-   C:\xampp\htdocs\sampleweb\sampleweb_wp_export.sql
+   C:\xampp\htdocs\sampleweb\database\sampleweb_wp_export.sql
    ```
 4. Leave all settings as default, scroll down and click **Import**
 5. Wait for the green ✅ success message (~2.5 MB, takes a few seconds)
 
 ---
 
-## Step 6 — Check the config file
+## Step 6 — Set up the config file
 
-Open this file in Notepad or any text editor:
-```
-C:\xampp\htdocs\sampleweb\wordpress\wp-config.php
-```
-
-Verify these 4 lines — they should already be correct for a default XAMPP install:
-```php
-define( 'DB_NAME',     'sampleweb_wp' );  // must match Step 4
-define( 'DB_USER',     'root' );           // XAMPP default
-define( 'DB_PASSWORD', '' );              // XAMPP default — blank
-define( 'DB_HOST',     'localhost' );      // keep as-is
-```
+1. Copy the local config template into the WordPress folder:
+   ```
+   Copy: config\wp-config.local.php
+   To:   wordpress\wp-config.php
+   ```
+2. Verify these 4 lines — they should already be correct for a default XAMPP install:
+   ```php
+   define( 'DB_NAME',     'sampleweb_wp' );  // must match Step 4
+   define( 'DB_USER',     'root' );           // XAMPP default
+   define( 'DB_PASSWORD', '' );              // XAMPP default — blank
+   define( 'DB_HOST',     'localhost' );      // keep as-is
+   ```
 
 > ⚠️ If you set a custom MySQL password in XAMPP, update `DB_PASSWORD` to match.
 
@@ -132,7 +140,7 @@ Visit in your browser:
 http://localhost/sampleweb/wordpress
 ```
 
-You should see the **Charity HCM homepage**. 🎉
+You should see the **Vuon Len Scholarship homepage**.
 
 ---
 
@@ -212,4 +220,4 @@ If the homepage loads but looks unstyled or links point to the wrong address:
 
 ---
 
-*Built with WordPress + Charity HCM custom theme.*
+*Built with WordPress + Vuon Len Scholarship custom theme.*

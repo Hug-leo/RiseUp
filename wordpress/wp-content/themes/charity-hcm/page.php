@@ -5,7 +5,7 @@
 <div class="page-banner">
     <div class="container page-banner__inner">
         <div class="page-banner__breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo charity_t( 'Trang chủ', 'Home' ); ?></a>
             <span>/</span>
             <span><?php the_title(); ?></span>
         </div>

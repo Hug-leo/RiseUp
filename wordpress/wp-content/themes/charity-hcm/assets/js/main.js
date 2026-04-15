@@ -1,4 +1,4 @@
-/* Charity HCM — main.js */
+/* Vuon Len Scholarship — main.js (v2 — vertical feed) */
 (function () {
   'use strict';
 
@@ -22,7 +22,6 @@
       document.body.style.overflow = open ? 'hidden' : '';
     });
 
-    // Close on outside click
     document.addEventListener('click', (e) => {
       if (!nav.contains(e.target) && !toggle.contains(e.target) && nav.classList.contains('open')) {
         nav.classList.remove('open');
@@ -33,13 +32,11 @@
     });
 
     // Mobile sub-menu accordion
-    const topItems = nav.querySelectorAll('.nav-menu > li');
-    topItems.forEach((item) => {
+    nav.querySelectorAll('.nav-menu > li').forEach((item) => {
       const sub = item.querySelector('.sub-menu');
       if (!sub) return;
-
       const link = item.querySelector('a');
-      if (link && window.innerWidth <= 768) {
+      if (link) {
         link.addEventListener('click', (e) => {
           if (window.innerWidth <= 768) {
             e.preventDefault();
@@ -50,72 +47,78 @@
     });
   }
 
-  // ── Events carousel ─────────────────────────────────────────────────────
-  const track    = document.getElementById('events-track');
-  const prevBtn  = document.getElementById('events-prev');
-  const nextBtn  = document.getElementById('events-next');
-  const SCROLL_AMOUNT = 300;
+  // ── Feed Category Tabs ──────────────────────────────────────────────────
+  const feedTabs = document.querySelectorAll('.feed-tabs__btn');
+  const feedContainer = document.getElementById('stories-feed');
+  const loadMoreBtn = document.getElementById('news-load-more');
 
-  if (track) {
-    if (prevBtn) prevBtn.addEventListener('click', () => track.scrollBy({ left: -SCROLL_AMOUNT, behavior: 'smooth' }));
-    if (nextBtn) nextBtn.addEventListener('click', () => track.scrollBy({ left:  SCROLL_AMOUNT, behavior: 'smooth' }));
+  if (feedTabs.length && feedContainer && typeof charityHCM !== 'undefined') {
+    feedTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        feedTabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
 
-    // Drag-to-scroll
-    let isDown = false, startX, scrollLeft;
+        const catId = tab.dataset.cat || '0';
+        if (loadMoreBtn) {
+          loadMoreBtn.dataset.cat = catId;
+          loadMoreBtn.dataset.page = '1';
+        }
 
-    track.addEventListener('mousedown', (e) => {
-      isDown = true;
-      track.classList.add('grabbing');
-      startX     = e.pageX - track.offsetLeft;
-      scrollLeft = track.scrollLeft;
+        // Load fresh feed for category
+        feedContainer.style.opacity = '0.5';
+
+        const formData = new FormData();
+        formData.append('action', 'load_more_posts');
+        formData.append('nonce', charityHCM.nonce);
+        formData.append('page', '1');
+        formData.append('cat', catId);
+
+        fetch(charityHCM.ajaxurl, { method: 'POST', body: formData })
+          .then((r) => r.json())
+          .then((data) => {
+            if (data.success) {
+              feedContainer.innerHTML = data.data.html;
+              if (loadMoreBtn) {
+                loadMoreBtn.dataset.page = '2';
+                loadMoreBtn.style.display = data.data.hasMore ? '' : 'none';
+                loadMoreBtn.textContent = charityHCM.loadMoreText || 'Load more stories';
+              }
+              initAnimations();
+              initLikeButtons();
+            } else {
+              feedContainer.innerHTML = '<p class="no-content">No posts found.</p>';
+              if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+            }
+          })
+          .catch(() => {
+            feedContainer.innerHTML = '<p class="no-content">Error loading posts.</p>';
+          })
+          .finally(() => {
+            feedContainer.style.opacity = '1';
+          });
+      });
     });
-    track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
-    track.addEventListener('mouseup',    () => { isDown = false; track.classList.remove('grabbing'); });
-    track.addEventListener('mousemove',  (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      track.scrollLeft = scrollLeft - (x - startX) * 1.5;
-    });
-
-    // Touch swipe
-    let touchStartX = 0;
-    track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchmove',  (e) => {
-      const diff = touchStartX - e.touches[0].clientX;
-      track.scrollLeft += diff * 0.8;
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-
-    // Show/hide nav arrows based on scroll position
-    const updateNavArrows = () => {
-      if (!prevBtn || !nextBtn) return;
-      prevBtn.style.opacity = track.scrollLeft > 10 ? '1' : '0.3';
-      nextBtn.style.opacity = (track.scrollLeft + track.clientWidth) < (track.scrollWidth - 10) ? '1' : '0.3';
-    };
-    track.addEventListener('scroll', updateNavArrows, { passive: true });
-    updateNavArrows();
   }
 
   // ── Load More Posts (AJAX) ───────────────────────────────────────────────
-  const loadMoreBtn  = document.getElementById('news-load-more');
-  const morePostsEl  = document.getElementById('news-more-posts');
+  const morePostsEl = document.getElementById('news-more-posts');
 
   if (loadMoreBtn && morePostsEl && typeof charityHCM !== 'undefined') {
-    let currentPage = 2;
-    let loading     = false;
+    let loading = false;
 
     loadMoreBtn.addEventListener('click', () => {
       if (loading) return;
       loading = true;
       loadMoreBtn.classList.add('loading');
-      loadMoreBtn.textContent = 'Đang tải…';
+      const origText = loadMoreBtn.textContent;
+      loadMoreBtn.textContent = 'Loading…';
 
+      const currentPage = parseInt(loadMoreBtn.dataset.page || '2', 10);
       const formData = new FormData();
       formData.append('action', 'load_more_posts');
-      formData.append('nonce',  charityHCM.nonce);
-      formData.append('page',   String(currentPage));
-      formData.append('cat',    loadMoreBtn.dataset.cat || '0');
+      formData.append('nonce', charityHCM.nonce);
+      formData.append('page', String(currentPage));
+      formData.append('cat', loadMoreBtn.dataset.cat || '0');
 
       fetch(charityHCM.ajaxurl, { method: 'POST', body: formData })
         .then((r) => r.json())
@@ -123,30 +126,27 @@
           if (data.success) {
             const frag = document.createElement('div');
             frag.innerHTML = data.data.html;
-            // animate in
             Array.from(frag.children).forEach((el) => {
-              el.style.opacity = '0';
-              el.style.transform = 'translateY(20px)';
+              el.classList.add('animate-in');
               morePostsEl.appendChild(el);
               requestAnimationFrame(() => {
-                el.style.transition = 'opacity .4s ease, transform .4s ease';
-                el.style.opacity    = '1';
-                el.style.transform  = 'translateY(0)';
+                el.classList.add('visible');
               });
             });
-            currentPage++;
+            loadMoreBtn.dataset.page = String(currentPage + 1);
             if (!data.data.hasMore) {
               loadMoreBtn.style.display = 'none';
             } else {
-              loadMoreBtn.textContent = 'Xem thêm tin tức';
+              loadMoreBtn.textContent = origText;
             }
+            initLikeButtons();
           } else {
-            loadMoreBtn.textContent = 'Không còn bài nào';
-            loadMoreBtn.disabled    = true;
+            loadMoreBtn.textContent = 'No more posts';
+            loadMoreBtn.disabled = true;
           }
         })
         .catch(() => {
-          loadMoreBtn.textContent = 'Lỗi tải dữ liệu';
+          loadMoreBtn.textContent = 'Error loading';
         })
         .finally(() => {
           loading = false;
@@ -155,34 +155,141 @@
     });
   }
 
-  // ── Smooth entrance animations (IntersectionObserver) ────────────────────
-  if ('IntersectionObserver' in window) {
-    const targets = document.querySelectorAll(
-      '.stat-card, .news-card, .event-card, .program-card, .about__text, .about__stats'
-    );
+  // ── Like / Reaction buttons ─────────────────────────────────────────────
+  function initLikeButtons() {
+    document.querySelectorAll('.reaction-like-btn').forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+
+      const postId = btn.dataset.postId;
+      // Check cookie for liked state
+      if (document.cookie.includes('vuonlen_liked_' + postId + '=')) {
+        btn.classList.add('liked');
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (typeof charityHCM === 'undefined') return;
+
+        const formData = new FormData();
+        formData.append('action', 'toggle_post_like');
+        formData.append('nonce', charityHCM.nonce);
+        formData.append('post_id', postId);
+
+        fetch(charityHCM.ajaxurl, { method: 'POST', body: formData })
+          .then((r) => r.json())
+          .then((data) => {
+            if (data.success) {
+              const countEl = btn.querySelector('.like-count');
+              if (countEl) {
+                countEl.textContent = data.data.likes > 0 ? data.data.likes : '';
+              }
+              btn.classList.toggle('liked', data.data.liked);
+
+              // Animate
+              btn.style.transform = 'scale(1.2)';
+              setTimeout(() => { btn.style.transform = ''; }, 200);
+            }
+          });
+      });
+    });
+
+    // Also handle single-post reaction buttons
+    document.querySelectorAll('.reaction-btn[data-post-id]').forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+
+      const postId = btn.dataset.postId;
+      if (document.cookie.includes('vuonlen_liked_' + postId + '=')) {
+        btn.classList.add('active');
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (typeof charityHCM === 'undefined') return;
+
+        const formData = new FormData();
+        formData.append('action', 'toggle_post_like');
+        formData.append('nonce', charityHCM.nonce);
+        formData.append('post_id', postId);
+
+        fetch(charityHCM.ajaxurl, { method: 'POST', body: formData })
+          .then((r) => r.json())
+          .then((data) => {
+            if (data.success) {
+              const countEl = btn.querySelector('.reaction-count');
+              if (countEl) {
+                countEl.textContent = data.data.likes;
+              }
+              btn.classList.toggle('active', data.data.liked);
+              btn.style.transform = 'scale(1.1)';
+              setTimeout(() => { btn.style.transform = ''; }, 200);
+            }
+          });
+      });
+    });
+  }
+
+  // ── Scroll animations (IntersectionObserver) ─────────────────────────────
+  function initAnimations() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const targets = document.querySelectorAll('.animate-in:not(.visible)');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.style.animation = 'fadeUp .5s ease forwards';
+          entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    targets.forEach((el) => {
-      el.style.opacity = '0';
-      observer.observe(el);
+    targets.forEach((el) => observer.observe(el));
+  }
+
+  // ── Back to Top Button ───────────────────────────────────────────────
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  // ── Add fadeUp animation keyframe dynamically ─────────────────────────
-  const styleEl = document.createElement('style');
-  styleEl.textContent = `
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  `;
-  document.head.appendChild(styleEl);
+  // ── Stat Counter Animation ──────────────────────────────────────────
+  const counters = document.querySelectorAll('.stat-card__number[data-count]');
+  if (counters.length && 'IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-count'), 10);
+          const suffix = el.textContent.replace(/[0-9]/g, '');
+          const duration = 1500;
+          const startTime = performance.now();
+
+          const animate = (now) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const current = Math.round(eased * target);
+            el.textContent = current + suffix;
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    counters.forEach((el) => counterObserver.observe(el));
+  }
+
+  // ── Init on load ───────────────────────────────────────────────────────
+  initAnimations();
+  initLikeButtons();
 
 })();

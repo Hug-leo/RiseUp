@@ -1,9 +1,9 @@
 <?php get_header(); ?>
 
 <div class="page-banner">
-    <div class="container page-banner__inner">
+    <div class="page-banner__inner">
         <div class="page-banner__breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo charity_t( 'Trang chủ', 'Home' ); ?></a>
             <span>/</span>
             <span><?php the_archive_title(); ?></span>
         </div>
@@ -22,12 +22,12 @@
             </div>
             <?php
             the_posts_pagination( [
-                'prev_text' => '&larr; Trước',
-                'next_text' => 'Tiếp &rarr;',
+                'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
             ] );
             ?>
             <?php else : ?>
-            <p class="no-content">Chưa có nội dung nào.</p>
+            <p class="no-content"><?php echo charity_t( 'Chưa có nội dung nào.', 'No content found.' ); ?></p>
             <?php endif; ?>
         </main>
     </div>

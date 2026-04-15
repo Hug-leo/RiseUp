@@ -1,329 +1,206 @@
 <?php get_header(); ?>
 
-<!-- ═══ HERO ══════════════════════════════════════════════════════════════ -->
-<section class="hero" id="home">
-    <div class="hero__overlay"></div>
-    <div class="container hero__content">
-        <p class="hero__eyebrow">Câu lạc bộ Tình Nguyện</p>
-        <h1 class="hero__title"><?php bloginfo( 'name' ); ?></h1>
-        <p class="hero__subtitle"><?php bloginfo( 'description' ); ?></p>
-        <div class="hero__actions">
-            <a href="<?php echo esc_url( get_page_link( get_page_by_path( 'gioi-thieu' ) ) ?: '#about' ); ?>" class="btn btn--primary">
-                Về chúng tôi
-            </a>
-            <a href="<?php echo esc_url( get_page_link( get_page_by_path( 'lien-he' ) ) ?: '#contact' ); ?>" class="btn btn--outline">
-                Liên hệ với chúng tôi
-            </a>
+<?php
+$content_groups = [
+    [
+        'title_vi' => 'VIẾT VÀ ĐI',
+        'title_en' => 'WRITE & TRAVEL',
+        'items'    => [
+            [
+                'vi' => 'Giới thiệu địa điểm',
+                'en' => 'Location Spotlights',
+                'desc_vi' => 'Chia sẻ các địa điểm có cảnh đẹp, câu chuyện văn hóa và trải nghiệm đáng nhớ.',
+                'desc_en' => 'Share meaningful destinations with culture and memorable experiences.',
+            ],
+            [
+                'vi' => 'Chuyến đi trong tuần',
+                'en' => 'Weekly Journeys',
+                'desc_vi' => 'Tổng hợp chuyến đi tiêu biểu trong tuần cùng bài học và cảm hứng.',
+                'desc_en' => 'Weekly trip highlights with lessons and inspiration.',
+            ],
+            [
+                'vi' => 'Ảnh chụp thiên nhiên',
+                'en' => 'Nature Photography',
+                'desc_vi' => 'Bộ ảnh thiên nhiên có chú thích ý nghĩa và góc nhìn nghệ thuật.',
+                'desc_en' => 'Nature photo series with meaningful captions and artistic perspective.',
+            ],
+        ],
+    ],
+    [
+        'title_vi' => 'SÁNG TÁC',
+        'title_en' => 'CREATIVE WRITING',
+        'items'    => [
+            [
+                'vi' => 'Thơ',
+                'en' => 'Poetry',
+                'desc_vi' => 'Đăng tải các bài thơ do thành viên và bạn đọc sáng tác.',
+                'desc_en' => 'Poems contributed by members and readers.',
+            ],
+            [
+                'vi' => 'Truyện ngắn',
+                'en' => 'Short Stories',
+                'desc_vi' => 'Truyện ngắn về đời sống, gia đình, học tập và hành trình trưởng thành.',
+                'desc_en' => 'Stories about life, family, study, and personal growth.',
+            ],
+            [
+                'vi' => 'Tản văn',
+                'en' => 'Essays',
+                'desc_vi' => 'Những trang viết giàu cảm xúc và góc nhìn về cuộc sống thường ngày.',
+                'desc_en' => 'Reflective essays capturing everyday life and emotions.',
+            ],
+        ],
+    ],
+    [
+        'title_vi' => 'LAN TỎA',
+        'title_en' => 'SPREADING IMPACT',
+        'items'    => [
+            [
+                'vi' => 'Gương mặt Vươn Lên',
+                'en' => 'Rise Up Faces',
+                'desc_vi' => 'Chân dung thành viên, cựu học bổng và người đồng hành nổi bật.',
+                'desc_en' => 'Profiles of scholarship members and outstanding supporters.',
+            ],
+            [
+                'vi' => 'Góc tri ân',
+                'en' => 'Gratitude Corner',
+                'desc_vi' => 'Những lời tri ân từ người nhận học bổng và cộng đồng đồng hành.',
+                'desc_en' => 'Stories of gratitude from scholarship recipients and supporters.',
+            ],
+            [
+                'vi' => 'Tiếp nối',
+                'en' => 'Giving Back',
+                'desc_vi' => 'Cựu học bổng quay lại kết nối, chia sẻ và truyền cảm hứng.',
+                'desc_en' => 'Alumni return to mentor, connect, and inspire future students.',
+            ],
+        ],
+    ],
+    [
+        'title_vi' => 'NGHỆ THUẬT',
+        'title_en' => 'ART',
+        'items'    => [
+            [
+                'vi' => 'Vẽ',
+                'en' => 'Drawing',
+                'desc_vi' => 'Trưng bày các tác phẩm hội họa từ học sinh và thành viên.',
+                'desc_en' => 'Visual art and drawing works by students and members.',
+            ],
+            [
+                'vi' => 'Sản phẩm thủ công',
+                'en' => 'Handmade Crafts',
+                'desc_vi' => 'Giới thiệu sản phẩm handmade như thiệp, vòng tay, đồ lưu niệm.',
+                'desc_en' => 'Handmade crafts such as cards, bracelets, and keepsakes.',
+            ],
+            [
+                'vi' => 'Âm nhạc',
+                'en' => 'Music',
+                'desc_vi' => 'Video hát, múa, nhạc cụ từ các hoạt động tại trường và địa phương.',
+                'desc_en' => 'Music, singing, and performance videos from community activities.',
+            ],
+        ],
+    ],
+];
+?>
+
+<section class="cp-hero" id="home">
+    <div class="cp-hero__pattern"></div>
+    <div class="container cp-hero__inner">
+        <img class="cp-hero__logo" src="<?php echo esc_url( CHARITY_HCM_URI . '/assets/img/dong-du-logo.jpg' ); ?>" alt="Dong Du logo">
+        <p class="cp-hero__eyebrow"><?php echo charity_t( 'Quỹ Khuyến Học Đông Du', 'Dong Du Study Encouragement Fund' ); ?></p>
+        <h1><?php echo charity_t( 'Học Bổng Vươn Lên', 'Rise Up Scholarship' ); ?></h1>
+        <p class="cp-hero__subtitle"><?php echo charity_t( 'Hỗ trợ học sinh vượt khó, vươn lên trong học tập và cuộc sống', 'Supporting students to overcome challenges and rise up in education and life' ); ?></p>
+        <div class="cp-hero__actions">
+            <a class="btn btn--primary" href="#content-roadmap"><?php echo charity_t( 'Khám phá mục nội dung', 'Explore Content Pillars' ); ?></a>
+            <a class="btn btn--outline" href="<?php echo esc_url( home_url( '/lien-he/' ) ); ?>"><?php echo charity_t( 'Liên hệ cộng tác', 'Contact Us' ); ?></a>
         </div>
-    </div>
-    <div class="hero__scroll-hint">
-        <span></span>
     </div>
 </section>
 
-<!-- ═══ ABOUT ═════════════════════════════════════════════════════════════ -->
-<section class="section section--about" id="about">
-    <div class="container about__inner">
-        <div class="about__text">
-            <span class="section-label">Về chúng tôi</span>
-            <h2 class="section-title">Chúng tôi là ai?</h2>
-            <p>
-                Câu lạc bộ tình nguyện của chúng tôi quy tụ những bạn trẻ năng động tại Thành phố Hồ Chí Minh, cùng chung một tấm lòng hướng đến cộng đồng. Từ những buổi gây quỹ nhỏ đến những chuyến công tác thiện nguyện, chúng tôi hành động vì niềm tin rằng mỗi cá nhân đều có thể tạo ra sự thay đổi.
-            </p>
-            <p>
-                Kế thừa tinh thần tương thân tương ái của người Việt Nam, chúng tôi tổ chức các hoạt động hỗ trợ trẻ em có hoàn cảnh khó khăn, người cao tuổi neo đơn, và các cộng đồng bị ảnh hưởng bởi thiên tai tại các tỉnh thành khu vực phía Nam.
-            </p>
-            <a href="#" class="btn btn--text">
-                Xem thêm về chúng tôi
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-        </div>
-        <div class="about__stats">
-            <div class="stat-card">
-                <span class="stat-card__number">38+</span>
-                <span class="stat-card__label">Trẻ em được hỗ trợ</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-card__number">15M</span>
-                <span class="stat-card__label">VND đã gây quỹ</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-card__number">22</span>
-                <span class="stat-card__label">Thành viên tích cực</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-card__number">3+</span>
-                <span class="stat-card__label">Chiến dịch hoàn thành</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ FEATURED NEWS ══════════════════════════════════════════════════════ -->
-<section class="section section--news section--bg-light" id="news">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Cập nhật mới nhất</span>
-            <h2 class="section-title">Tin Tức Nổi Bật</h2>
+<section class="section cp-roadmap" id="content-roadmap">
+    <div class="container container--wide">
+        <div class="section-header cp-section-header">
+            <span class="section-label"><?php echo charity_t( 'Định hướng nội dung', 'Content Strategy' ); ?></span>
+            <h2 class="section-title"><?php echo charity_t( 'Các mục triển khai giai đoạn đầu', 'Initial Content Buckets' ); ?></h2>
+            <p class="cp-section-header__lead"><?php echo charity_t(
+                'Tập trung triển khai 4 nhóm nội dung theo định hướng ảnh tham chiếu. Các mục khác sẽ bổ sung theo từng đợt phát triển tiếp theo.',
+                'We are launching with 4 core content groups from the reference. Additional sections will be introduced in future iterations.'
+            ); ?></p>
         </div>
 
-        <?php
-        $featured_query = new WP_Query( [
-            'post_type'      => 'post',
-            'posts_per_page' => 4,
-            'post_status'    => 'publish',
-            'orderby'        => 'date',
-            'order'          => 'DESC',
-        ] );
-        ?>
-
-        <?php if ( $featured_query->have_posts() ) : ?>
-        <div class="news-grid">
-
-            <?php
-            $i = 0;
-            while ( $featured_query->have_posts() ) :
-                $featured_query->the_post();
-                $i++;
-            ?>
-            <?php if ( $i === 1 ) : // Large featured card ?>
-            <article class="news-card news-card--featured">
-                <?php if ( has_post_thumbnail() ) : ?>
-                <a href="<?php the_permalink(); ?>" class="news-card__img-wrap">
-                    <?php the_post_thumbnail( 'card-wide', [ 'class' => 'news-card__img', 'alt' => get_the_title() ] ); ?>
-                </a>
-                <?php endif; ?>
-                <div class="news-card__body">
-                    <div class="news-card__meta">
-                        <?php
-                        $cats = get_the_category();
-                        if ( $cats ) :
-                        ?>
-                        <a href="<?php echo esc_url( get_category_link( $cats[0]->term_id ) ); ?>" class="news-card__cat">
-                            <?php echo esc_html( $cats[0]->name ); ?>
-                        </a>
-                        <?php endif; ?>
-                        <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>" class="news-card__date">
-                            <?php echo esc_html( get_the_date( 'd/m/Y' ) ); ?>
-                        </time>
-                    </div>
-                    <h3 class="news-card__title">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h3>
-                    <p class="news-card__excerpt"><?php the_excerpt(); ?></p>
-                    <a href="<?php the_permalink(); ?>" class="btn btn--text btn--sm">
-                        Xem thêm
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </article>
-
-            <?php else : // Small cards ?>
-            <article class="news-card news-card--small">
-                <?php if ( has_post_thumbnail() ) : ?>
-                <a href="<?php the_permalink(); ?>" class="news-card__img-wrap">
-                    <?php the_post_thumbnail( 'card-thumb', [ 'class' => 'news-card__img', 'alt' => get_the_title() ] ); ?>
-                </a>
-                <?php endif; ?>
-                <div class="news-card__body">
-                    <div class="news-card__meta">
-                        <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>" class="news-card__date">
-                            <?php echo esc_html( get_the_date( 'd/m/Y' ) ); ?>
-                        </time>
-                    </div>
-                    <h3 class="news-card__title news-card__title--sm">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h3>
-                    <a href="<?php the_permalink(); ?>" class="btn btn--text btn--xs">Xem thêm →</a>
-                </div>
-            </article>
-            <?php endif; ?>
-
-            <?php endwhile; wp_reset_postdata(); ?>
-        </div>
-
-        <div class="load-more-wrap" id="news-load-more-wrap">
-            <button
-                class="btn btn--outline-dark load-more-btn"
-                id="news-load-more"
-                data-page="2"
-                data-cat="0"
-            >
-                Xem thêm tin tức
-            </button>
-        </div>
-        <div id="news-more-posts" class="news-more-grid"></div>
-
-        <?php else : ?>
-        <p class="no-content">Chưa có bài viết nào. <a href="<?php echo esc_url( admin_url( 'post-new.php' ) ); ?>">Thêm bài viết mới</a>.</p>
-        <?php endif; ?>
-    </div>
-</section>
-
-<!-- ═══ EVENTS ════════════════════════════════════════════════════════════ -->
-<section class="section section--events" id="events">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Những điều đang diễn ra</span>
-            <h2 class="section-title">Các Sự Kiện Nổi Bật</h2>
-        </div>
-
-        <?php
-        $events_query = new WP_Query( [
-            'post_type'      => 'event',
-            'posts_per_page' => 6,
-            'post_status'    => 'publish',
-        ] );
-        ?>
-
-        <div class="events-track-wrap">
-            <div class="events-track" id="events-track">
-
-            <?php if ( $events_query->have_posts() ) : ?>
-                <?php while ( $events_query->have_posts() ) : $events_query->the_post(); ?>
-                <article class="event-card">
-                    <?php if ( has_post_thumbnail() ) : ?>
-                    <div class="event-card__img-wrap">
-                        <?php the_post_thumbnail( 'event-thumb', [ 'class' => 'event-card__img', 'alt' => get_the_title() ] ); ?>
-                    </div>
-                    <?php else : ?>
-                    <div class="event-card__img-wrap event-card__img-wrap--placeholder">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                    </div>
-                    <?php endif; ?>
-                    <div class="event-card__body">
-                        <h4 class="event-card__title">
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h4>
-                        <p class="event-card__excerpt"><?php echo wp_trim_words( get_the_excerpt(), 15 ); ?></p>
-                        <a href="<?php the_permalink(); ?>" class="event-card__link">Xem thêm →</a>
-                    </div>
+        <div class="cp-category-grid">
+            <?php foreach ( $content_groups as $group ) : ?>
+                <article class="cp-group-card animate-in">
+                    <h3 class="cp-group-card__title"><?php echo esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ); ?></h3>
+                    <ul class="cp-group-card__list">
+                        <?php foreach ( $group['items'] as $item ) : ?>
+                            <li class="cp-group-item">
+                                <h4><?php echo esc_html( charity_t( $item['vi'], $item['en'] ) ); ?></h4>
+                                <p><?php echo esc_html( charity_t( $item['desc_vi'], $item['desc_en'] ) ); ?></p>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </article>
-                <?php endwhile; wp_reset_postdata(); ?>
-
-            <?php else : ?>
-                <!-- Placeholder event cards when no events are added yet -->
-                <?php
-                $placeholders = [
-                    [ 'Chiến dịch Xuân Tình Nguyện', 'Hỗ trợ các gia đình khó khăn trước Tết Nguyên Đán.' ],
-                    [ 'Mùa Hè Xanh', 'Tình nguyện phục vụ cộng đồng tại các vùng ngoại ô.' ],
-                    [ 'Gây quỹ Ánh Sáng', 'Quyên góp học bổng cho trẻ em nghèo hiếu học.' ],
-                    [ 'Ngày hội Trao yêu thương', 'Phân phát nhu yếu phẩm tại các mái ấm.' ],
-                    [ 'Chạy bộ từ thiện', 'Marathon gây quỹ vì trẻ em có hoàn cảnh đặc biệt.' ],
-                    [ 'Trại hè kỹ năng', 'Trang bị kỹ năng sống cho thanh thiếu niên.' ],
-                ];
-                foreach ( $placeholders as $p ) :
-                ?>
-                <article class="event-card">
-                    <div class="event-card__img-wrap event-card__img-wrap--placeholder">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                    </div>
-                    <div class="event-card__body">
-                        <h4 class="event-card__title"><?php echo esc_html( $p[0] ); ?></h4>
-                        <p class="event-card__excerpt"><?php echo esc_html( $p[1] ); ?></p>
-                        <a href="#" class="event-card__link">Xem thêm →</a>
-                    </div>
-                </article>
-                <?php endforeach; ?>
-            <?php endif; ?>
-
-            </div><!-- .events-track -->
-
-            <button class="events-nav events-nav--prev" id="events-prev" aria-label="Previous">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="events-nav events-nav--next" id="events-next" aria-label="Next">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ DONATE CTA ════════════════════════════════════════════════════════ -->
-<section class="section section--donate">
-    <div class="container donate__inner">
-        <div class="donate__text">
-            <span class="section-label section-label--light">Hỗ trợ chúng tôi</span>
-            <h2 class="donate__title">Tham gia hoạt động tài trợ cho các chương trình</h2>
-            <p>Mỗi đóng góp của bạn, dù nhỏ hay lớn, đều trực tiếp mang lại thay đổi tích cực cho những mảnh đời cần được yêu thương.</p>
-        </div>
-        <div class="donate__actions">
-            <a href="#" class="btn btn--gold">Tài trợ ngay</a>
-            <a href="#" class="btn btn--outline-white">Hồ sơ tài trợ</a>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ PROGRAMS / CLUBS ═══════════════════════════════════════════════════ -->
-<section class="section section--programs" id="programs">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Những gì chúng tôi làm</span>
-            <h2 class="section-title">Các Chương Trình &amp; Hoạt Động</h2>
-        </div>
-
-        <?php
-        $programs_query = new WP_Query( [
-            'post_type'      => 'program',
-            'posts_per_page' => 6,
-            'post_status'    => 'publish',
-        ] );
-        ?>
-
-        <div class="programs-grid">
-        <?php if ( $programs_query->have_posts() ) : ?>
-            <?php while ( $programs_query->have_posts() ) : $programs_query->the_post(); ?>
-            <article class="program-card">
-                <?php if ( has_post_thumbnail() ) : ?>
-                <div class="program-card__img">
-                    <?php the_post_thumbnail( 'event-thumb', [ 'alt' => get_the_title() ] ); ?>
-                </div>
-                <?php else : ?>
-                <div class="program-card__icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                </div>
-                <?php endif; ?>
-                <h4 class="program-card__name">
-                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                </h4>
-            </article>
-            <?php endwhile; wp_reset_postdata(); ?>
-
-        <?php else : ?>
-            <?php
-            $default_programs = [
-                [ '❤️', 'CLB Tình Nguyện Đom Đóm' ],
-                [ '📚', 'Học Bổng Ánh Sáng' ],
-                [ '🏡', 'Mái Ấm Cộng Đồng' ],
-                [ '🌿', 'Mùa Hè Xanh' ],
-                [ '🎗️', 'Xuân Tình Nguyện' ],
-                [ '🤝', 'Kết Nối Yêu Thương' ],
-            ];
-            foreach ( $default_programs as $prog ) :
-            ?>
-            <article class="program-card">
-                <div class="program-card__icon">
-                    <span style="font-size:2.5rem;line-height:1"><?php echo $prog[0]; ?></span>
-                </div>
-                <h4 class="program-card__name"><?php echo esc_html( $prog[1] ); ?></h4>
-            </article>
             <?php endforeach; ?>
-        <?php endif; ?>
         </div>
     </div>
 </section>
 
-<!-- ═══ HISTORY / OUR STORY ════════════════════════════════════════════════ -->
-<section class="section section--history">
-    <div class="section--history__overlay"></div>
-    <div class="container history__inner">
-        <div class="history__content">
-            <span class="section-label section-label--light">Hành trình của chúng tôi</span>
-            <h2 class="history__title">Những Câu Chuyện Tình Nguyện</h2>
-            <p>Mỗi chuyến đi là một trang ký ức. Mỗi nụ cười là một nguồn động lực. Cùng chúng tôi nhìn lại những hành trình đã qua và hướng tới những điều tốt đẹp hơn phía trước.</p>
-            <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ?: home_url( '/blog' ) ); ?>" class="btn btn--gold">
-                Xem thêm câu chuyện
-            </a>
+<section class="section cp-future section--bg-light" id="future-ready">
+    <div class="container container--wide">
+        <div class="section-header cp-section-header">
+            <span class="section-label"><?php echo charity_t( 'Sẵn sàng mở rộng', 'Built To Grow' ); ?></span>
+            <h2 class="section-title"><?php echo charity_t( 'Không dừng ở phiên bản hiện tại', 'Ready For New Features' ); ?></h2>
+        </div>
+        <div class="cp-future__grid">
+            <article class="cp-future-card animate-in">
+                <h3><?php echo charity_t( 'Mở rộng danh mục nhanh', 'Fast Category Expansion' ); ?></h3>
+                <p><?php echo charity_t( 'Có thể thêm mục mới ngay trong WordPress Admin mà không phá layout hiện tại.', 'New categories can be added from WordPress Admin without breaking current layout.' ); ?></p>
+            </article>
+            <article class="cp-future-card animate-in">
+                <h3><?php echo charity_t( 'Mở rộng UI theo module', 'Modular UI Growth' ); ?></h3>
+                <p><?php echo charity_t( 'Các khối giao diện được tách rõ để thêm section, trang chuyên đề, hoặc landing page mới.', 'UI blocks are modular, ready for additional sections, feature pages, and campaign landing pages.' ); ?></p>
+            </article>
+            <article class="cp-future-card animate-in">
+                <h3><?php echo charity_t( 'Chuẩn bị cho tính năng mới', 'Prepared For New Features' ); ?></h3>
+                <p><?php echo charity_t( 'Sẵn sàng tích hợp lọc nâng cao, media gallery, phản hồi cộng đồng, và công cụ quản trị nội dung AI hỗ trợ.', 'Architecture is prepared for advanced filters, media gallery, community feedback, and AI-assisted content operations.' ); ?></p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section cp-posts" id="stories">
+    <div class="container">
+        <div class="section-header cp-section-header">
+            <span class="section-label"><?php echo charity_t( 'Cập nhật gần đây', 'Latest Updates' ); ?></span>
+            <h2 class="section-title"><?php echo charity_t( 'Bài viết mới', 'Recent Stories' ); ?></h2>
+        </div>
+
+        <div class="cp-post-grid">
+            <?php
+            $latest_query = new WP_Query( [
+                'post_type'      => 'post',
+                'posts_per_page' => 4,
+                'post_status'    => 'publish',
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+            ] );
+            ?>
+
+            <?php if ( $latest_query->have_posts() ) : ?>
+                <?php while ( $latest_query->have_posts() ) : $latest_query->the_post(); ?>
+                    <article class="cp-post-card animate-in">
+                        <?php if ( has_post_thumbnail() ) : ?>
+                            <a href="<?php the_permalink(); ?>" class="cp-post-card__thumb"><?php the_post_thumbnail( 'card-thumb', [ 'alt' => get_the_title() ] ); ?></a>
+                        <?php endif; ?>
+                        <div class="cp-post-card__body">
+                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                            <p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 22 ) ); ?></p>
+                            <a class="cp-post-card__link" href="<?php the_permalink(); ?>"><?php echo charity_t( 'Đọc tiếp', 'Read More' ); ?> &rarr;</a>
+                        </div>
+                    </article>
+                <?php endwhile; wp_reset_postdata(); ?>
+            <?php else : ?>
+                <p class="no-content"><?php echo charity_t( 'Chưa có bài viết nào. Hãy bắt đầu với các mục ở trên.', 'No stories yet. Start publishing under the sections above.' ); ?></p>
+            <?php endif; ?>
         </div>
     </div>
 </section>
