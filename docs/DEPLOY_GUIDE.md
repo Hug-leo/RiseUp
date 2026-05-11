@@ -35,7 +35,6 @@
 4. Click **Go** and wait for the success message
 
 ---
-
 ## Step 3 — Configure wp-config.php
 
 1. Copy `config/wp-config.prod.php` → `wordpress/wp-config.php`

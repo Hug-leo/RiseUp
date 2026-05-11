@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.1.0' );
+define( 'CHARITY_HCM_VERSION', '2.2.0' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
 
@@ -112,6 +112,280 @@ add_action( 'init', function () {
 } );
 
 // ─── AJAX: Load More Posts ────────────────────────────────────────────────────
+function charity_content_groups() {
+    return [
+        [
+            'slug'     => 'tin-tuc',
+            'title_vi' => 'TIN TỨC',
+            'title_en' => 'NEWS',
+            'summary_vi' => 'Cập nhật hoạt động, gương mặt tiêu biểu và hành trình tiếp nối của cộng đồng học bổng.',
+            'summary_en' => 'Updates, featured members, and alumni giving-back stories from the scholarship community.',
+            'items'    => [
+                [
+                    'slug' => 'chuyen-vuon-len',
+                    'vi' => 'Chuyện Vươn Lên',
+                    'en' => 'Rise Up Stories',
+                    'desc_vi' => 'Cập nhật hoạt động, sự kiện, chương trình và thông báo mới nhất do Quỹ HBVL tổ chức.',
+                    'desc_en' => 'Latest activities, events, programs, and announcements organized by the scholarship fund.',
+                ],
+                [
+                    'slug' => 'guong-mat-vuon-len',
+                    'vi' => 'Gương mặt Vươn Lên',
+                    'en' => 'Rise Up Faces',
+                    'desc_vi' => 'Giới thiệu cá nhân đang sinh hoạt tại Quỹ có thành tích nổi bật trong học tập hoặc nghề nghiệp.',
+                    'desc_en' => 'Profiles of members with strong academic, career, or community achievements.',
+                ],
+                [
+                    'slug' => 'tiep-noi',
+                    'vi' => 'Tiếp nối',
+                    'en' => 'Giving Back',
+                    'desc_vi' => 'Câu chuyện anh chị từng nhận học bổng đã trưởng thành, quay lại đóng góp, hỗ trợ và chia sẻ kinh nghiệm.',
+                    'desc_en' => 'Alumni stories about returning to support, mentor, and share practical experience.',
+                ],
+            ],
+        ],
+        [
+            'slug'     => 'dong-du-ky',
+            'title_vi' => 'ĐÔNG DU KÝ',
+            'title_en' => 'DONG DU JOURNEYS',
+            'summary_vi' => 'Không gian ghi lại hành trình, bản đồ kết nối và những địa điểm đáng trải nghiệm.',
+            'summary_en' => 'A space for journeys, connection maps, and meaningful places to experience.',
+            'items'    => [
+                [
+                    'slug' => 'ban-do-vuon-len',
+                    'vi' => 'Bản đồ Vươn Lên',
+                    'en' => 'Rise Up Map',
+                    'desc_vi' => 'Bản đồ Việt Nam đánh dấu nơi thành viên và cựu thành viên HBVL đang hoạt động để kết nối, gặp gỡ hoặc lên kế hoạch chuyến đi chung.',
+                    'desc_en' => 'A Vietnam map showing where members and alumni are active, helping people connect and plan visits or trips.',
+                ],
+                [
+                    'slug' => 'nhat-ky-chuyen-di',
+                    'vi' => 'Nhật ký chuyến đi',
+                    'en' => 'Travel Journals',
+                    'desc_vi' => 'Tổng hợp câu chuyện về những chuyến đi chơi, đi học, đi làm với kỷ niệm, bài học và ý nghĩa muốn chia sẻ.',
+                    'desc_en' => 'Stories from trips for study, work, or discovery, with memories, lessons, and reflections.',
+                ],
+                [
+                    'slug' => 'gioi-thieu-dia-diem',
+                    'vi' => 'Giới thiệu địa điểm',
+                    'en' => 'Place Spotlights',
+                    'desc_vi' => 'Gợi ý địa điểm đã được thành viên khám phá, nêu cảnh đẹp, điểm thú vị, giá trị văn hóa và lý do nên trải nghiệm.',
+                    'desc_en' => 'Recommended places explored by members, including scenery, cultural value, and reasons to visit.',
+                ],
+            ],
+        ],
+        [
+            'slug'     => 'so-tay-kien-thuc',
+            'title_vi' => 'SỔ TAY KIẾN THỨC',
+            'title_en' => 'KNOWLEDGE HANDBOOK',
+            'summary_vi' => 'Các mẹo học tập, kỹ năng sống và góc nhìn tích cực từ đời sống quanh ta.',
+            'summary_en' => 'Study tips, life skills, and positive observations from everyday life.',
+            'items'    => [
+                [
+                    'slug' => 'bi-kip',
+                    'vi' => 'Bí kíp',
+                    'en' => 'Tips',
+                    'desc_vi' => 'Chia sẻ mẹo nhỏ trong cuộc sống, phương pháp học, cách ghi nhớ nhanh, truyền động lực và rèn luyện tư duy phản biện.',
+                    'desc_en' => 'Practical tips for life, learning methods, memory techniques, motivation, and critical thinking.',
+                ],
+                [
+                    'slug' => 'the-gioi-quanh-ta',
+                    'vi' => 'Thế giới quanh ta',
+                    'en' => 'Around Us',
+                    'desc_vi' => 'Bài viết ngắn, câu chuyện đời sống, kiến thức khoa học, lối sống hữu ích và những điều đọng lại trong quan sát hằng ngày.',
+                    'desc_en' => 'Short reflections, daily-life stories, science notes, useful lifestyles, and observations that stay with us.',
+                ],
+            ],
+        ],
+        [
+            'slug'     => 'goc-sach-hay',
+            'title_vi' => 'GÓC SÁCH HAY',
+            'title_en' => 'BOOK CORNER',
+            'summary_vi' => 'Tóm tắt và cảm nhận về những cuốn sách nuôi dưỡng nghị lực, tri thức và lối sống đẹp.',
+            'summary_en' => 'Summaries and reflections on books that nurture resilience, knowledge, and meaningful living.',
+            'items'    => [
+                [
+                    'slug' => 'tom-tat-sach',
+                    'vi' => 'Tóm tắt sách',
+                    'en' => 'Book Summaries',
+                    'desc_vi' => 'Tổng hợp sách về nghị lực, vượt khó, vươn lên trong học tập và cuộc sống do thành viên trong Quỹ gợi ý.',
+                    'desc_en' => 'Recommended books about resilience, overcoming hardship, and rising through education and life.',
+                ],
+                [
+                    'slug' => 'viet-cam-nhan-sach',
+                    'vi' => 'Viết cảm nhận sách',
+                    'en' => 'Book Reflections',
+                    'desc_vi' => 'Cảm nhận về những cuốn sách có ý nghĩa đặc biệt, kể lại kỷ niệm, động lực và giá trị mà sách mang lại.',
+                    'desc_en' => 'Personal reflections on meaningful books, memories, motivation, and values they bring.',
+                ],
+            ],
+        ],
+        [
+            'slug'     => 'sinh-hoat',
+            'title_vi' => 'SINH HOẠT',
+            'title_en' => 'COMMUNITY ACTIVITIES',
+            'summary_vi' => 'Kho tư liệu phục vụ sinh hoạt tập thể, trò chơi cộng đồng và bài hát truyền thống.',
+            'summary_en' => 'Resources for group activities, community games, and traditional songs.',
+            'items'    => [
+                [
+                    'slug' => 'tro-choi-sinh-hoat-tap-the',
+                    'vi' => 'Trò chơi/sinh hoạt tập thể',
+                    'en' => 'Group Games',
+                    'desc_vi' => 'Tổng hợp trò chơi vòng tròn, trò chơi dân gian và kỹ năng tổ chức sinh hoạt cho thành viên hoặc các em nhỏ.',
+                    'desc_en' => 'Circle games, folk games, and facilitation skills for members and children activities.',
+                ],
+                [
+                    'slug' => 'tong-hop-bai-hat',
+                    'vi' => 'Tổng hợp bài hát',
+                    'en' => 'Song Library',
+                    'desc_vi' => 'Kho lưu trữ các bài hát truyền thống của Quỹ và bài hát sinh hoạt cộng đồng vui tươi, tích cực.',
+                    'desc_en' => 'A library of the fund traditional songs and positive community activity songs.',
+                ],
+            ],
+        ],
+    ];
+}
+
+add_action( 'init', function () {
+    foreach ( charity_content_groups() as $group ) {
+        $parent = term_exists( $group['title_vi'], 'category' );
+
+        if ( ! $parent ) {
+            $parent = wp_insert_term( $group['title_vi'], 'category', [
+                'slug'        => $group['slug'],
+                'description' => $group['summary_vi'],
+            ] );
+        }
+
+        if ( is_wp_error( $parent ) ) {
+            continue;
+        }
+
+        $parent_id = is_array( $parent ) ? (int) $parent['term_id'] : (int) $parent;
+
+        foreach ( $group['items'] as $item ) {
+            if ( term_exists( $item['vi'], 'category' ) ) {
+                continue;
+            }
+
+            wp_insert_term( $item['vi'], 'category', [
+                'slug'        => $item['slug'],
+                'parent'      => $parent_id,
+                'description' => $item['desc_vi'],
+            ] );
+        }
+    }
+}, 20 );
+
+function charity_find_content_group_by_slug( $slug ) {
+    foreach ( charity_content_groups() as $group ) {
+        if ( $group['slug'] === $slug ) {
+            return $group;
+        }
+
+        foreach ( $group['items'] as $item ) {
+            if ( $item['slug'] === $slug ) {
+                return [
+                    'parent' => $group,
+                    'item'   => $item,
+                ];
+            }
+        }
+    }
+
+    return null;
+}
+
+function charity_category_url_by_slug( $slug ) {
+    $term = get_category_by_slug( $slug );
+    return $term ? get_category_link( $term ) : home_url( '/category/' . $slug . '/' );
+}
+
+function charity_vietnam_map_image_url() {
+    return 'https://meeymap.com/tin-tuc/wp-content/uploads/2025/06/Ban-do-34-tinh-thanh-Viet-Nam-sau-sat-nhap.jpg';
+}
+
+function charity_submit_post_url() {
+    $submit_pages = get_pages( [
+        'meta_key'   => '_wp_page_template',
+        'meta_value' => 'page-submit-post.php',
+        'number'     => 1,
+    ] );
+
+    return $submit_pages ? get_permalink( $submit_pages[0] ) : home_url( '/gui-bai-viet/' );
+}
+
+function charity_render_primary_menu() {
+    echo '<ul id="primary-menu" class="nav-menu">';
+    echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( charity_t( 'Trang chủ', 'Home' ) ) . '</a></li>';
+
+    foreach ( charity_content_groups() as $group ) {
+        echo '<li class="menu-item-has-children">';
+        echo '<a href="' . esc_url( charity_category_url_by_slug( $group['slug'] ) ) . '">' . esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ) . '</a>';
+        echo '<ul class="sub-menu">';
+        foreach ( $group['items'] as $item ) {
+            echo '<li><a href="' . esc_url( charity_category_url_by_slug( $item['slug'] ) ) . '">' . esc_html( charity_t( $item['vi'], $item['en'] ) ) . '</a></li>';
+        }
+        echo '</ul>';
+        echo '</li>';
+    }
+
+    echo '<li><a href="' . esc_url( charity_submit_post_url() ) . '">' . esc_html( charity_t( 'Gửi bài', 'Submit' ) ) . '</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/lien-he/' ) ) . '">' . esc_html( charity_t( 'Liên hệ', 'Contact' ) ) . '</a></li>';
+    echo '</ul>';
+}
+
+add_filter( 'wp_nav_menu_objects', function ( $items ) {
+    $title_to_slug = [
+        'tin tức' => 'tin-tuc',
+        'tin tuc' => 'tin-tuc',
+        'đồng du ký' => 'dong-du-ky',
+        'dong du ky' => 'dong-du-ky',
+        'sổ tay kiến thức' => 'so-tay-kien-thuc',
+        'so tay kien thuc' => 'so-tay-kien-thuc',
+        'góc sách hay' => 'goc-sach-hay',
+        'goc sach hay' => 'goc-sach-hay',
+        'sinh hoạt' => 'sinh-hoat',
+        'sinh hoat' => 'sinh-hoat',
+    ];
+
+    foreach ( $items as $item ) {
+        $title = strtolower( remove_accents( $item->title ) );
+        $raw_title = strtolower( $item->title );
+        $slug  = $title_to_slug[ $raw_title ] ?? $title_to_slug[ $title ] ?? null;
+
+        if ( ! $slug && str_contains( $item->url, '/blog/' ) ) {
+            $slug = 'tin-tuc';
+        }
+
+        if ( $slug ) {
+            $term = get_category_by_slug( $slug );
+            if ( $term ) {
+                $item->url = get_category_link( $term );
+            }
+        }
+    }
+
+    return $items;
+} );
+
+add_action( 'template_redirect', function () {
+    if ( ! is_404() ) {
+        return;
+    }
+
+    $path = trim( parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ), '/' );
+    if ( ! str_ends_with( $path, 'blog' ) ) {
+        return;
+    }
+
+    $term = get_category_by_slug( 'tin-tuc' );
+    if ( $term ) {
+        wp_safe_redirect( get_category_link( $term ), 301 );
+        exit;
+    }
+} );
+
 add_action( 'wp_ajax_load_more_posts',        'charity_ajax_load_more' );
 add_action( 'wp_ajax_nopriv_load_more_posts', 'charity_ajax_load_more' );
 

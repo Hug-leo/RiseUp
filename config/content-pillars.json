@@ -4,48 +4,59 @@
     "primaryDark": "#0D47A1",
     "primaryLight": "#42A5F5",
     "accent": "#F9A825",
-    "logo": "code/charity-hcm/assets/img/dong-du-logo.jpg"
+    "logo": "wordpress/wp-content/themes/charity-hcm/assets/img/dong-du-logo.jpg"
   },
   "contentGroups": [
     {
-      "name": "VIET VA DI",
+      "slug": "tin-tuc",
+      "name": "TIN TUC",
       "items": [
-        "Gioi thieu dia diem",
-        "Chuyen di trong tuan",
-        "Anh chup thien nhien"
-      ]
-    },
-    {
-      "name": "SANG TAC",
-      "items": [
-        "Tho",
-        "Truyen ngan",
-        "Tan van"
-      ]
-    },
-    {
-      "name": "LAN TOA",
-      "items": [
-        "Guong mat Vuon len",
-        "Goc tri an",
+        "Chuyen Vuon Len",
+        "Guong mat Vuon Len",
         "Tiep noi"
       ]
     },
     {
-      "name": "NGHE THUAT",
+      "slug": "dong-du-ky",
+      "name": "DONG DU KY",
       "items": [
-        "Ve",
-        "San pham thu cong",
-        "Am nhac"
+        "Ban do Vuon Len",
+        "Nhat ky chuyen di",
+        "Gioi thieu dia diem"
+      ]
+    },
+    {
+      "slug": "so-tay-kien-thuc",
+      "name": "SO TAY KIEN THUC",
+      "items": [
+        "Bi kip",
+        "The gioi quanh ta"
+      ]
+    },
+    {
+      "slug": "goc-sach-hay",
+      "name": "GOC SACH HAY",
+      "items": [
+        "Tom tat sach",
+        "Viet cam nhan sach"
+      ]
+    },
+    {
+      "slug": "sinh-hoat",
+      "name": "SINH HOAT",
+      "items": [
+        "Tro choi/sinh hoat tap the",
+        "Tong hop bai hat"
       ]
     }
   ],
-  "expansionPlan": {
-    "ready": true,
+  "implementation": {
+    "sourceOfTruth": "wordpress/wp-content/themes/charity-hcm/functions.php::charity_content_groups",
+    "autoCreatesWordPressCategories": true,
     "notes": [
-      "Them content group moi bang cach cap nhat front-page.php",
-      "Them block UI moi theo module trong assets/css/main.css",
-      "Khong sua core WordPress, chi mo rong qua theme"
+      "Homepage reads content groups from charity_content_groups().",
+      "Theme init creates parent and child WordPress categories if missing.",
+      "Map feature is represented as a homepage UI module and can later become an interactive page."
     ]
   }
 }

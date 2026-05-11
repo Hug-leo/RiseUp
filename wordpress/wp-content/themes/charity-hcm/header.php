@@ -11,7 +11,6 @@
 
 <div id="page" class="site">
 
-<!-- ═══ TOPBAR ═══════════════════════════════════════════════════════════ -->
 <div class="topbar">
     <div class="container topbar__inner">
         <span class="topbar__left">
@@ -39,10 +38,8 @@
     </div>
 </div>
 
-<!-- ═══ HEADER ════════════════════════════════════════════════════════════ -->
 <header id="masthead" class="site-header" role="banner">
     <div class="container header__inner">
-
         <div class="header__brand">
             <?php if ( has_custom_logo() ) : ?>
                 <div class="header__logo"><?php the_custom_logo(); ?></div>
@@ -61,15 +58,7 @@
         </div>
 
         <nav id="site-navigation" class="main-nav" role="navigation" aria-label="<?php esc_attr_e( 'Primary Menu', 'charity-hcm' ); ?>">
-            <?php
-            wp_nav_menu( [
-                'theme_location' => 'primary',
-                'menu_id'        => 'primary-menu',
-                'menu_class'     => 'nav-menu',
-                'container'      => false,
-                'fallback_cb'    => 'charity_fallback_menu',
-            ] );
-            ?>
+            <?php charity_render_primary_menu(); ?>
         </nav>
 
         <button class="nav-toggle" aria-controls="site-navigation" aria-expanded="false" aria-label="Toggle menu">
@@ -84,7 +73,7 @@
 function charity_fallback_menu() {
     echo '<ul class="nav-menu">';
     echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . charity_t( 'Trang chủ', 'Home' ) . '</a></li>';
-    echo '<li><a href="#content-roadmap">' . charity_t( 'Mục nội dung', 'Content Pillars' ) . '</a></li>';
+    echo '<li><a href="#content-roadmap">' . charity_t( 'Chuyên mục', 'Sections' ) . '</a></li>';
     echo '<li><a href="' . esc_url( get_permalink( get_option( 'page_for_posts' ) ) ) . '">' . charity_t( 'Bài viết', 'Stories' ) . '</a></li>';
     echo '<li><a href="' . esc_url( home_url( '/lien-he/' ) ) . '">' . charity_t( 'Liên hệ', 'Contact' ) . '</a></li>';
     echo '</ul>';
