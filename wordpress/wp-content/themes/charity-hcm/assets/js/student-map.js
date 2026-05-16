@@ -65,7 +65,8 @@
 
     function openPopup(pathId, is34) {
       var label    = getLabel(pathId, is34);
-      var contacts = (mapData.contacts && mapData.contacts[pathId]) || null;
+      var sourceContacts = contactsForMap(is34);
+      var contacts = (sourceContacts && sourceContacts[pathId]) || null;
       var members  = contacts ? (contacts.members || []) : [];
 
       popupTitle.textContent = label;
@@ -114,6 +115,11 @@
     });
 
     // ── Province label helper ─────────────────────────────────────────────────
+    function contactsForMap(is34) {
+      if (is34) { return mapData.contacts_34 || mapData.contacts || {}; }
+      return mapData.contacts_63 || mapData.contacts || {};
+    }
+
     function getLabel(pathId, is34) {
       var lang      = mapData.lang || 'vi';
       var lookupKey = is34 ? 'provinces_34' : 'provinces';
@@ -185,14 +191,16 @@
         path.addEventListener('mouseleave', hideTooltip);
 
         // Add province-clickable class for provinces with a slug (enables cursor CSS)
-        var contactInfo = mapData.contacts && mapData.contacts[path.id];
+        var sourceContacts = contactsForMap(is34);
+        var contactInfo = sourceContacts && sourceContacts[path.id];
         if (contactInfo && contactInfo.slug) {
           path.classList.add('province-clickable');
         }
 
         path.addEventListener('click', function () {
           var code = path.id;
-          var contactData = mapData.contacts && mapData.contacts[code];
+          var sourceContacts = contactsForMap(is34);
+          var contactData = sourceContacts && sourceContacts[code];
           if (contactData && contactData.slug) {
             window.location.href = '/tinh/' + contactData.slug + '/';
             return; // Navigate — do not show popup
@@ -208,7 +216,8 @@
 
         path.addEventListener('touchend', function () {
           var code = path.id;
-          var contactData = mapData.contacts && mapData.contacts[code];
+          var sourceContacts = contactsForMap(is34);
+          var contactData = sourceContacts && sourceContacts[code];
           if (contactData && contactData.slug) {
             window.location.href = '/tinh/' + contactData.slug + '/';
             return; // Navigate on touch for member provinces

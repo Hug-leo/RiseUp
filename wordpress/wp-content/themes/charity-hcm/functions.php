@@ -175,37 +175,9 @@ add_action( 'wp_enqueue_scripts', function () {
                 'p44' => [ 'vi' => 'Vĩnh Long',            'en' => 'Vinh Long' ],
             ];
 
-            // Student data — codes use VietMap numeric IDs with p prefix (p12 = TP.HCM)
-            $student_data = [
-                [ 'code' => 'p12', 'count' => 12 ],
-                [ 'code' => 'p11', 'count' => 8  ],
-                [ 'code' => 'p14', 'count' => 5  ],
-                [ 'code' => 'p15', 'count' => 4  ],
-                [ 'code' => 'p13', 'count' => 3  ],
-                [ 'code' => 'p67', 'count' => 3  ],
-                [ 'code' => 'p51', 'count' => 2  ],
-                [ 'code' => 'p46', 'count' => 2  ],
-                [ 'code' => 'p66', 'count' => 2  ],
-                [ 'code' => 'p42', 'count' => 1  ],
-                [ 'code' => 'p26', 'count' => 1  ],
-                [ 'code' => 'p23', 'count' => 1  ],
-            ];
-            $student_data_34 = [
-                [ 'code' => 'p12', 'count' => 13 ],
-                [ 'code' => 'p11', 'count' => 8  ],
-                [ 'code' => 'p13', 'count' => 5  ],
-                [ 'code' => 'p15', 'count' => 4  ],
-                [ 'code' => 'p14', 'count' => 3  ],
-                [ 'code' => 'p16', 'count' => 3  ],
-                [ 'code' => 'p33', 'count' => 2  ],
-                [ 'code' => 'p30', 'count' => 2  ],
-                [ 'code' => 'p42', 'count' => 2  ],
-                [ 'code' => 'p28', 'count' => 1  ],
-                [ 'code' => 'p23', 'count' => 1  ],
-            ];
-            // Read Đông Du contact data (mock data for province member popups).
+            // Read full province directory (63 entries) used for both map views and detail pages.
             // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-            $contacts_file = get_template_directory() . '/data/contact-dongdu.json';
+            $contacts_file = get_template_directory() . '/data/province-directory.json';
             $contacts      = [];
             if ( file_exists( $contacts_file ) ) {
                 $raw = file_get_contents( $contacts_file ); // phpcs:ignore
@@ -217,13 +189,78 @@ add_action( 'wp_enqueue_scripts', function () {
                 }
             }
 
+
+            $slugify = static function( $name ) {
+                $name = str_replace( [ 'TP. ', 'Thừa Thiên ' ], '', $name );
+                return sanitize_title( $name );
+            };
+
+            $master_by_slug = [];
+            foreach ( $contacts as $entry ) {
+                if ( ! is_array( $entry ) || empty( $entry['slug'] ) ) {
+                    continue;
+                }
+                $master_by_slug[ $entry['slug'] ] = $entry;
+            }
+
+            $contacts_63 = [];
+            foreach ( $provinces_63 as $code => $province ) {
+                $slug = $slugify( $province['vi'] );
+                $entry = $master_by_slug[ $slug ] ?? [
+                    'name'    => $province['vi'],
+                    'slug'    => $slug,
+                    'members' => [],
+                ];
+
+                $entry['name'] = $province['vi'];
+                if ( ! isset( $entry['members'] ) || ! is_array( $entry['members'] ) ) {
+                    $entry['members'] = [];
+                }
+                $contacts_63[ $code ] = $entry;
+            }
+
+            $contacts_34 = [];
+            foreach ( $provinces_34 as $code => $province ) {
+                $slug = $slugify( $province['vi'] );
+                $entry = $master_by_slug[ $slug ] ?? [
+                    'name'    => $province['vi'],
+                    'slug'    => $slug,
+                    'members' => [],
+                ];
+
+                $entry['name'] = $province['vi'];
+                if ( ! isset( $entry['members'] ) || ! is_array( $entry['members'] ) ) {
+                    $entry['members'] = [];
+                }
+                $contacts_34[ $code ] = $entry;
+            }
+
+            // Derive map counts from member list length so tooltip and detail page never mismatch.
+            $student_data = [];
+            foreach ( $provinces_63 as $code => $province ) {
+                $student_data[] = [
+                    'code'  => $code,
+                    'count' => count( $contacts_63[ $code ]['members'] ?? [] ),
+                ];
+            }
+
+            $student_data_34 = [];
+            foreach ( $provinces_34 as $code => $province ) {
+                $student_data_34[] = [
+                    'code'  => $code,
+                    'count' => count( $contacts_34[ $code ]['members'] ?? [] ),
+                ];
+            }
+
             wp_localize_script( 'charity-student-map', 'vuonlenMap', [
                 'lang'         => function_exists( 'charity_get_lang' ) ? charity_get_lang() : 'vi',
                 'students'     => $student_data,
                 'students_34'  => $student_data_34,
                 'provinces'    => $provinces_63,
                 'provinces_34' => $provinces_34,
-                'contacts'     => $contacts,
+                'contacts_63'  => $contacts_63,
+                'contacts_34'  => $contacts_34,
+                'contacts'     => $contacts_63,
             ] );
         }
     }

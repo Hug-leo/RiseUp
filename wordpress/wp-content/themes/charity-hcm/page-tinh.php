@@ -3,14 +3,14 @@
  * Template: Province Detail Page (Trang tỉnh)
  * URL: /tinh/{province-slug}/
  *
- * Reads province data from data/contact-dongdu.json
+ * Reads province data from data/province-directory.json
  * Renders hero photo + member contact table.
  */
 
 $province_slug = sanitize_title( get_query_var( 'province_slug' ) );
 
 // Load province data from JSON.
-$contacts_file = CHARITY_HCM_DIR . '/data/contact-dongdu.json';
+$contacts_file = CHARITY_HCM_DIR . '/data/province-directory.json';
 $all_provinces = [];
 if ( file_exists( $contacts_file ) ) {
     // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
