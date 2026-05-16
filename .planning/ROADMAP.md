@@ -139,7 +139,7 @@ Plans:
 Plans:
 - [x] 07-01: Extend contact-dongdu.json with slugs + download/compress 34 province photos
 - [x] 07-02: WordPress rewrite rule + page-tinh.php province detail template
-- [ ] 07-03: Extend student-map.js click navigation + province detail CSS
+- [x] 07-03: Extend student-map.js click navigation + province detail CSS
 
 ---
 *Roadmap created: 2026-05-16*
