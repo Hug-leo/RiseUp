@@ -14,3 +14,10 @@ wordpress/wp-content/uploads/
 
 # Backup files
 database/*.bak
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.planning/
