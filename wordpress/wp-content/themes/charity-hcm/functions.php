@@ -56,6 +56,38 @@ add_action( 'wp_enqueue_scripts', function () {
         'nonce'        => wp_create_nonce( 'charity_load_more' ),
         'loadMoreText' => charity_t( 'Xem thêm bài viết', 'Load more stories' ),
     ] );
+
+    // Student origin map — only on ban-do-vuon-len category page
+    if ( is_category() ) {
+        $queried = get_queried_object();
+        if ( $queried instanceof WP_Term && $queried->slug === 'ban-do-vuon-len' ) {
+            wp_enqueue_script(
+                'charity-student-map',
+                CHARITY_HCM_URI . '/assets/js/student-map.js',
+                [],
+                CHARITY_HCM_VERSION,
+                true
+            );
+            $student_data = [
+                [ 'code' => 'VN-SG', 'label_vi' => 'TP. Hồ Chí Minh', 'label_en' => 'Ho Chi Minh City', 'count' => 12 ],
+                [ 'code' => 'VN-HN', 'label_vi' => 'Hà Nội',           'label_en' => 'Hanoi',            'count' => 8  ],
+                [ 'code' => 'VN-DN', 'label_vi' => 'Đà Nẵng',          'label_en' => 'Da Nang',          'count' => 5  ],
+                [ 'code' => 'VN-CT', 'label_vi' => 'Cần Thơ',          'label_en' => 'Can Tho',          'count' => 4  ],
+                [ 'code' => 'VN-HP', 'label_vi' => 'Hải Phòng',        'label_en' => 'Hai Phong',        'count' => 3  ],
+                [ 'code' => 'VN-26', 'label_vi' => 'Thừa Thiên Huế',   'label_en' => 'Thua Thien Hue',   'count' => 3  ],
+                [ 'code' => 'VN-22', 'label_vi' => 'Nghệ An',          'label_en' => 'Nghe An',          'count' => 2  ],
+                [ 'code' => 'VN-35', 'label_vi' => 'Lâm Đồng',         'label_en' => 'Lam Dong',         'count' => 2  ],
+                [ 'code' => 'VN-21', 'label_vi' => 'Thanh Hóa',        'label_en' => 'Thanh Hoa',        'count' => 2  ],
+                [ 'code' => 'VN-34', 'label_vi' => 'Khánh Hòa',        'label_en' => 'Khanh Hoa',        'count' => 1  ],
+                [ 'code' => 'VN-40', 'label_vi' => 'Bình Thuận',       'label_en' => 'Binh Thuan',       'count' => 1  ],
+                [ 'code' => 'VN-57', 'label_vi' => 'Bình Dương',       'label_en' => 'Binh Duong',       'count' => 1  ],
+            ];
+            wp_localize_script( 'charity-student-map', 'vuonlenMap', [
+                'lang'     => function_exists( 'charity_get_lang' ) ? charity_get_lang() : 'vi',
+                'students' => $student_data,
+            ] );
+        }
+    }
 } );
 
 // ─── Widget Areas ─────────────────────────────────────────────────────────────

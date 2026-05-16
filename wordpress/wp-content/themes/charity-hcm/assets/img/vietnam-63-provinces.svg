@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" role="img" aria-label="Bản đồ 63 tỉnh thành Việt Nam">
+  <title>Bản đồ 63 tỉnh thành Việt Nam</title>
+  <g id="provinces-63">
+    <!-- Northern mountain provinces -->
+    <path id="VN-02" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M60,20 L100,18 L110,35 L95,50 L65,48 Z"/>
+    <path id="VN-03" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M100,18 L140,15 L150,30 L130,45 L110,35 Z"/>
+    <path id="VN-04" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M140,15 L185,12 L195,28 L165,42 L150,30 Z"/>
+    <path id="VN-13" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M185,12 L230,10 L240,28 L215,38 L195,28 Z"/>
+    <path id="VN-01" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M60,20 L100,18 L95,50 L80,65 L55,60 L50,38 Z"/>
+    <path id="VN-71" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M50,38 L80,65 L75,82 L55,85 L40,70 Z"/>
+    <!-- Lao Cai, Yen Bai -->
+    <path id="VN-02" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M60,48 L95,50 L100,68 L80,80 L62,72 Z"/>
+    <path id="VN-06" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M95,50 L130,45 L135,62 L118,75 L100,68 Z"/>
+    <!-- Son La -->
+    <path id="VN-05" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M55,85 L75,82 L100,68 L118,75 L120,95 L105,112 L75,108 L55,98 Z"/>
+    <!-- Tuyen Quang, Bac Kan -->
+    <path id="VN-07" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M130,45 L165,42 L170,58 L150,70 L135,62 Z"/>
+    <path id="VN-53" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M165,42 L195,28 L205,45 L190,62 L170,58 Z"/>
+    <!-- Lang Son, Quang Ninh -->
+    <path id="VN-09" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M195,28 L240,28 L245,48 L220,60 L205,45 Z"/>
+    <path id="VN-13" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M240,28 L280,30 L285,50 L255,58 L245,48 Z"/>
+    <!-- Thai Nguyen, Bac Giang -->
+    <path id="VN-69" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M170,58 L205,45 L210,62 L195,75 L175,72 Z"/>
+    <path id="VN-54" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M205,45 L245,48 L248,65 L225,72 L210,62 Z"/>
+    <!-- Phu Tho, Vinh Phuc -->
+    <path id="VN-68" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M135,62 L170,58 L175,72 L160,85 L140,80 Z"/>
+    <path id="VN-70" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M175,72 L210,62 L215,78 L198,88 L180,85 Z"/>
+    <!-- Hanoi -->
+    <path id="VN-HN" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M160,85 L198,88 L200,105 L182,115 L162,108 Z"/>
+    <!-- Hai Duong, Hung Yen, Bac Ninh -->
+    <path id="VN-61" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M215,78 L248,65 L252,82 L232,92 L215,88 Z"/>
+    <path id="VN-66" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M198,88 L232,92 L230,108 L210,112 L200,105 Z"/>
+    <path id="VN-56" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M210,62 L248,65 L252,82 L232,92 L215,78 Z"/>
+    <!-- Hai Phong -->
+    <path id="VN-HP" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M252,82 L285,80 L288,98 L262,100 L252,82 Z"/>
+    <!-- Ha Nam, Nam Dinh, Thai Binh, Ninh Binh -->
+    <path id="VN-63" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M182,115 L215,118 L212,132 L195,138 L178,128 Z"/>
+    <path id="VN-67" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M215,118 L252,115 L255,130 L235,140 L212,132 Z"/>
+    <path id="VN-20" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M252,115 L288,112 L290,128 L268,136 L255,130 Z"/>
+    <path id="VN-18" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M178,128 L212,132 L208,148 L190,155 L170,145 Z"/>
+    <!-- Hoa Binh -->
+    <path id="VN-14" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M120,95 L162,108 L160,130 L140,140 L118,128 Z"/>
+    <!-- Thanh Hoa -->
+    <path id="VN-21" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M105,112 L162,108 L168,138 L145,155 L115,148 L100,132 Z"/>
+    <!-- Nghe An -->
+    <path id="VN-22" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M95,148 L155,148 L160,178 L135,190 L100,185 L82,168 Z"/>
+    <!-- Ha Tinh -->
+    <path id="VN-23" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M135,190 L165,185 L168,210 L148,220 L128,212 Z"/>
+    <!-- Quang Binh -->
+    <path id="VN-24" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M128,212 L165,210 L168,235 L148,245 L125,238 Z"/>
+    <!-- Quang Tri -->
+    <path id="VN-25" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M125,238 L162,235 L165,255 L148,265 L122,258 Z"/>
+    <!-- Thua Thien Hue -->
+    <path id="VN-26" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M122,258 L160,255 L165,278 L145,288 L120,280 Z"/>
+    <!-- Da Nang -->
+    <path id="VN-DN" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M155,280 L180,275 L185,295 L165,300 L152,292 Z"/>
+    <!-- Quang Nam -->
+    <path id="VN-27" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M120,288 L165,300 L168,325 L140,335 L112,320 Z"/>
+    <!-- Quang Ngai -->
+    <path id="VN-29" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M138,332 L172,325 L175,348 L155,358 L132,348 Z"/>
+    <!-- Binh Dinh -->
+    <path id="VN-31" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M152,355 L178,348 L182,375 L162,385 L148,372 Z"/>
+    <!-- Phu Yen -->
+    <path id="VN-32" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M158,382 L185,375 L188,398 L170,408 L155,395 Z"/>
+    <!-- Khanh Hoa -->
+    <path id="VN-34" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M162,405 L192,398 L196,428 L175,438 L158,425 Z"/>
+    <!-- Ninh Thuan -->
+    <path id="VN-36" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M168,435 L200,428 L205,455 L182,465 L165,452 Z"/>
+    <!-- Binh Thuan -->
+    <path id="VN-40" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M165,460 L210,455 L218,490 L192,502 L162,490 Z"/>
+    <!-- Central Highlands -->
+    <!-- Kon Tum -->
+    <path id="VN-28" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M80,310 L122,310 L125,340 L102,352 L75,342 Z"/>
+    <!-- Gia Lai -->
+    <path id="VN-30" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M82,348 L125,348 L128,378 L105,390 L78,378 Z"/>
+    <!-- Dak Lak -->
+    <path id="VN-33" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M78,385 L128,385 L130,420 L105,432 L75,420 Z"/>
+    <!-- Dak Nong -->
+    <path id="VN-72" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M78,425 L125,425 L128,458 L100,468 L72,455 Z"/>
+    <!-- Lam Dong -->
+    <path id="VN-35" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M112,450 L162,450 L165,485 L138,495 L108,482 Z"/>
+    <!-- South-East -->
+    <!-- Tay Ninh -->
+    <path id="VN-37" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M70,490 L112,488 L115,518 L88,528 L65,515 Z"/>
+    <!-- Binh Phuoc -->
+    <path id="VN-58" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M112,468 L158,465 L162,495 L135,505 L112,495 Z"/>
+    <!-- Binh Duong -->
+    <path id="VN-57" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M115,502 L158,498 L162,525 L135,535 L112,522 Z"/>
+    <!-- Dong Nai -->
+    <path id="VN-39" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M158,495 L205,495 L210,528 L182,540 L155,528 Z"/>
+    <!-- Ho Chi Minh City -->
+    <path id="VN-SG" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M115,530 L162,528 L165,555 L140,562 L112,550 Z"/>
+    <!-- Ba Ria Vung Tau -->
+    <path id="VN-43" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M195,528 L232,520 L238,545 L215,552 L195,542 Z"/>
+    <!-- Mekong Delta -->
+    <!-- Long An -->
+    <path id="VN-41" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M65,548 L115,548 L118,575 L88,585 L60,572 Z"/>
+    <!-- Can Tho -->
+    <path id="VN-CT" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M118,560 L158,558 L162,582 L140,592 L115,580 Z"/>
+    <!-- Tien Giang -->
+    <path id="VN-46" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M115,575 L162,572 L165,598 L140,608 L112,595 Z"/>
+    <!-- Ben Tre -->
+    <path id="VN-50" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M155,595 L198,590 L202,618 L175,625 L152,612 Z"/>
+    <!-- Vinh Long -->
+    <path id="VN-49" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M112,605 L155,602 L158,628 L132,638 L108,625 Z"/>
+    <!-- Dong Thap -->
+    <path id="VN-45" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M68,578 L112,575 L115,605 L88,618 L62,605 Z"/>
+    <!-- An Giang -->
+    <path id="VN-44" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M50,598 L92,595 L95,625 L68,635 L45,622 Z"/>
+    <!-- Kien Giang -->
+    <path id="VN-47" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M32,620 L75,618 L78,652 L48,662 L28,648 Z"/>
+    <!-- Hau Giang -->
+    <path id="VN-73" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M108,628 L152,625 L155,655 L128,665 L105,650 Z"/>
+    <!-- Tra Vinh -->
+    <path id="VN-51" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M158,622 L198,618 L202,648 L175,658 L155,645 Z"/>
+    <!-- Soc Trang -->
+    <path id="VN-52" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M138,660 L178,655 L182,685 L158,695 L132,682 Z"/>
+    <!-- Bac Lieu -->
+    <path id="VN-55" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M118,688 L158,685 L162,715 L135,722 L112,708 Z"/>
+    <!-- Ca Mau -->
+    <path id="VN-59" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M88,715 L135,712 L138,745 L108,755 L82,740 Z"/>
+  </g>
+</svg>
