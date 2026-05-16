@@ -2973,3 +2973,141 @@ article.page {
 }
 
 /* ── /Province contact popup ─────────────────────────────────────────────── */
+
+/* ── Province Detail Page ──────────────────────────────────────────────────── */
+
+.province-detail {
+    min-height: 60vh;
+}
+
+.province-detail__hero {
+    position: relative;
+    height: 380px;
+    overflow: hidden;
+    background: #141824;
+}
+
+.province-detail__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.85;
+}
+
+.province-detail__title-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 2.5rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
+}
+
+.province-detail__title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.province-detail__back {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--transition, .2s ease);
+}
+
+.province-detail__back:hover {
+    color: #fff;
+}
+
+.province-detail__body {
+    padding: 2.5rem 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.province-detail__section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--primary, #1565C0);
+    color: var(--text, #1e1e1e);
+}
+
+.province-detail__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.province-detail__table th,
+.province-detail__table td {
+    border: 1px solid var(--border, #e5e5e5);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.province-detail__table thead th {
+    background: var(--bg-light, #f7f7f8);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted, #888);
+}
+
+.province-detail__table tbody tr:hover {
+    background: var(--bg-light, #f7f7f8);
+}
+
+.province-detail__table td a {
+    color: var(--primary, #1565C0);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.province-detail__table td a:hover {
+    text-decoration: underline;
+}
+
+.province-detail__empty {
+    color: var(--text-muted, #888);
+    font-style: italic;
+    padding: 1rem 0;
+}
+
+/* Province map — clickable province cursor */
+.student-map__svg-container path.province-clickable {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .province-detail__hero {
+        height: 220px;
+    }
+
+    .province-detail__title {
+        font-size: 1.5rem;
+    }
+
+    .province-detail__title-wrap {
+        padding: 1.25rem 1rem;
+    }
+
+    .province-detail__body {
+        padding: 1.5rem 1rem;
+    }
+
+    .province-detail__table th,
+    .province-detail__table td {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.87rem;
+    }
+}
