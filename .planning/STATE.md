@@ -58,6 +58,7 @@ Phase 4 complete. NAV-03, SEO-01, SEO-02 implemented. Ready to begin Phase 5 (RE
 ### Roadmap Evolution
 
 - Phase 6 added: Contact section update (address: 43D/46 Hồ Văn Huê, P. Đức Nhuận, TP. HCM; phone: 084.3214.142) and interactive student origin map with 34-province/63-province toggle
+- Phase 7 added: Interactive province map — clicking a province opens a detail page with a signature JPG photo of that province and a contact table for Đông Du members in that province
 
 ### Pending Todos
 

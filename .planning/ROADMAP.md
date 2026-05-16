@@ -123,6 +123,16 @@ Plans:
 - [ ] 06-02: Build interactive student origin map with province-based choropleth and sample data
 - [ ] 06-03: Add 34-province / 63-province toggle and mobile polish
 
+### Phase 7: Interactive Province Map - Province Detail Pages with Signature Photos and Member Contacts
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 6
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 7 to break down)
+
 ---
 *Roadmap created: 2026-05-16*
 *Next step: Run `/gsd-plan-phase 1` to start execution.*
