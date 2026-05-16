@@ -97,6 +97,7 @@ Plans:
 | 4. Navigation, Social Links & SEO | 2/2 | Complete   | 2026-05-16 |
 | 5. README & Documentation Update | 0/2 | Not started | - |
 | 6. Contact Section Update & Interactive Student Map | 0/3 | Not started | - |
+| 7. Interactive Province Map - Province Detail Pages | 0/3 | Not started | - |
 
 ---
 
@@ -125,13 +126,20 @@ Plans:
 
 ### Phase 7: Interactive Province Map - Province Detail Pages with Signature Photos and Member Contacts
 
-**Goal:** [To be planned]
-**Requirements**: TBD
-**Depends on:** Phase 6
-**Plans:** 0 plans
+**Goal**: Extend the interactive province map (Phase 6) so that clicking a highlighted province navigates to a dedicated detail page. Each province detail page shows a locally-hosted signature JPG photo and a contact table of Đông Du members in that province.
+**Depends on**: Phase 6
+**Requirements**: MAP-DETAIL-01, MAP-DETAIL-02, MAP-DETAIL-03
+**Success Criteria** (what must be TRUE):
+  1. Clicking a province with members on the SVG map navigates to `/tinh/{slug}/`
+  2. Each province detail page shows a hero image (province signature JPG) and a 3-column member contact table
+  3. 34 province photos downloaded locally to `assets/img/provinces/`, JPG format, each ≤ 150KB
+  4. Non-member provinces still show tooltip only (no navigation)
+  5. Province detail template uses `charity_t()` for all bilingual strings
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 7 to break down)
+- [ ] 07-01: Extend contact-dongdu.json with slugs + download/compress 34 province photos
+- [ ] 07-02: WordPress rewrite rule + page-tinh.php province detail template
+- [ ] 07-03: Extend student-map.js click navigation + province detail CSS
 
 ---
 *Roadmap created: 2026-05-16*

@@ -58,6 +58,12 @@ Requirements for the current improvement milestone. Goal: realize all sections b
 - [ ] **DOC-01**: README.md reflects all 5 content sections, updated screenshots, and current theme version
 - [ ] **DOC-02**: README.md includes quick-start instructions that are accurate for current setup
 
+### Province Detail Pages (Phase 7)
+
+- [ ] **MAP-DETAIL-01**: Clicking a highlighted province on the student map navigates to a dedicated province detail page at `/tinh/{slug}/`
+- [ ] **MAP-DETAIL-02**: Each province detail page displays a signature JPG photo and a contact table listing Đông Du members in that province
+- [ ] **MAP-DETAIL-03**: Province signature photos are stored locally in `assets/img/provinces/`, JPG format, compressed to ≤ 150KB each
+
 ## v2 Requirements — Future Milestone
 
 Deferred but tracked. Not in current roadmap.
@@ -99,6 +105,7 @@ Deferred but tracked. Not in current roadmap.
 | NAV-03 | Phase 4 | Pending |
 | SEO-01, SEO-02 | Phase 4 | Pending |
 | DOC-01, DOC-02 | Phase 5 | Pending |
+| MAP-DETAIL-01, MAP-DETAIL-02, MAP-DETAIL-03 | Phase 7 | Pending |
 
 **Coverage:**
 - v1 requirements: 24 total
