@@ -2115,11 +2115,18 @@ article.page {
   background: var(--gold);
   border: 3px solid #fff;
   box-shadow: 0 4px 12px rgba(10, 60, 134, .28);
+  animation: cp-pin-pulse 2s ease-out infinite;
 }
 
-.cp-map-pin--north { top: 18%; left: 48%; }
-.cp-map-pin--central { top: 47%; left: 43%; }
-.cp-map-pin--south { top: 76%; left: 54%; }
+@keyframes cp-pin-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(10, 60, 134, 0.45); }
+  70%  { box-shadow: 0 0 0 8px rgba(10, 60, 134, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(10, 60, 134, 0); }
+}
+
+.cp-map-pin--north   { top: 18%; left: 48%; animation-delay: 0s; }
+.cp-map-pin--central { top: 47%; left: 43%; animation-delay: .66s; }
+.cp-map-pin--south   { top: 76%; left: 54%; animation-delay: 1.33s; }
 
 .cp-map-feature__legend {
   display: grid;
