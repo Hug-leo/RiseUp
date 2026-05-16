@@ -9,7 +9,7 @@ Milestone v1 — Section Beautification & UI Polish. Fully realize all 5 content
 - [ ] **Phase 1: CSS Cleanup & Foundation Polish** - Remove CSS duplication and fix specificity issues to lay a clean foundation
 - [x] **Phase 2: Section Cards UI & Homepage Visual Polish** - Add icons, color accents, and animated section cards to the homepage (completed 2026-05-16)
 - [ ] **Phase 3: Section-Specific Category Page Templates** - Distinct layouts for Song Library, Profile showcase, and Tips grid
-- [ ] **Phase 4: Navigation, Social Links & SEO** - Wire social links via Customizer and add Open Graph meta tags
+- [x] **Phase 4: Navigation, Social Links & SEO** - Wire social links via Customizer and add Open Graph meta tags (completed 2026-05-16)
 - [ ] **Phase 5: README & Documentation Update** - Accurate README with updated screenshots and content architecture docs
 
 ## Phase Details
@@ -70,8 +70,8 @@ Plans:
   3. Category pages have correct og:title and og:description
 
 Plans:
-- [ ] 04-01: Add WordPress Customizer settings for social links and wire to header.php
-- [ ] 04-02: Add Open Graph meta tags to header.php for posts and category pages
+- [x] 04-01: Add WordPress Customizer settings for social links and wire to header.php
+- [x] 04-02: Add Open Graph meta tags to header.php for posts and category pages
 
 ### Phase 5: README & Documentation Update
 **Goal**: Update README.md with accurate 5-section content architecture, new screenshots, and correct setup instructions.
@@ -93,7 +93,7 @@ Plans:
 | 1. CSS Cleanup & Foundation Polish | 0/2 | Not started | - |
 | 2. Section Cards UI & Homepage Visual Polish | 3/3 | Complete   | 2026-05-16 |
 | 3. Section-Specific Category Page Templates | 0/3 | Not started | - |
-| 4. Navigation, Social Links & SEO | 0/2 | Not started | - |
+| 4. Navigation, Social Links & SEO | 2/2 | Complete   | 2026-05-16 |
 | 5. README & Documentation Update | 0/2 | Not started | - |
 
 ---
