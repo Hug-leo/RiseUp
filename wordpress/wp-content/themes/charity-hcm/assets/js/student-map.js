@@ -184,7 +184,19 @@
         path.addEventListener('mousemove',  function (e) { positionTooltip(e); });
         path.addEventListener('mouseleave', hideTooltip);
 
+        // Add province-clickable class for provinces with a slug (enables cursor CSS)
+        var contactInfo = mapData.contacts && mapData.contacts[path.id];
+        if (contactInfo && contactInfo.slug) {
+          path.classList.add('province-clickable');
+        }
+
         path.addEventListener('click', function () {
+          var code = path.id;
+          var contactData = mapData.contacts && mapData.contacts[code];
+          if (contactData && contactData.slug) {
+            window.location.href = '/tinh/' + contactData.slug + '/';
+            return; // Navigate — do not show popup
+          }
           hideTooltip();
           openPopup(path.id, is34);
         });
@@ -195,6 +207,12 @@
         }, { passive: false });
 
         path.addEventListener('touchend', function () {
+          var code = path.id;
+          var contactData = mapData.contacts && mapData.contacts[code];
+          if (contactData && contactData.slug) {
+            window.location.href = '/tinh/' + contactData.slug + '/';
+            return; // Navigate on touch for member provinces
+          }
           hideTooltip();
           openPopup(path.id, is34);
         });
