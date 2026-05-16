@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-16T14:21:40.233Z"
+last_updated: "2026-05-16T15:06:30.383Z"
 progress:
-  total_phases: 5
-  completed_phases: 1
-  total_plans: 8
-  completed_plans: 4
-  percent: 50
+  total_phases: 6
+  completed_phases: 3
+  total_plans: 13
+  completed_plans: 9
+  percent: 69
 ---
 
 # STATE.md — Project Memory
@@ -17,7 +17,7 @@ progress:
 ## Current Phase
 
 **Phase 4** — Navigation, Social Links & SEO
-**Status:** Phase 04 Complete
+**Status:** Executing Phase 06
 
 ## Active Work
 
@@ -56,4 +56,9 @@ Phase 4 complete. NAV-03, SEO-01, SEO-02 implemented. Ready to begin Phase 5 (RE
 ## Accumulated Context
 
 ### Roadmap Evolution
+
 - Phase 6 added: Contact section update (address: 43D/46 Hồ Văn Huê, P. Đức Nhuận, TP. HCM; phone: 084.3214.142) and interactive student origin map with 34-province/63-province toggle
+
+### Pending Todos
+
+- [2026-05-16] Enhance province map with icons and member contact popup — `ui` — `.planning/todos/pending/2026-05-16-enhance-province-map-with-icons-and-member-contact-popup.md`
