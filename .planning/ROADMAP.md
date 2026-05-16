@@ -7,7 +7,7 @@ Milestone v1 — Section Beautification & UI Polish. Fully realize all 5 content
 ## Phases
 
 - [ ] **Phase 1: CSS Cleanup & Foundation Polish** - Remove CSS duplication and fix specificity issues to lay a clean foundation
-- [ ] **Phase 2: Section Cards UI & Homepage Visual Polish** - Add icons, color accents, and animated section cards to the homepage
+- [x] **Phase 2: Section Cards UI & Homepage Visual Polish** - Add icons, color accents, and animated section cards to the homepage (completed 2026-05-16)
 - [ ] **Phase 3: Section-Specific Category Page Templates** - Distinct layouts for Song Library, Profile showcase, and Tips grid
 - [ ] **Phase 4: Navigation, Social Links & SEO** - Wire social links via Customizer and add Open Graph meta tags
 - [ ] **Phase 5: README & Documentation Update** - Accurate README with updated screenshots and content architecture docs
@@ -41,9 +41,9 @@ Plans:
   6. Mobile nav works correctly for all 5 section dropdowns
 
 Plans:
-- [ ] 02-01: Add section icons and color accents to cp-group-card components
-- [ ] 02-02: Polish card hover animations and animate-in scroll triggers
-- [ ] 02-03: Self-host Vietnam map image and add animated CSS pins
+- [x] 02-01: Add section icons and color accents to cp-group-card components
+- [x] 02-02: Polish card hover animations and animate-in scroll triggers
+- [x] 02-03: Self-host Vietnam map image and add animated CSS pins
 
 ### Phase 3: Section-Specific Category Page Templates
 **Goal**: Give Song Library, Profile showcase, and Tips sections custom category page layouts that match their content type.
@@ -91,7 +91,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. CSS Cleanup & Foundation Polish | 0/2 | Not started | - |
-| 2. Section Cards UI & Homepage Visual Polish | 0/3 | Not started | - |
+| 2. Section Cards UI & Homepage Visual Polish | 3/3 | Complete   | 2026-05-16 |
 | 3. Section-Specific Category Page Templates | 0/3 | Not started | - |
 | 4. Navigation, Social Links & SEO | 0/2 | Not started | - |
 | 5. README & Documentation Update | 0/2 | Not started | - |

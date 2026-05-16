@@ -16,12 +16,12 @@ progress:
 
 ## Current Phase
 
-**Phase 1** — CSS Cleanup & Foundation Polish
-**Status:** Executing Phase 2
+**Phase 2** — Section Cards UI & Homepage Visual Polish
+**Status:** Complete ✓
 
 ## Active Work
 
-None — project just initialized.
+Phase 2 complete. Ready to begin Phase 3 (Category Pages & Navigation Polish).
 
 ## Milestone
 
@@ -34,13 +34,14 @@ None — project just initialized.
 
 - All 5 content sections from `Y_Tuong_De_Muc_Website_HBVL.md` are already defined in `charity_content_groups()` — DO NOT modify the slugs or restructure this function
 - CSS duplication exists in `main.css` (Phase 1 will fix this first)
-- Vietnam map image is external (Phase 2 will self-host it)
+- Vietnam map image is self-hosted at `assets/img/vietnam-map.jpg` (Phase 2 done)
 - `cp-*` CSS prefix used for content-pillar components
 - All new strings must use `charity_t($vi, $en)` bilingual helper
 
 ## Completed Phases
 
-None yet.
+- **Phase 1** — CSS Cleanup & Foundation Polish ✓
+- **Phase 2** — Section Cards UI & Homepage Visual Polish ✓
 
 ## Notes
 
