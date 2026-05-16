@@ -1,114 +1,100 @@
-# ROADMAP.md
+# Roadmap: Rise Up Scholarship Website
 
-## Project: Rise Up Scholarship Website
-**Milestone:** v1 — Section Beautification & UI Polish
-**Goal:** Fully realize all 5 content sections with polished UI, self-hosted assets, and updated documentation.
-**Branch:** CONGPHAT
+## Overview
 
----
+Milestone v1 — Section Beautification & UI Polish. Fully realize all 5 content sections from the HBVL proposal with polished UI, self-hosted assets, section-specific layouts, and updated documentation. Starting from an already-functional WordPress theme (`charity-hcm` v2.2.0) where all 5 sections are defined but need visual polish and distinct layouts.
 
-## Phase 1 — CSS Cleanup & Foundation Polish
-**Goal:** Remove CSS duplication and lay a clean visual foundation before adding new features.
-**Depends on:** nothing
-**Covers:** UI-01, UI-03
+## Phases
 
-### Plans
-1. **Audit and deduplicate `main.css`** — identify and remove ~200+ lines of repeated CSS blocks (`.nav-menu`, `.hero`, `.btn` duplicates); keep only the canonical definitions
-2. **Review and fix CSS specificity conflicts** from duplication — ensure hover states and transitions work correctly
-3. **Verify visual output** after cleanup — no regressions on homepage, category pages, single posts, mobile nav
+- [ ] **Phase 1: CSS Cleanup & Foundation Polish** - Remove CSS duplication and fix specificity issues to lay a clean foundation
+- [ ] **Phase 2: Section Cards UI & Homepage Visual Polish** - Add icons, color accents, and animated section cards to the homepage
+- [ ] **Phase 3: Section-Specific Category Page Templates** - Distinct layouts for Song Library, Profile showcase, and Tips grid
+- [ ] **Phase 4: Navigation, Social Links & SEO** - Wire social links via Customizer and add Open Graph meta tags
+- [ ] **Phase 5: README & Documentation Update** - Accurate README with updated screenshots and content architecture docs
 
-**UAT:**
-- All existing pages still render correctly after CSS cleanup
-- No visual regressions on desktop and mobile
-- `main.css` line count reduced by at least 150 lines
+## Phase Details
 
----
+### Phase 1: CSS Cleanup & Foundation Polish
+**Goal**: Fix CSS specificity bugs, remove orphan rule fragments, and consolidate duplicate media query blocks in `main.css` to lay a clean foundation.
+**Depends on**: Nothing (first phase)
+**Requirements**: UI-01, UI-03
+**Success Criteria** (what must be TRUE):
+  1. `.btn--red:hover` selector exists and `.btn--primary:hover` appears exactly once
+  2. `.cp-group-card` and `.cp-group-item` each have exactly one rule block (base + transition + hover combined)
+  3. The "Phase 2: UI Polish" orphan comment section is removed; its rules merged into base blocks
+  4. All `@media (max-width: 768px)` cp-* rules are consolidated into a single 768px block
 
-## Phase 2 — Section Cards UI & Homepage Visual Polish
-**Goal:** Make the 5 content group cards on the homepage visually distinctive, polished, and engaging.
-**Depends on:** Phase 1
-**Covers:** SECT-04, SECT-05, HOME-05, HOME-06, HOME-07, UI-02, UI-04, UI-05
+Plans:
+- [ ] 01-01: Audit and remove duplicated CSS blocks in main.css
+- [ ] 01-02: Verify visual output and fix any regressions after cleanup
 
-### Plans
-1. **Add section icons** — design or source SVG icons for each of the 5 content groups; add to `assets/img/icons/` and integrate into `cp-group-card` in `front-page.php`
-2. **Section color accents** — assign a distinct accent color per content group (e.g., blue for TIN TỨC, green for ĐÔNG DU KÝ); update CSS variables and `.cp-group-card` styles
-3. **Hover animations & card polish** — improve `.cp-group-card` hover states: lift shadow, icon color shift, smooth transition; ensure `animate-in` scroll trigger works
-4. **Self-host Vietnam map image** — download map image to `assets/img/vietnam-map.png`; update `charity_vietnam_map_image_url()` to return local URI; add pulsing CSS animation to map pins
-5. **Mobile nav fix** — verify all 5 section dropdowns work correctly on mobile (tap to expand)
+### Phase 2: Section Cards UI & Homepage Visual Polish
+**Goal**: Make the 5 content group cards visually distinctive with icons, color accents, hover animations, and a locally-hosted Vietnam map with animated pins.
+**Depends on**: Phase 1
+**Requirements**: SECT-04, SECT-05, HOME-05, HOME-06, HOME-07, UI-02, UI-04, UI-05
+**Success Criteria** (what must be TRUE):
+  1. Each section group card has a distinct SVG icon
+  2. Each section group has a unique accent color applied to its card
+  3. Card hover lifts with shadow — smooth CSS transition
+  4. Vietnam map uses a local image file (no external CDN request)
+  5. Map pins animate with a CSS pulse effect
+  6. Mobile nav works correctly for all 5 section dropdowns
 
-**UAT:**
-- Each section group card has a visible icon and distinct visual identity
-- Hovering cards shows smooth lift + shadow effect
-- Vietnam map uses local image (no external HTTP request)
-- Map pins pulse with CSS animation
-- Mobile nav opens/closes correctly for all 5 sections
+Plans:
+- [ ] 02-01: Add section icons and color accents to cp-group-card components
+- [ ] 02-02: Polish card hover animations and animate-in scroll triggers
+- [ ] 02-03: Self-host Vietnam map image and add animated CSS pins
 
----
+### Phase 3: Section-Specific Category Page Templates
+**Goal**: Give Song Library, Profile showcase, and Tips sections custom category page layouts that match their content type.
+**Depends on**: Phase 2
+**Requirements**: SECT-06, SEC-03, SEC-04, SEC-05
+**Success Criteria** (what must be TRUE):
+  1. `tong-hop-bai-hat` category page shows a song card grid layout (not generic post list)
+  2. `guong-mat-vuon-len` category page shows a profile card grid with photo and achievement summary
+  3. `bi-kip` and `the-gioi-quanh-ta` category pages show a compact tips card grid
+  4. All new layouts are responsive on mobile
 
-## Phase 3 — Section-Specific Category Page Templates
-**Goal:** Give each major content section a category page that reflects its unique content type.
-**Depends on:** Phase 2
-**Covers:** SECT-06, SEC-03, SEC-04, SEC-05
+Plans:
+- [ ] 03-01: Add song library layout to tong-hop-bai-hat category page
+- [ ] 03-02: Add profile card layout to guong-mat-vuon-len category page
+- [ ] 03-03: Add compact tips card layout to bi-kip and the-gioi-quanh-ta category pages
 
-### Plans
-1. **Enrich base category.php** — add section icon to page banner; improve subsection panel grid to use card layout with icons and hover states
-2. **Song Library layout** (`tong-hop-bai-hat`) — special layout: song cards in a 2-column grid, each with song title, type tag, and expandable lyrics placeholder; add search/filter bar (client-side JS)
-3. **Profile showcase layout** (`guong-mat-vuon-len`) — profile-card grid layout (photo placeholder, name, achievement summary, read-more link); distinct from generic post list
-4. **Tips/knowledge card layout** (`bi-kip`, `the-gioi-quanh-ta`) — compact card grid with icon, title, and 2-line excerpt; different feel from long-form news
+### Phase 4: Navigation, Social Links & SEO
+**Goal**: Wire social links via WordPress Customizer and add Open Graph meta tags for social sharing.
+**Depends on**: Phase 2
+**Requirements**: NAV-03, SEO-01, SEO-02
+**Success Criteria** (what must be TRUE):
+  1. Facebook, YouTube, Instagram links in topbar point to real URLs set via WordPress Customizer
+  2. Sharing a post URL shows correct og:title, og:description, og:image
+  3. Category pages have correct og:title and og:description
 
-**UAT:**
-- `tong-hop-bai-hat` category page shows song card layout (not generic post list)
-- `guong-mat-vuon-len` category page shows profile card grid
-- `bi-kip` category page shows compact tips card grid
-- All layouts are responsive on mobile
+Plans:
+- [ ] 04-01: Add WordPress Customizer settings for social links and wire to header.php
+- [ ] 04-02: Add Open Graph meta tags to header.php for posts and category pages
 
----
+### Phase 5: README & Documentation Update
+**Goal**: Update README.md with accurate 5-section content architecture, new screenshots, and correct setup instructions.
+**Depends on**: Phase 2, Phase 3
+**Requirements**: DOC-01, DOC-02
+**Success Criteria** (what must be TRUE):
+  1. README accurately describes all 5 sections with names, slugs, and purpose
+  2. Screenshots in README show the updated UI (post Phase 2)
+  3. Quick-start instructions are accurate for the current setup
 
-## Phase 4 — Navigation, Social Links & SEO
-**Goal:** Wire social links, improve SEO meta tags, and polish navigation UX.
-**Depends on:** Phase 2
-**Covers:** NAV-03, SEO-01, SEO-02
+Plans:
+- [ ] 05-01: Update README.md content sections table, highlights, and structure
+- [ ] 05-02: Capture new screenshots and update docs/screenshots/
 
-### Plans
-1. **WordPress Customizer for social links** — register Customizer settings for Facebook, YouTube, Instagram URLs; update `header.php` topbar to use `get_theme_mod()` instead of `#`
-2. **Open Graph meta tags** — add `og:title`, `og:description`, `og:image` to `header.php` for single posts and category pages; use post thumbnail as og:image
-3. **Breadcrumb SEO** — verify and add `aria-label` to breadcrumb nav; ensure current page doesn't have a link (accessibility)
+## Progress
 
-**UAT:**
-- Social links in topbar point to real URLs set via WordPress Customizer
-- Sharing a post URL on Facebook/Slack shows correct title, description, and thumbnail
-- Breadcrumb is accessible (aria labels correct)
-
----
-
-## Phase 5 — README & Documentation Update
-**Goal:** Update README.md to accurately reflect the current state of the project.
-**Depends on:** Phase 2, Phase 3
-**Covers:** DOC-01, DOC-02
-
-### Plans
-1. **Update README.md** — rewrite highlights section to include all 5 content sections; update structure tree; add section descriptions from `Y_Tuong_De_Muc_Website_HBVL.md`; update tech stack info
-2. **New screenshots** — capture updated homepage with section cards (after Phase 2) and a sample category page; update `docs/screenshots/`
-3. **Update docs/PLAN.md** — reflect new milestone goals and completed work
-
-**UAT:**
-- README accurately describes all 5 sections and their purpose
-- Screenshots in README match current UI
-- Tech stack section is correct
-- Quick-start instructions work on a fresh local setup
-
----
-
-## Milestone Success Criteria
-
-- [ ] All 5 sections visually realized with icons, colors, and distinct layouts
-- [ ] Homepage section cards are polished and animated
-- [ ] Vietnam map uses local image with animated pins
-- [ ] CSS is deduplicated (~150+ lines removed)
-- [ ] Song Library and profile showcase have distinct category page layouts
-- [ ] Social links are wired via WordPress Customizer
-- [ ] Open Graph meta tags work for sharing
-- [ ] README.md is accurate and updated
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. CSS Cleanup & Foundation Polish | 0/2 | Not started | - |
+| 2. Section Cards UI & Homepage Visual Polish | 0/3 | Not started | - |
+| 3. Section-Specific Category Page Templates | 0/3 | Not started | - |
+| 4. Navigation, Social Links & SEO | 0/2 | Not started | - |
+| 5. README & Documentation Update | 0/2 | Not started | - |
 
 ---
 
