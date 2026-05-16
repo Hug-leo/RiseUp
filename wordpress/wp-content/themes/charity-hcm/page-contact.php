@@ -73,14 +73,14 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['contact_nonce'] ) )
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     </div>
                     <h3><?php echo charity_t( 'Địa chỉ', 'Address' ); ?></h3>
-                    <p>43D/46 Hồ Văn Huê<br><?php echo charity_t( 'Phú Nhuận, TP. Hồ Chí Minh', 'Phu Nhuan, Ho Chi Minh City' ); ?></p>
+                    <p><?php echo charity_t( '43D/46 Hồ Văn Huê, P. Đức Nhuận, TP. HCM', '43D/46 Ho Van Hue, Duc Nhuan Ward, HCMC' ); ?></p>
                 </div>
                 <div class="contact-card animate-in">
                     <div class="contact-card__icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.09 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 11.91a16 16 0 0 0 6 6l2.27-2.27a2 2 0 0 1 2.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                     </div>
                     <h3><?php echo charity_t( 'Điện thoại', 'Phone' ); ?></h3>
-                    <p>084 3214 142<br>(Thanh Vẹn)</p>
+                    <p>084.3214.142<br>(Thanh Vẹn)</p>
                 </div>
                 <div class="contact-card animate-in">
                     <div class="contact-card__icon">
