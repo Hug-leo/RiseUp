@@ -1968,11 +1968,11 @@ article.page {
   border-radius: 14px;
   padding: 18px;
   box-shadow: 0 10px 28px rgba(14, 68, 146, 0.08);
-  transition: transform .3s, box-shadow .3s;
+  transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s cubic-bezier(.4,0,.2,1);
 }
 .cp-group-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(14, 68, 146, 0.14);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(14, 68, 146, 0.18);
 }
 
 /* Section accent colors */
@@ -1981,6 +1981,13 @@ article.page {
 .cp-group-card[data-group="so-tay-kien-thuc"]  { border-top-color: #f57c00; }
 .cp-group-card[data-group="goc-sach-hay"]      { border-top-color: #6a1b9a; }
 .cp-group-card[data-group="sinh-hoat"]         { border-top-color: #0277bd; }
+
+/* Card animate-in stagger delays */
+.cp-category-grid .cp-group-card.animate-in:nth-child(1) { transition-delay: 0s; }
+.cp-category-grid .cp-group-card.animate-in:nth-child(2) { transition-delay: .08s; }
+.cp-category-grid .cp-group-card.animate-in:nth-child(3) { transition-delay: .16s; }
+.cp-category-grid .cp-group-card.animate-in:nth-child(4) { transition-delay: .24s; }
+.cp-category-grid .cp-group-card.animate-in:nth-child(5) { transition-delay: .32s; }
 
 /* Section icon styles */
 .cp-group-card__icon {
