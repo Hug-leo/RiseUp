@@ -4,6 +4,39 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="https://gmpg.org/xfn/11">
+<?php
+// Open Graph meta tags — SEO-02
+if ( is_singular() ) {
+    $og_title       = esc_attr( get_the_title() );
+    $og_description = esc_attr( wp_trim_words( wp_strip_all_tags( get_the_excerpt() ), 30, '...' ) );
+    $og_url         = esc_url( get_permalink() );
+    $og_image       = has_post_thumbnail()
+        ? esc_url( get_the_post_thumbnail_url( null, 'large' ) )
+        : esc_url( CHARITY_HCM_URI . '/assets/img/dong-du-logo.jpg' );
+    ?>
+    <meta property="og:type"        content="article" />
+    <meta property="og:title"       content="<?php echo $og_title; ?>" />
+    <meta property="og:description" content="<?php echo $og_description; ?>" />
+    <meta property="og:url"         content="<?php echo $og_url; ?>" />
+    <meta property="og:image"       content="<?php echo $og_image; ?>" />
+    <?php
+} elseif ( is_category() ) {
+    $cat_desc       = category_description();
+    $og_title       = esc_attr( single_cat_title( '', false ) . ' | ' . get_bloginfo( 'name' ) );
+    $og_description = $cat_desc
+        ? esc_attr( wp_trim_words( wp_strip_all_tags( $cat_desc ), 30, '...' ) )
+        : esc_attr( get_bloginfo( 'description' ) );
+    $og_url         = esc_url( get_category_link( get_queried_object_id() ) );
+    $og_image       = esc_url( CHARITY_HCM_URI . '/assets/img/dong-du-logo.jpg' );
+    ?>
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="<?php echo $og_title; ?>" />
+    <meta property="og:description" content="<?php echo $og_description; ?>" />
+    <meta property="og:url"         content="<?php echo $og_url; ?>" />
+    <meta property="og:image"       content="<?php echo $og_image; ?>" />
+    <?php
+}
+?>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -24,13 +57,13 @@
                 <a href="<?php echo esc_url( charity_lang_url( 'en' ) ); ?>" class="lang-switcher__btn <?php echo charity_get_lang() === 'en' ? 'active' : ''; ?>">EN</a>
             </div>
             <div class="topbar__social">
-                <a href="#" aria-label="Facebook" class="topbar__social-link">
+                <a href="<?php echo esc_url( get_theme_mod( 'charity_social_facebook', '#' ) ); ?>" aria-label="Facebook" class="topbar__social-link" target="_blank" rel="noopener noreferrer">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
                 </a>
-                <a href="#" aria-label="YouTube" class="topbar__social-link">
+                <a href="<?php echo esc_url( get_theme_mod( 'charity_social_youtube', '#' ) ); ?>" aria-label="YouTube" class="topbar__social-link" target="_blank" rel="noopener noreferrer">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
                 </a>
-                <a href="#" aria-label="Instagram" class="topbar__social-link">
+                <a href="<?php echo esc_url( get_theme_mod( 'charity_social_instagram', '#' ) ); ?>" aria-label="Instagram" class="topbar__social-link" target="_blank" rel="noopener noreferrer">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
                 </a>
             </div>

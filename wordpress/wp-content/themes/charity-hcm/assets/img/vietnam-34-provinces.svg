@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 600" role="img" aria-label="Bản đồ 34 tỉnh thành Việt Nam (2025)">
+  <title>Bản đồ 34 tỉnh thành Việt Nam (2025)</title>
+  <g id="provinces-34">
+    <path id="p11" title="Hà Nội" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M119,78 h32 v32 h-32 Z"/>
+    <path id="p12" title="Hồ Chí Minh" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M174,464 h28 v24 h-28 Z"/>
+    <path id="p13" title="Đà Nẵng" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M213,278 h24 v28 h-24 Z"/>
+    <path id="p14" title="Hải Phòng" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M156,88 h26 v22 h-26 Z"/>
+    <path id="p15" title="Cần Thơ" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M122,503 h26 v30 h-26 Z"/>
+    <path id="p16" title="Huế" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M170,224 h20 v40 h-20 Z"/>
+    <path id="p17" title="An Giang" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M93,482 h32 v26 h-32 Z"/>
+    <path id="p18" title="Bắc Ninh" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M144,82 h28 v24 h-28 Z"/>
+    <path id="p19" title="Cà Mau" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M102,533 h20 v22 h-20 Z"/>
+    <path id="p20" title="Cao Bằng" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M137,29 h26 v32 h-26 Z"/>
+    <path id="p21" title="Đắk Lắk" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M206,355 h30 v40 h-30 Z"/>
+    <path id="p22" title="Điện Biên" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M27,42 h28 v44 h-28 Z"/>
+    <path id="p23" title="Đồng Nai" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M173,452 h30 v26 h-30 Z"/>
+    <path id="p24" title="Đồng Tháp" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M129,479 h20 v18 h-20 Z"/>
+    <path id="p25" title="Gia Lai" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M213,353 h24 v22 h-24 Z"/>
+    <path id="p26" title="Hà Tĩnh" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M130,184 h18 v22 h-18 Z"/>
+    <path id="p27" title="Hưng Yên" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M143,102 h14 v14 h-14 Z"/>
+    <path id="p28" title="Khánh Hòa" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M255,413 h14 v36 h-14 Z"/>
+    <path id="p29" title="Lai Châu" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M32,26 h26 v30 h-26 Z"/>
+    <path id="p30" title="Lâm Đồng" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M217,433 h24 v26 h-24 Z"/>
+    <path id="p31" title="Lạng Sơn" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M166,53 h20 v22 h-20 Z"/>
+    <path id="p32" title="Lào Cai" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M61,41 h28 v38 h-28 Z"/>
+    <path id="p33" title="Nghệ An" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M89,161 h32 v38 h-32 Z"/>
+    <path id="p34" title="Ninh Bình" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M135,115 h22 v18 h-22 Z"/>
+    <path id="p35" title="Phú Thọ" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M101,67 h22 v24 h-22 Z"/>
+    <path id="p36" title="Quảng Ngãi" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M248,310 h14 v24 h-14 Z"/>
+    <path id="p37" title="Quảng Ninh" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M183,84 h24 v20 h-24 Z"/>
+    <path id="p38" title="Quảng Trị" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M181,242 h14 v18 h-14 Z"/>
+    <path id="p39" title="Sơn La" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M56,73 h30 v26 h-30 Z"/>
+    <path id="p40" title="Tây Ninh" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M145,449 h18 v18 h-18 Z"/>
+    <path id="p41" title="Thái Nguyên" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M133,62 h26 v26 h-26 Z"/>
+    <path id="p42" title="Thanh Hóa" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M117,118 h28 v26 h-28 Z"/>
+    <path id="p43" title="Tuyên Quang" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M107,49 h26 v30 h-26 Z"/>
+    <path id="p44" title="Vĩnh Long" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M144,491 h20 v22 h-20 Z"/>
+  </g>
+  <!-- Province abbreviation labels — decorative, non-interactive -->
+  <g id="province-labels-34" aria-hidden="true" pointer-events="none"
+     font-family="system-ui,sans-serif" text-anchor="middle" dominant-baseline="central"
+     fill="#444" font-weight="700">
+    <text x="135" y="94"  font-size="6">HN</text>
+    <text x="188" y="476" font-size="5">HCM</text>
+    <text x="225" y="292" font-size="5">ĐN</text>
+    <text x="169" y="99"  font-size="5">HP</text>
+    <text x="135" y="518" font-size="5">CT</text>
+    <text x="180" y="244" font-size="6">Huế</text>
+    <text x="109" y="495" font-size="5">AG</text>
+    <text x="158" y="94"  font-size="5">BN</text>
+    <text x="112" y="544" font-size="5">CM</text>
+    <text x="150" y="45"  font-size="5">CB</text>
+    <text x="221" y="375" font-size="6">ĐL</text>
+    <text x="41"  y="64"  font-size="6">ĐB</text>
+    <text x="188" y="465" font-size="5">ĐNai</text>
+    <text x="139" y="488" font-size="5">ĐT</text>
+    <text x="225" y="364" font-size="5">GL</text>
+    <text x="139" y="195" font-size="5">HT</text>
+    <text x="150" y="109" font-size="5">HY</text>
+    <text x="262" y="431" font-size="5">KH</text>
+    <text x="45"  y="41"  font-size="5">LC</text>
+    <text x="229" y="446" font-size="5">LĐ</text>
+    <text x="176" y="64"  font-size="5">LS</text>
+    <text x="75"  y="60"  font-size="5">LCai</text>
+    <text x="105" y="180" font-size="6">NA</text>
+    <text x="146" y="124" font-size="5">NB</text>
+    <text x="112" y="79"  font-size="5">PT</text>
+    <text x="255" y="322" font-size="5">QNg</text>
+    <text x="195" y="94"  font-size="5">QNinh</text>
+    <text x="188" y="251" font-size="5">QT</text>
+    <text x="71"  y="86"  font-size="5">SL</text>
+    <text x="154" y="458" font-size="5">TN</text>
+    <text x="146" y="75"  font-size="5">ThN</text>
+    <text x="131" y="131" font-size="5">TH</text>
+    <text x="120" y="64"  font-size="5">TQ</text>
+    <text x="154" y="502" font-size="5">VL</text>
+  </g>
+</svg>

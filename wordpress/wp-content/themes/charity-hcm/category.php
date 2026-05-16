@@ -28,6 +28,14 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
             <?php endif; ?>
             <span><?php echo esc_html( single_cat_title( '', false ) ); ?></span>
         </div>
+        <?php
+        $banner_icon = ( $group && ! empty( $group['slug'] ) ) ? charity_group_icon( $group['slug'] ) : '';
+        if ( $banner_icon ) :
+        ?>
+        <div class="page-banner__icon" aria-hidden="true">
+            <?php echo $banner_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted SVG from charity_group_icon() ?>
+        </div>
+        <?php endif; ?>
         <h1 class="page-banner__title">
             <?php
             if ( $current_item ) {
@@ -80,21 +88,128 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
             <?php endif; ?>
 
             <?php if ( $current_item && $current_item['slug'] === 'ban-do-vuon-len' ) : ?>
-                <section class="category-map-demo">
-                    <div class="category-map-demo__map" aria-hidden="true">
-                        <img src="<?php echo esc_url( charity_vietnam_map_image_url() ); ?>" alt="">
-                        <span class="cp-map-pin cp-map-pin--north"></span>
-                        <span class="cp-map-pin cp-map-pin--central"></span>
-                        <span class="cp-map-pin cp-map-pin--south"></span>
+                <section class="student-map-section" id="student-map-interactive">
+                    <div class="container">
+                        <div class="student-map__header">
+                            <h2 class="student-map__title">
+                                <?php echo charity_t( 'Bản đồ sinh viên Vươn Lên', 'Rise Up Student Origins' ); ?>
+                            </h2>
+                            <p class="student-map__desc">
+                                <?php echo charity_t(
+                                    'Nơi xuất phát của các thành viên và cựu học sinh chương trình Học Bổng Vươn Lên trên khắp Việt Nam.',
+                                    'Origins of Rise Up Scholarship members and alumni across Vietnam.'
+                                ); ?>
+                            </p>
+                        </div>
+
+                        <!-- Province map toggle -->
+                        <div class="student-map__toggle" role="group" aria-label="<?php echo esc_attr( charity_t( 'Chọn phân chia tỉnh thành', 'Select province division' ) ); ?>">
+                            <button class="map-toggle-btn active" data-map="63" type="button">
+                                <?php echo charity_t( '63 tỉnh thành', '63 Provinces' ); ?>
+                                <span class="map-toggle-btn__note"><?php echo charity_t( 'Cũ', 'Classic' ); ?></span>
+                            </button>
+                            <button class="map-toggle-btn" data-map="34" type="button">
+                                <?php echo charity_t( '34 tỉnh thành', '34 Provinces' ); ?>
+                                <span class="map-toggle-btn__note"><?php echo charity_t( 'Mới 2025', 'New 2025' ); ?></span>
+                            </button>
+                        </div>
+
+                        <div class="student-map__wrap">
+                            <!-- SVG container: 63-province view (default active) -->
+                            <div class="student-map__svg-container active" id="student-map-63" aria-hidden="true">
+                                <?php
+                                $svg_63 = get_template_directory() . '/assets/img/vietnam-63-provinces.svg';
+                                if ( file_exists( $svg_63 ) ) {
+                                    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+                                    echo file_get_contents( $svg_63 ); // Inline SVG for JS manipulation
+                                }
+                                ?>
+                            </div>
+
+                            <!-- SVG container: 34-province view (hidden by default) -->
+                            <div class="student-map__svg-container" id="student-map-34" aria-hidden="true">
+                                <?php
+                                $svg_34 = get_template_directory() . '/assets/img/vietnam-34-provinces.svg';
+                                if ( file_exists( $svg_34 ) ) {
+                                    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+                                    echo file_get_contents( $svg_34 );
+                                }
+                                ?>
+                            </div>
+
+                            <!-- Tooltip (shared across maps) -->
+                            <div class="student-map__tooltip" id="student-map-tooltip" role="tooltip" aria-live="polite"></div>
+                        </div>
+
+                        <p class="student-map__note">
+                            <?php echo charity_t(
+                                '* Dữ liệu minh họa — số lượng thực tế sẽ được cập nhật trong các phiên bản tới.',
+                                '* Sample data — actual numbers will be updated in future versions.'
+                            ); ?>
+                        </p>
                     </div>
-                    <div class="category-map-demo__content">
-                        <span class="section-label"><?php echo charity_t( 'Ý tưởng UI', 'UI Concept' ); ?></span>
-                        <h2><?php echo charity_t( 'Bản đồ kết nối thành viên', 'Member Connection Map' ); ?></h2>
-                        <p><?php echo charity_t(
-                            'Giai đoạn tiếp theo có thể thay mockup này bằng bản đồ tương tác, cho phép lọc theo tỉnh, trạng thái thành viên, mục đích liên hệ và gợi ý chuyến đi chung.',
-                            'A later phase can replace this mockup with an interactive map supporting province filters, member status, contact purpose, and trip planning.'
-                        ); ?></p>
+                </section>
+            <?php endif; ?>
+
+            <?php if ( $current_item && $current_item['slug'] === 'tong-hop-bai-hat' ) : ?>
+                <section class="category-song">
+                    <div class="category-song__header">
+                        <span class="section-label"><?php echo charity_t( 'Bài hát', 'Songs' ); ?></span>
+                        <h2><?php echo charity_t( 'Kho lưu trữ bài hát', 'Song Library' ); ?></h2>
                     </div>
+                    <?php if ( have_posts() ) : ?>
+                        <div class="song-grid">
+                            <?php while ( have_posts() ) : the_post(); ?>
+                                <?php get_template_part( 'template-parts/content', 'song' ); ?>
+                            <?php endwhile; ?>
+                        </div>
+                        <?php the_posts_pagination( [
+                            'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                            'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
+                        ] ); ?>
+                    <?php else : ?>
+                        <p class="no-content"><?php echo charity_t( 'Chưa có bài hát nào. Hãy là người đầu tiên chia sẻ!', 'No songs yet. Be the first to share!' ); ?></p>
+                    <?php endif; ?>
+                </section>
+            <?php elseif ( $current_item && $current_item['slug'] === 'guong-mat-vuon-len' ) : ?>
+                <section class="category-profile">
+                    <div class="category-profile__header">
+                        <span class="section-label"><?php echo charity_t( 'Gương mặt tiêu biểu', 'Featured Members' ); ?></span>
+                        <h2><?php echo charity_t( 'Những người Vươn Lên', 'Rise Up Members' ); ?></h2>
+                    </div>
+                    <?php if ( have_posts() ) : ?>
+                        <div class="profile-grid">
+                            <?php while ( have_posts() ) : the_post(); ?>
+                                <?php get_template_part( 'template-parts/content', 'profile' ); ?>
+                            <?php endwhile; ?>
+                        </div>
+                        <?php the_posts_pagination( [
+                            'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                            'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
+                        ] ); ?>
+                    <?php else : ?>
+                        <p class="no-content"><?php echo charity_t( 'Chưa có hồ sơ nào.', 'No profiles yet.' ); ?></p>
+                    <?php endif; ?>
+                </section>
+            <?php elseif ( $current_item && in_array( $current_item['slug'], [ 'bi-kip', 'the-gioi-quanh-ta' ], true ) ) : ?>
+                <section class="category-tips">
+                    <div class="category-tips__header">
+                        <span class="section-label"><?php echo charity_t( 'Bí kíp & Kiến thức', 'Tips & Knowledge' ); ?></span>
+                        <h2><?php echo charity_t( 'Khám phá mẹo hay', 'Discover Tips' ); ?></h2>
+                    </div>
+                    <?php if ( have_posts() ) : ?>
+                        <div class="tips-grid">
+                            <?php while ( have_posts() ) : the_post(); ?>
+                                <?php get_template_part( 'template-parts/content', 'tip' ); ?>
+                            <?php endwhile; ?>
+                        </div>
+                        <?php the_posts_pagination( [
+                            'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                            'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
+                        ] ); ?>
+                    <?php else : ?>
+                        <p class="no-content"><?php echo charity_t( 'Chưa có bài viết nào.', 'No posts yet.' ); ?></p>
+                    <?php endif; ?>
                 </section>
             <?php endif; ?>
 

@@ -56,6 +56,214 @@ add_action( 'wp_enqueue_scripts', function () {
         'nonce'        => wp_create_nonce( 'charity_load_more' ),
         'loadMoreText' => charity_t( 'Xem thêm bài viết', 'Load more stories' ),
     ] );
+
+    // Student origin map — only on ban-do-vuon-len category page
+    if ( is_category() ) {
+        $queried = get_queried_object();
+        if ( $queried instanceof WP_Term && $queried->slug === 'ban-do-vuon-len' ) {
+            wp_enqueue_script(
+                'charity-student-map',
+                CHARITY_HCM_URI . '/assets/js/student-map.js',
+                [],
+                CHARITY_HCM_VERSION,
+                true
+            );
+            // Province name lookup — VietMap codes (old 63: p11-p73)
+            // Source: github.com/vietmap-company/vietnam_administrative_address
+            $provinces_63 = [
+                'p11' => [ 'vi' => 'Hà Nội',              'en' => 'Hanoi' ],
+                'p12' => [ 'vi' => 'TP. Hồ Chí Minh',     'en' => 'Ho Chi Minh City' ],
+                'p13' => [ 'vi' => 'Hải Phòng',            'en' => 'Hai Phong' ],
+                'p14' => [ 'vi' => 'Đà Nẵng',              'en' => 'Da Nang' ],
+                'p15' => [ 'vi' => 'Cần Thơ',              'en' => 'Can Tho' ],
+                'p16' => [ 'vi' => 'An Giang',              'en' => 'An Giang' ],
+                'p17' => [ 'vi' => 'Bà Rịa-Vũng Tàu',     'en' => 'Ba Ria-Vung Tau' ],
+                'p18' => [ 'vi' => 'Bạc Liêu',             'en' => 'Bac Lieu' ],
+                'p19' => [ 'vi' => 'Bắc Giang',            'en' => 'Bac Giang' ],
+                'p20' => [ 'vi' => 'Bắc Kạn',              'en' => 'Bac Kan' ],
+                'p21' => [ 'vi' => 'Bắc Ninh',             'en' => 'Bac Ninh' ],
+                'p22' => [ 'vi' => 'Bến Tre',              'en' => 'Ben Tre' ],
+                'p23' => [ 'vi' => 'Bình Dương',           'en' => 'Binh Duong' ],
+                'p24' => [ 'vi' => 'Bình Định',            'en' => 'Binh Dinh' ],
+                'p25' => [ 'vi' => 'Bình Phước',           'en' => 'Binh Phuoc' ],
+                'p26' => [ 'vi' => 'Bình Thuận',           'en' => 'Binh Thuan' ],
+                'p27' => [ 'vi' => 'Cà Mau',               'en' => 'Ca Mau' ],
+                'p28' => [ 'vi' => 'Cao Bằng',             'en' => 'Cao Bang' ],
+                'p29' => [ 'vi' => 'Đắk Lắk',             'en' => 'Dak Lak' ],
+                'p30' => [ 'vi' => 'Đắk Nông',             'en' => 'Dak Nong' ],
+                'p31' => [ 'vi' => 'Điện Biên',            'en' => 'Dien Bien' ],
+                'p32' => [ 'vi' => 'Đồng Nai',             'en' => 'Dong Nai' ],
+                'p33' => [ 'vi' => 'Đồng Tháp',            'en' => 'Dong Thap' ],
+                'p34' => [ 'vi' => 'Gia Lai',              'en' => 'Gia Lai' ],
+                'p35' => [ 'vi' => 'Hà Giang',             'en' => 'Ha Giang' ],
+                'p36' => [ 'vi' => 'Hà Nam',               'en' => 'Ha Nam' ],
+                'p37' => [ 'vi' => 'Hà Tĩnh',              'en' => 'Ha Tinh' ],
+                'p38' => [ 'vi' => 'Hải Dương',            'en' => 'Hai Duong' ],
+                'p39' => [ 'vi' => 'Hậu Giang',            'en' => 'Hau Giang' ],
+                'p40' => [ 'vi' => 'Hòa Bình',             'en' => 'Hoa Binh' ],
+                'p41' => [ 'vi' => 'Hưng Yên',             'en' => 'Hung Yen' ],
+                'p42' => [ 'vi' => 'Khánh Hòa',            'en' => 'Khanh Hoa' ],
+                'p43' => [ 'vi' => 'Kiên Giang',           'en' => 'Kien Giang' ],
+                'p44' => [ 'vi' => 'Kon Tum',              'en' => 'Kon Tum' ],
+                'p45' => [ 'vi' => 'Lai Châu',             'en' => 'Lai Chau' ],
+                'p46' => [ 'vi' => 'Lâm Đồng',            'en' => 'Lam Dong' ],
+                'p47' => [ 'vi' => 'Lạng Sơn',            'en' => 'Lang Son' ],
+                'p48' => [ 'vi' => 'Lào Cai',              'en' => 'Lao Cai' ],
+                'p49' => [ 'vi' => 'Long An',              'en' => 'Long An' ],
+                'p50' => [ 'vi' => 'Nam Định',             'en' => 'Nam Dinh' ],
+                'p51' => [ 'vi' => 'Nghệ An',              'en' => 'Nghe An' ],
+                'p52' => [ 'vi' => 'Ninh Bình',            'en' => 'Ninh Binh' ],
+                'p53' => [ 'vi' => 'Ninh Thuận',           'en' => 'Ninh Thuan' ],
+                'p54' => [ 'vi' => 'Phú Thọ',              'en' => 'Phu Tho' ],
+                'p55' => [ 'vi' => 'Phú Yên',              'en' => 'Phu Yen' ],
+                'p56' => [ 'vi' => 'Quảng Bình',           'en' => 'Quang Binh' ],
+                'p57' => [ 'vi' => 'Quảng Nam',            'en' => 'Quang Nam' ],
+                'p58' => [ 'vi' => 'Quảng Ngãi',           'en' => 'Quang Ngai' ],
+                'p59' => [ 'vi' => 'Quảng Ninh',           'en' => 'Quang Ninh' ],
+                'p60' => [ 'vi' => 'Quảng Trị',            'en' => 'Quang Tri' ],
+                'p61' => [ 'vi' => 'Sóc Trăng',            'en' => 'Soc Trang' ],
+                'p62' => [ 'vi' => 'Sơn La',               'en' => 'Son La' ],
+                'p63' => [ 'vi' => 'Tây Ninh',             'en' => 'Tay Ninh' ],
+                'p64' => [ 'vi' => 'Thái Bình',            'en' => 'Thai Binh' ],
+                'p65' => [ 'vi' => 'Thái Nguyên',          'en' => 'Thai Nguyen' ],
+                'p66' => [ 'vi' => 'Thanh Hóa',            'en' => 'Thanh Hoa' ],
+                'p67' => [ 'vi' => 'Thừa Thiên Huế',       'en' => 'Thua Thien Hue' ],
+                'p68' => [ 'vi' => 'Tiền Giang',           'en' => 'Tien Giang' ],
+                'p69' => [ 'vi' => 'Trà Vinh',             'en' => 'Tra Vinh' ],
+                'p70' => [ 'vi' => 'Tuyên Quang',          'en' => 'Tuyen Quang' ],
+                'p71' => [ 'vi' => 'Vĩnh Long',            'en' => 'Vinh Long' ],
+                'p72' => [ 'vi' => 'Vĩnh Phúc',            'en' => 'Vinh Phuc' ],
+                'p73' => [ 'vi' => 'Yên Bái',              'en' => 'Yen Bai' ],
+            ];
+
+            // Province name lookup — VietMap codes (new 34: p11-p44)
+            // Source: github.com/vietmap-company/vietnam_administrative_address
+            $provinces_34 = [
+                'p11' => [ 'vi' => 'Hà Nội',              'en' => 'Hanoi' ],
+                'p12' => [ 'vi' => 'TP. Hồ Chí Minh',     'en' => 'Ho Chi Minh City' ],
+                'p13' => [ 'vi' => 'Đà Nẵng',              'en' => 'Da Nang' ],
+                'p14' => [ 'vi' => 'Hải Phòng',            'en' => 'Hai Phong' ],
+                'p15' => [ 'vi' => 'Cần Thơ',              'en' => 'Can Tho' ],
+                'p16' => [ 'vi' => 'Huế',                  'en' => 'Hue' ],
+                'p17' => [ 'vi' => 'An Giang',              'en' => 'An Giang' ],
+                'p18' => [ 'vi' => 'Bắc Ninh',             'en' => 'Bac Ninh' ],
+                'p19' => [ 'vi' => 'Cà Mau',               'en' => 'Ca Mau' ],
+                'p20' => [ 'vi' => 'Cao Bằng',             'en' => 'Cao Bang' ],
+                'p21' => [ 'vi' => 'Đắk Lắk',             'en' => 'Dak Lak' ],
+                'p22' => [ 'vi' => 'Điện Biên',            'en' => 'Dien Bien' ],
+                'p23' => [ 'vi' => 'Đồng Nai',             'en' => 'Dong Nai' ],
+                'p24' => [ 'vi' => 'Đồng Tháp',            'en' => 'Dong Thap' ],
+                'p25' => [ 'vi' => 'Gia Lai',              'en' => 'Gia Lai' ],
+                'p26' => [ 'vi' => 'Hà Tĩnh',              'en' => 'Ha Tinh' ],
+                'p27' => [ 'vi' => 'Hưng Yên',             'en' => 'Hung Yen' ],
+                'p28' => [ 'vi' => 'Khánh Hòa',            'en' => 'Khanh Hoa' ],
+                'p29' => [ 'vi' => 'Lai Châu',             'en' => 'Lai Chau' ],
+                'p30' => [ 'vi' => 'Lâm Đồng',            'en' => 'Lam Dong' ],
+                'p31' => [ 'vi' => 'Lạng Sơn',            'en' => 'Lang Son' ],
+                'p32' => [ 'vi' => 'Lào Cai',              'en' => 'Lao Cai' ],
+                'p33' => [ 'vi' => 'Nghệ An',              'en' => 'Nghe An' ],
+                'p34' => [ 'vi' => 'Ninh Bình',            'en' => 'Ninh Binh' ],
+                'p35' => [ 'vi' => 'Phú Thọ',              'en' => 'Phu Tho' ],
+                'p36' => [ 'vi' => 'Quảng Ngãi',           'en' => 'Quang Ngai' ],
+                'p37' => [ 'vi' => 'Quảng Ninh',           'en' => 'Quang Ninh' ],
+                'p38' => [ 'vi' => 'Quảng Trị',            'en' => 'Quang Tri' ],
+                'p39' => [ 'vi' => 'Sơn La',               'en' => 'Son La' ],
+                'p40' => [ 'vi' => 'Tây Ninh',             'en' => 'Tay Ninh' ],
+                'p41' => [ 'vi' => 'Thái Nguyên',          'en' => 'Thai Nguyen' ],
+                'p42' => [ 'vi' => 'Thanh Hóa',            'en' => 'Thanh Hoa' ],
+                'p43' => [ 'vi' => 'Tuyên Quang',          'en' => 'Tuyen Quang' ],
+                'p44' => [ 'vi' => 'Vĩnh Long',            'en' => 'Vinh Long' ],
+            ];
+
+            // Read full province directory (63 entries) used for both map views and detail pages.
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+            $contacts_file = get_template_directory() . '/data/province-directory.json';
+            $contacts      = [];
+            if ( file_exists( $contacts_file ) ) {
+                $raw = file_get_contents( $contacts_file ); // phpcs:ignore
+                if ( $raw ) {
+                    $decoded = json_decode( $raw, true );
+                    if ( is_array( $decoded ) ) {
+                        $contacts = $decoded;
+                    }
+                }
+            }
+
+
+            $slugify = static function( $name ) {
+                $name = str_replace( [ 'TP. ', 'Thừa Thiên ' ], '', $name );
+                return sanitize_title( $name );
+            };
+
+            $master_by_slug = [];
+            foreach ( $contacts as $entry ) {
+                if ( ! is_array( $entry ) || empty( $entry['slug'] ) ) {
+                    continue;
+                }
+                $master_by_slug[ $entry['slug'] ] = $entry;
+            }
+
+            $contacts_63 = [];
+            foreach ( $provinces_63 as $code => $province ) {
+                $slug = $slugify( $province['vi'] );
+                $entry = $master_by_slug[ $slug ] ?? [
+                    'name'    => $province['vi'],
+                    'slug'    => $slug,
+                    'members' => [],
+                ];
+
+                $entry['name'] = $province['vi'];
+                if ( ! isset( $entry['members'] ) || ! is_array( $entry['members'] ) ) {
+                    $entry['members'] = [];
+                }
+                $contacts_63[ $code ] = $entry;
+            }
+
+            $contacts_34 = [];
+            foreach ( $provinces_34 as $code => $province ) {
+                $slug = $slugify( $province['vi'] );
+                $entry = $master_by_slug[ $slug ] ?? [
+                    'name'    => $province['vi'],
+                    'slug'    => $slug,
+                    'members' => [],
+                ];
+
+                $entry['name'] = $province['vi'];
+                if ( ! isset( $entry['members'] ) || ! is_array( $entry['members'] ) ) {
+                    $entry['members'] = [];
+                }
+                $contacts_34[ $code ] = $entry;
+            }
+
+            // Derive map counts from member list length so tooltip and detail page never mismatch.
+            $student_data = [];
+            foreach ( $provinces_63 as $code => $province ) {
+                $student_data[] = [
+                    'code'  => $code,
+                    'count' => count( $contacts_63[ $code ]['members'] ?? [] ),
+                ];
+            }
+
+            $student_data_34 = [];
+            foreach ( $provinces_34 as $code => $province ) {
+                $student_data_34[] = [
+                    'code'  => $code,
+                    'count' => count( $contacts_34[ $code ]['members'] ?? [] ),
+                ];
+            }
+
+            wp_localize_script( 'charity-student-map', 'vuonlenMap', [
+                'lang'         => function_exists( 'charity_get_lang' ) ? charity_get_lang() : 'vi',
+                'students'     => $student_data,
+                'students_34'  => $student_data_34,
+                'provinces'    => $provinces_63,
+                'provinces_34' => $provinces_34,
+                'contacts_63'  => $contacts_63,
+                'contacts_34'  => $contacts_34,
+                'contacts'     => $contacts_63,
+            ] );
+        }
+    }
 } );
 
 // ─── Widget Areas ─────────────────────────────────────────────────────────────
@@ -301,8 +509,19 @@ function charity_category_url_by_slug( $slug ) {
     return $term ? get_category_link( $term ) : home_url( '/category/' . $slug . '/' );
 }
 
+function charity_group_icon( $slug ) {
+    $icons = [
+        'tin-tuc' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>',
+        'dong-du-ky' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>',
+        'so-tay-kien-thuc' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+        'goc-sach-hay' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
+        'sinh-hoat' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    ];
+    return isset( $icons[ $slug ] ) ? $icons[ $slug ] : '';
+}
+
 function charity_vietnam_map_image_url() {
-    return 'https://meeymap.com/tin-tuc/wp-content/uploads/2025/06/Ban-do-34-tinh-thanh-Viet-Nam-sau-sat-nhap.jpg';
+    return get_template_directory_uri() . '/assets/img/vietnam-map.jpg';
 }
 
 function charity_submit_post_url() {
@@ -461,6 +680,28 @@ add_action( 'after_switch_theme', function () {
     flush_rewrite_rules();
 } );
 
+// ─── Province Detail Page Routing ─────────────────────────────────────────────
+add_action( 'init', function () {
+    add_rewrite_rule( '^tinh/([^/]+)/?$', 'index.php?province_slug=$matches[1]', 'top' );
+} );
+
+add_filter( 'query_vars', function ( $vars ) {
+    $vars[] = 'province_slug';
+    return $vars;
+} );
+
+add_action( 'template_redirect', function () {
+    $slug = get_query_var( 'province_slug' );
+    if ( $slug ) {
+        $template = get_template_directory() . '/page-tinh.php';
+        if ( file_exists( $template ) ) {
+            include $template;
+            exit;
+        }
+    }
+} );
+
+
 // ─── Bilingual System (VI/EN) ────────────────────────────────────────────────
 function charity_get_lang() {
     if ( isset( $_GET['lang'] ) && in_array( $_GET['lang'], [ 'vi', 'en' ], true ) ) {
@@ -551,3 +792,29 @@ function vuonlen_handle_submit_post() {
         'Your post has been submitted successfully! An admin will review it shortly.'
     ) ] );
 }
+
+// ─── Social Links Customizer ──────────────────────────────────────────────────
+add_action( 'customize_register', function ( WP_Customize_Manager $wp_customize ) {
+    $wp_customize->add_section( 'charity_social_links', [
+        'title'    => charity_t( 'Mạng xã hội', 'Social Links' ),
+        'priority' => 120,
+    ] );
+
+    $socials = [
+        'charity_social_facebook'  => charity_t( 'Facebook URL',  'Facebook URL' ),
+        'charity_social_youtube'   => charity_t( 'YouTube URL',   'YouTube URL' ),
+        'charity_social_instagram' => charity_t( 'Instagram URL', 'Instagram URL' ),
+    ];
+
+    foreach ( $socials as $setting_id => $label ) {
+        $wp_customize->add_setting( $setting_id, [
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ] );
+        $wp_customize->add_control( $setting_id, [
+            'label'   => $label,
+            'section' => 'charity_social_links',
+            'type'    => 'url',
+        ] );
+    }
+} );
