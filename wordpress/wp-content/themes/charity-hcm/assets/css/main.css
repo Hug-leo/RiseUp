@@ -2764,4 +2764,55 @@ article.page {
     max-width: 280px;
   }
 }
+/* Toggle buttons */
+.student-map__toggle {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.map-toggle-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--color-border, #d0d0c8);
+  border-radius: var(--radius-md, 8px);
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text, #333);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  line-height: 1.2;
+}
+
+.map-toggle-btn__note {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--color-text-muted, #999);
+  margin-top: 2px;
+}
+
+.map-toggle-btn.active,
+.map-toggle-btn:hover {
+  border-color: var(--color-red, #c0392b);
+  background: var(--color-red, #c0392b);
+  color: #fff;
+}
+
+.map-toggle-btn.active .map-toggle-btn__note,
+.map-toggle-btn:hover .map-toggle-btn__note {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 480px) {
+  .map-toggle-btn {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+  }
+}
+
 /* ── /Student Map ────────────────────────────────────────────────────── */

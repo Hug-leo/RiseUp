@@ -102,6 +102,18 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
                             </p>
                         </div>
 
+                        <!-- Province map toggle -->
+                        <div class="student-map__toggle" role="group" aria-label="<?php echo esc_attr( charity_t( 'Chọn phân chia tỉnh thành', 'Select province division' ) ); ?>">
+                            <button class="map-toggle-btn active" data-map="63" type="button">
+                                <?php echo charity_t( '63 tỉnh thành', '63 Provinces' ); ?>
+                                <span class="map-toggle-btn__note"><?php echo charity_t( 'Cũ', 'Classic' ); ?></span>
+                            </button>
+                            <button class="map-toggle-btn" data-map="34" type="button">
+                                <?php echo charity_t( '34 tỉnh thành', '34 Provinces' ); ?>
+                                <span class="map-toggle-btn__note"><?php echo charity_t( 'Mới 2025', 'New 2025' ); ?></span>
+                            </button>
+                        </div>
+
                         <div class="student-map__wrap">
                             <!-- SVG container: 63-province view (default active) -->
                             <div class="student-map__svg-container active" id="student-map-63" aria-hidden="true">
@@ -110,6 +122,17 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
                                 if ( file_exists( $svg_63 ) ) {
                                     // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
                                     echo file_get_contents( $svg_63 ); // Inline SVG for JS manipulation
+                                }
+                                ?>
+                            </div>
+
+                            <!-- SVG container: 34-province view (hidden by default) -->
+                            <div class="student-map__svg-container" id="student-map-34" aria-hidden="true">
+                                <?php
+                                $svg_34 = get_template_directory() . '/assets/img/vietnam-34-provinces.svg';
+                                if ( file_exists( $svg_34 ) ) {
+                                    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+                                    echo file_get_contents( $svg_34 );
                                 }
                                 ?>
                             </div>

@@ -1,8 +1,8 @@
 /* Rise Up Scholarship — student-map.js
  * Interactive choropleth for Bản đồ Vươn Lên (student origin map).
  * Requires: window.vuonlenMap (set via wp_localize_script)
- * Reads:    #student-map-63 SVG paths by province ISO code
- * Note: SVG is a static theme asset — no user-supplied content is rendered.
+ * Reads:    #student-map-63 and #student-map-34 SVG paths
+ * Note: SVG files are static theme assets — no user-supplied content is rendered.
  */
 (function () {
   'use strict';
@@ -11,13 +11,17 @@
     var mapData = window.vuonlenMap;
     if (!mapData || !mapData.students) { return; }
 
-    var tooltip         = document.getElementById('student-map-tooltip');
-    var activeContainer = document.getElementById('student-map-63');
+    var tooltip    = document.getElementById('student-map-tooltip');
+    var containers = {
+      '63': document.getElementById('student-map-63'),
+      '34': document.getElementById('student-map-34'),
+    };
+    var toggleBtns = document.querySelectorAll('.map-toggle-btn');
+    var activeMap  = '63';
 
     // Apply fill classes to provinces with student data
     function applyData(container, students) {
       if (!container) { return; }
-      // Reset all province fills first
       container.querySelectorAll('path').forEach(function (path) {
         path.classList.remove('province--low', 'province--mid', 'province--high', 'province--active');
       });
@@ -38,14 +42,13 @@
       });
     }
 
-    // Tooltip show/hide
+    // Tooltip
     function showTooltip(e, path) {
       if (!tooltip) { return; }
       var lang  = mapData.lang || 'vi';
       var label = lang === 'en' ? (path.dataset.labelEn || path.dataset.labelVi) : path.dataset.labelVi;
-      var count = path.dataset.count;
       var unit  = lang === 'en' ? ' students' : ' sinh viên';
-      tooltip.textContent = label + ': ' + count + unit;
+      tooltip.textContent = label + ': ' + path.dataset.count + unit;
       tooltip.classList.add('visible');
       positionTooltip(e);
     }
@@ -64,7 +67,6 @@
       tooltip.style.top  = y + 'px';
     }
 
-    // Bind hover events to active container
     function bindEvents(container) {
       if (!container) { return; }
       container.querySelectorAll('path.province--active').forEach(function (path) {
@@ -81,8 +83,40 @@
       });
     }
 
-    // Initial render
-    applyData(activeContainer, mapData.students);
-    bindEvents(activeContainer);
+    // Toggle between 63 and 34 province maps
+    function switchMap(toKey) {
+      // Only accept known map keys to prevent unexpected DOM manipulation
+      if (!containers[toKey]) { return; }
+      if (toKey === activeMap) { return; }
+      hideTooltip();
+      // Swap SVG containers
+      Object.keys(containers).forEach(function (key) {
+        var c = containers[key];
+        if (!c) { return; }
+        c.classList.toggle('active', key === toKey);
+        c.setAttribute('aria-hidden', key !== toKey ? 'true' : 'false');
+      });
+      // Swap toggle button active state
+      toggleBtns.forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.map === toKey);
+      });
+      activeMap = toKey;
+    }
+
+    // Init: apply data + bind events for both maps
+    var students63 = mapData.students    || [];
+    var students34 = mapData.students_34 || [];
+
+    applyData(containers['63'], students63);
+    bindEvents(containers['63']);
+    applyData(containers['34'], students34);
+    bindEvents(containers['34']);
+
+    // Wire toggle buttons
+    toggleBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        switchMap(btn.dataset.map);
+      });
+    });
   });
 }());

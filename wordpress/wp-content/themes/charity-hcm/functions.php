@@ -82,9 +82,20 @@ add_action( 'wp_enqueue_scripts', function () {
                 [ 'code' => 'VN-40', 'label_vi' => 'Bình Thuận',       'label_en' => 'Binh Thuan',       'count' => 1  ],
                 [ 'code' => 'VN-57', 'label_vi' => 'Bình Dương',       'label_en' => 'Binh Duong',       'count' => 1  ],
             ];
+            $student_data_34 = [
+                [ 'code' => 'VN34-SG',  'label_vi' => 'TP. Hồ Chí Minh (mở rộng)', 'label_en' => 'Ho Chi Minh City (expanded)', 'count' => 13 ],
+                [ 'code' => 'VN34-HN',  'label_vi' => 'Hà Nội (mở rộng)',           'label_en' => 'Hanoi (expanded)',            'count' => 8  ],
+                [ 'code' => 'VN34-DN',  'label_vi' => 'Đà Nẵng (mở rộng)',          'label_en' => 'Da Nang (expanded)',          'count' => 5  ],
+                [ 'code' => 'VN34-CT',  'label_vi' => 'Cần Thơ (mở rộng)',          'label_en' => 'Can Tho (expanded)',          'count' => 4  ],
+                [ 'code' => 'VN34-HP',  'label_vi' => 'Hải Phòng (mở rộng)',        'label_en' => 'Hai Phong (expanded)',        'count' => 3  ],
+                [ 'code' => 'VN34-HUE', 'label_vi' => 'Huế (mở rộng)',              'label_en' => 'Hue (expanded)',              'count' => 3  ],
+                [ 'code' => 'VN34-NA',  'label_vi' => 'Nghệ An (mở rộng)',          'label_en' => 'Nghe An (expanded)',          'count' => 2  ],
+                [ 'code' => 'VN34-KH',  'label_vi' => 'Khánh Hòa (mở rộng)',       'label_en' => 'Khanh Hoa (expanded)',        'count' => 1  ],
+            ];
             wp_localize_script( 'charity-student-map', 'vuonlenMap', [
-                'lang'     => function_exists( 'charity_get_lang' ) ? charity_get_lang() : 'vi',
-                'students' => $student_data,
+                'lang'        => function_exists( 'charity_get_lang' ) ? charity_get_lang() : 'vi',
+                'students'    => $student_data,
+                'students_34' => $student_data_34,
             ] );
         }
     }

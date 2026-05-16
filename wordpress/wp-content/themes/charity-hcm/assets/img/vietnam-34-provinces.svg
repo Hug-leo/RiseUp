@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" role="img" aria-label="Bản đồ 34 tỉnh thành Việt Nam (2025)">
+  <title>Bản đồ 34 tỉnh thành Việt Nam (2025)</title>
+  <g id="provinces-34">
+    <!-- Hà Giang (merged: Hà Giang + Tuyên Quang + Bắc Kạn + Cao Bằng) -->
+    <path id="VN34-HG" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M60,15 L195,10 L200,48 L165,58 L130,48 L95,52 L65,50 Z"/>
+    <!-- Lào Cai (merged: Lào Cai + Yên Bái + Điện Biên + Lai Châu) -->
+    <path id="VN34-LC" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M40,35 L95,52 L100,90 L72,102 L42,88 Z"/>
+    <!-- Sơn La (standalone) -->
+    <path id="VN34-SL" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M42,88 L100,90 L118,120 L88,135 L48,122 Z"/>
+    <!-- Quảng Ninh (standalone) -->
+    <path id="VN34-QN" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M238,28 L285,30 L290,58 L258,65 L240,50 Z"/>
+    <!-- Thái Nguyên (merged: Thái Nguyên + Bắc Giang + Lạng Sơn) -->
+    <path id="VN34-TN" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M165,48 L258,65 L262,92 L225,100 L195,85 L170,72 Z"/>
+    <!-- Phú Thọ (merged: Phú Thọ + Vĩnh Phúc + Hòa Bình) -->
+    <path id="VN34-PT" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M100,90 L195,85 L198,118 L162,128 L130,118 L102,108 Z"/>
+    <!-- Hà Nội (merged: Hà Nội + Hà Nam + Vĩnh Phúc partial) -->
+    <path id="VN34-HN" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M162,118 L225,112 L230,148 L200,158 L165,148 Z"/>
+    <!-- Hải Phòng (merged: Hải Phòng + Hải Dương) -->
+    <path id="VN34-HP" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M225,100 L285,95 L290,128 L262,138 L228,128 Z"/>
+    <!-- Thanh Hóa (merged: Thanh Hóa + Ninh Bình + Nam Định + Thái Bình + Hưng Yên + Bắc Ninh) -->
+    <path id="VN34-TH" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M130,128 L262,130 L265,172 L215,180 L165,175 L128,162 Z"/>
+    <!-- Nghệ An (merged: Nghệ An + Hà Tĩnh) -->
+    <path id="VN34-NA" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M85,165 L165,168 L168,220 L138,232 L88,222 Z"/>
+    <!-- Huế (merged: TT Huế + Quảng Bình + Quảng Trị) -->
+    <path id="VN34-HUE" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M105,232 L162,228 L165,295 L138,305 L105,292 Z"/>
+    <!-- Đà Nẵng (merged: Đà Nẵng + Quảng Nam) -->
+    <path id="VN34-DN" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M125,298 L178,292 L182,348 L150,358 L122,345 Z"/>
+    <!-- Quảng Ngãi (merged: Quảng Ngãi + Bình Định) -->
+    <path id="VN34-QNG" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M130,355 L182,348 L188,405 L158,415 L128,402 Z"/>
+    <!-- Kon Tum (standalone, larger west) -->
+    <path id="VN34-KT" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M68,292 L128,290 L130,355 L100,368 L65,355 Z"/>
+    <!-- Khánh Hòa (merged: Khánh Hòa + Phú Yên + Ninh Thuận + Bình Thuận) -->
+    <path id="VN34-KH" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M155,410 L192,405 L210,498 L175,508 L150,492 Z"/>
+    <!-- Đắk Lắk (merged: Đắk Lắk + Gia Lai) -->
+    <path id="VN34-DL" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M65,355 L132,352 L135,432 L100,445 L62,430 Z"/>
+    <!-- Lâm Đồng (merged: Lâm Đồng + Đắk Nông) -->
+    <path id="VN34-LD" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M100,435 L162,432 L168,498 L132,510 L98,495 Z"/>
+    <!-- Đồng Nai (merged: Đồng Nai + Bình Phước + Tây Ninh + Long An) -->
+    <path id="VN34-DN2" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M62,488 L168,488 L172,548 L128,560 L60,545 Z"/>
+    <!-- TP. Hồ Chí Minh (merged: TP.HCM + Bình Dương + Bà Rịa-Vũng Tàu) -->
+    <path id="VN34-SG" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M168,488 L240,482 L248,552 L208,562 L168,548 Z"/>
+    <!-- Tiền Giang (merged: Tiền Giang + Bến Tre + Trà Vinh + Vĩnh Long) -->
+    <path id="VN34-TG" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M105,558 L210,555 L215,615 L158,625 L102,612 Z"/>
+    <!-- An Giang (merged: An Giang + Đồng Tháp + Kiên Giang) -->
+    <path id="VN34-AG" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M28,558 L108,555 L108,625 L62,638 L25,622 Z"/>
+    <!-- Cần Thơ (merged: Cần Thơ + Hậu Giang + Sóc Trăng + Bạc Liêu + Cà Mau) -->
+    <path id="VN34-CT" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M62,625 L215,618 L222,740 L130,752 L58,738 Z"/>
+  </g>
+</svg>
