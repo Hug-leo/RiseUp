@@ -14,3 +14,13 @@ wordpress/wp-content/uploads/
 
 # Backup files
 database/*.bak
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.planning/
+
+# Documentation and planning files
+Y_Tuong_De_Muc_Website_HBVL.md

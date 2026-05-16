@@ -20,11 +20,11 @@ The site is organized around 5 main content pillars defined in `Y_Tuong_De_Muc_W
 
 | # | Section | Slug | Subsections |
 |---|---------|------|-------------|
-| 1 | **TIN TỨC** — News | \`tin-tuc\` | Chuyện Vươn Lên · Gương mặt Vươn Lên · Tiếp nối |
-| 2 | **ĐÔNG DU KÝ** — Dong Du Journeys | \`dong-du-ky\` | Bản đồ Vươn Lên · Nhật ký chuyến đi · Giới thiệu địa điểm |
-| 3 | **SỔ TAY KIẾN THỨC** — Knowledge Handbook | \`so-tay-kien-thuc\` | Bí kíp · Thế giới quanh ta |
-| 4 | **GÓC SÁCH HAY** — Book Corner | \`goc-sach-hay\` | Tóm tắt sách · Viết cảm nhận sách |
-| 5 | **SINH HOẠT** — Community Activities | \`sinh-hoat\` | Trò chơi/sinh hoạt tập thể · Tổng hợp bài hát |
+| 1 | **TIN TỨC** — News | `tin-tuc` | Chuyện Vươn Lên · Gương mặt Vươn Lên · Tiếp nối |
+| 2 | **ĐÔNG DU KÝ** — Dong Du Journeys | `dong-du-ky` | Bản đồ Vươn Lên · Nhật ký chuyến đi · Giới thiệu địa điểm |
+| 3 | **SỔ TAY KIẾN THỨC** — Knowledge Handbook | `so-tay-kien-thuc` | Bí kíp · Thế giới quanh ta |
+| 4 | **GÓC SÁCH HAY** — Book Corner | `goc-sach-hay` | Tóm tắt sách · Viết cảm nhận sách |
+| 5 | **SINH HOẠT** — Community Activities | `sinh-hoat` | Trò chơi/sinh hoạt tập thể · Tổng hợp bài hát |
 
 All sections and subsections are auto-created as WordPress categories at theme init via `charity_content_groups()` in `functions.php`.
 
@@ -43,7 +43,7 @@ All sections and subsections are auto-created as WordPress categories at theme i
 
 ## Unified Repository Structure
 
-\`\`\`text
+```text
 RiseUp/
 ├── Y_Tuong_De_Muc_Website_HBVL.md   ← Content section proposal (source of truth)
 ├── config/
@@ -68,7 +68,7 @@ RiseUp/
 │   └── codebase/                     ← Architecture & stack docs
 └── wordpress/
     └── wp-content/themes/charity-hcm/  ← Active custom theme (v2.2.0)
-\`\`\`
+```
 
 > [!NOTE]
 > Redundant local copies were removed. This root structure is now the single source of truth.
@@ -87,9 +87,9 @@ RiseUp/
 2. Create database `sampleweb_wp`.
 3. Import `database/sampleweb_wp_export.sql`.
 4. Start the built-in PHP server from the project root:
-   \`\`\`bash
+   ```bash
    php -S 127.0.0.1:8080 -t wordpress
-   \`\`\`
+   ```
 5. Open `http://127.0.0.1:8080` in your browser.
 
 Detailed setup: [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md)
@@ -110,10 +110,10 @@ Production deployment guide: [docs/DEPLOY_GUIDE.md](docs/DEPLOY_GUIDE.md)
 
 All 5 content sections are defined in a single PHP function:
 
-\`\`\`php
+```php
 // wordpress/wp-content/themes/charity-hcm/functions.php
 charity_content_groups()
-\`\`\`
+```
 
 This drives: navigation menu, auto-created WP categories, front-page section display, and category archive pages. To add or rename a section, update this function only.
 
