@@ -28,6 +28,14 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
             <?php endif; ?>
             <span><?php echo esc_html( single_cat_title( '', false ) ); ?></span>
         </div>
+        <?php
+        $banner_icon = ( $group && ! empty( $group['slug'] ) ) ? charity_group_icon( $group['slug'] ) : '';
+        if ( $banner_icon ) :
+        ?>
+        <div class="page-banner__icon" aria-hidden="true">
+            <?php echo $banner_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted SVG from charity_group_icon() ?>
+        </div>
+        <?php endif; ?>
         <h1 class="page-banner__title">
             <?php
             if ( $current_item ) {
@@ -95,6 +103,68 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
                             'A later phase can replace this mockup with an interactive map supporting province filters, member status, contact purpose, and trip planning.'
                         ); ?></p>
                     </div>
+                </section>
+            <?php endif; ?>
+
+            <?php if ( $current_item && $current_item['slug'] === 'tong-hop-bai-hat' ) : ?>
+                <section class="category-song">
+                    <div class="category-song__header">
+                        <span class="section-label"><?php echo charity_t( 'Bài hát', 'Songs' ); ?></span>
+                        <h2><?php echo charity_t( 'Kho lưu trữ bài hát', 'Song Library' ); ?></h2>
+                    </div>
+                    <?php if ( have_posts() ) : ?>
+                        <div class="song-grid">
+                            <?php while ( have_posts() ) : the_post(); ?>
+                                <?php get_template_part( 'template-parts/content', 'song' ); ?>
+                            <?php endwhile; ?>
+                        </div>
+                        <?php the_posts_pagination( [
+                            'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                            'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
+                        ] ); ?>
+                    <?php else : ?>
+                        <p class="no-content"><?php echo charity_t( 'Chưa có bài hát nào. Hãy là người đầu tiên chia sẻ!', 'No songs yet. Be the first to share!' ); ?></p>
+                    <?php endif; ?>
+                </section>
+            <?php elseif ( $current_item && $current_item['slug'] === 'guong-mat-vuon-len' ) : ?>
+                <section class="category-profile">
+                    <div class="category-profile__header">
+                        <span class="section-label"><?php echo charity_t( 'Gương mặt tiêu biểu', 'Featured Members' ); ?></span>
+                        <h2><?php echo charity_t( 'Những người Vươn Lên', 'Rise Up Members' ); ?></h2>
+                    </div>
+                    <?php if ( have_posts() ) : ?>
+                        <div class="profile-grid">
+                            <?php while ( have_posts() ) : the_post(); ?>
+                                <?php get_template_part( 'template-parts/content', 'profile' ); ?>
+                            <?php endwhile; ?>
+                        </div>
+                        <?php the_posts_pagination( [
+                            'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                            'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
+                        ] ); ?>
+                    <?php else : ?>
+                        <p class="no-content"><?php echo charity_t( 'Chưa có hồ sơ nào.', 'No profiles yet.' ); ?></p>
+                    <?php endif; ?>
+                </section>
+            <?php elseif ( $current_item && in_array( $current_item['slug'], [ 'bi-kip', 'the-gioi-quanh-ta' ], true ) ) : ?>
+                <section class="category-tips">
+                    <div class="category-tips__header">
+                        <span class="section-label"><?php echo charity_t( 'Bí kíp & Kiến thức', 'Tips & Knowledge' ); ?></span>
+                        <h2><?php echo charity_t( 'Khám phá mẹo hay', 'Discover Tips' ); ?></h2>
+                    </div>
+                    <?php if ( have_posts() ) : ?>
+                        <div class="tips-grid">
+                            <?php while ( have_posts() ) : the_post(); ?>
+                                <?php get_template_part( 'template-parts/content', 'tip' ); ?>
+                            <?php endwhile; ?>
+                        </div>
+                        <?php the_posts_pagination( [
+                            'prev_text' => '&larr; ' . charity_t( 'Trước', 'Previous' ),
+                            'next_text' => charity_t( 'Tiếp', 'Next' ) . ' &rarr;',
+                        ] ); ?>
+                    <?php else : ?>
+                        <p class="no-content"><?php echo charity_t( 'Chưa có bài viết nào.', 'No posts yet.' ); ?></p>
+                    <?php endif; ?>
                 </section>
             <?php endif; ?>
 

@@ -2328,3 +2328,331 @@ article.page {
     height: 84px;
   }
 }
+
+/* ============================================================
+   Phase 3 — Section-Specific Category Page Layouts
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   Page Banner Icon (SECT-06)
+   ---------------------------------------------------------- */
+.page-banner__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 8px;
+}
+
+.page-banner__icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: #fff;
+}
+
+/* ----------------------------------------------------------
+   Song Grid & Song Card (.song-grid / .song-card)
+   SEC-03 — tong-hop-bai-hat category
+   ---------------------------------------------------------- */
+.song-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.song-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.song-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.song-card__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+}
+
+.song-card__icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e8f0fe;
+  color: var(--primary);
+}
+
+.song-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.song-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.song-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+  line-height: 1.4;
+}
+
+.song-card__title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.song-card__title a:hover {
+  color: var(--primary);
+}
+
+.song-card__excerpt {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0 0 0.6rem;
+  line-height: 1.5;
+}
+
+.song-card__link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.song-card__link:hover {
+  text-decoration: underline;
+}
+
+/* ----------------------------------------------------------
+   Profile Grid & Profile Card (.profile-grid / .profile-card)
+   SEC-05 — guong-mat-vuon-len category
+   ---------------------------------------------------------- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.profile-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.profile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.profile-card__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-card__photo {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.profile-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition);
+}
+
+.profile-card:hover .profile-card__photo img {
+  transform: scale(1.04);
+}
+
+.profile-card__body {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-card__name {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.profile-card__name a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.profile-card__name a:hover {
+  color: var(--primary);
+}
+
+.profile-card__summary {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+  flex: 1;
+}
+
+.profile-card__link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  margin-top: auto;
+}
+
+.profile-card__link:hover {
+  text-decoration: underline;
+}
+
+/* ----------------------------------------------------------
+   Tips Grid & Tip Card (.tips-grid / .tip-card)
+   SEC-04 — bi-kip and the-gioi-quanh-ta categories
+   ---------------------------------------------------------- */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.tip-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  border-left: 3px solid var(--primary);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.tip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.tip-card__inner {
+  padding: 16px;
+}
+
+.tip-card__cat {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.tip-card__cat:hover {
+  text-decoration: underline;
+}
+
+.tip-card__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+.tip-card__title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.tip-card__title a:hover {
+  color: var(--primary);
+}
+
+.tip-card__excerpt {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+}
+
+.tip-card__read-more {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.tip-card__read-more:hover {
+  text-decoration: underline;
+}
+
+/* ----------------------------------------------------------
+   Category section headers (shared by song/profile/tips)
+   ---------------------------------------------------------- */
+.category-song__header,
+.category-profile__header,
+.category-tips__header {
+  margin-bottom: 24px;
+}
+
+.category-song__header h2,
+.category-profile__header h2,
+.category-tips__header h2 {
+  margin: 0.25rem 0 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+/* ----------------------------------------------------------
+   Responsive — 768px breakpoint
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+  .song-grid,
+  .profile-grid,
+  .tips-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .song-card__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .page-banner__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .page-banner__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .song-grid,
+  .profile-grid,
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+}
