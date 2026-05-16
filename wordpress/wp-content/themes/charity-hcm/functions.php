@@ -643,6 +643,28 @@ add_action( 'after_switch_theme', function () {
     flush_rewrite_rules();
 } );
 
+// ─── Province Detail Page Routing ─────────────────────────────────────────────
+add_action( 'init', function () {
+    add_rewrite_rule( '^tinh/([^/]+)/?$', 'index.php?province_slug=$matches[1]', 'top' );
+} );
+
+add_filter( 'query_vars', function ( $vars ) {
+    $vars[] = 'province_slug';
+    return $vars;
+} );
+
+add_action( 'template_redirect', function () {
+    $slug = get_query_var( 'province_slug' );
+    if ( $slug ) {
+        $template = get_template_directory() . '/page-tinh.php';
+        if ( file_exists( $template ) ) {
+            include $template;
+            exit;
+        }
+    }
+} );
+
+
 // ─── Bilingual System (VI/EN) ────────────────────────────────────────────────
 function charity_get_lang() {
     if ( isset( $_GET['lang'] ) && in_array( $_GET['lang'], [ 'vi', 'en' ], true ) ) {
