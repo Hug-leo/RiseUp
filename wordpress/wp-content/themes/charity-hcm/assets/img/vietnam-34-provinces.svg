@@ -36,4 +36,43 @@
     <path id="p43" title="Tuyên Quang" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M107,49 h26 v30 h-26 Z"/>
     <path id="p44" title="Vĩnh Long" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M144,491 h20 v22 h-20 Z"/>
   </g>
+  <!-- Province abbreviation labels — decorative, non-interactive -->
+  <g id="province-labels-34" aria-hidden="true" pointer-events="none"
+     font-family="system-ui,sans-serif" text-anchor="middle" dominant-baseline="central"
+     fill="#444" font-weight="700">
+    <text x="135" y="94"  font-size="6">HN</text>
+    <text x="188" y="476" font-size="5">HCM</text>
+    <text x="225" y="292" font-size="5">ĐN</text>
+    <text x="169" y="99"  font-size="5">HP</text>
+    <text x="135" y="518" font-size="5">CT</text>
+    <text x="180" y="244" font-size="6">Huế</text>
+    <text x="109" y="495" font-size="5">AG</text>
+    <text x="158" y="94"  font-size="5">BN</text>
+    <text x="112" y="544" font-size="5">CM</text>
+    <text x="150" y="45"  font-size="5">CB</text>
+    <text x="221" y="375" font-size="6">ĐL</text>
+    <text x="41"  y="64"  font-size="6">ĐB</text>
+    <text x="188" y="465" font-size="5">ĐNai</text>
+    <text x="139" y="488" font-size="5">ĐT</text>
+    <text x="225" y="364" font-size="5">GL</text>
+    <text x="139" y="195" font-size="5">HT</text>
+    <text x="150" y="109" font-size="5">HY</text>
+    <text x="262" y="431" font-size="5">KH</text>
+    <text x="45"  y="41"  font-size="5">LC</text>
+    <text x="229" y="446" font-size="5">LĐ</text>
+    <text x="176" y="64"  font-size="5">LS</text>
+    <text x="75"  y="60"  font-size="5">LCai</text>
+    <text x="105" y="180" font-size="6">NA</text>
+    <text x="146" y="124" font-size="5">NB</text>
+    <text x="112" y="79"  font-size="5">PT</text>
+    <text x="255" y="322" font-size="5">QNg</text>
+    <text x="195" y="94"  font-size="5">QNinh</text>
+    <text x="188" y="251" font-size="5">QT</text>
+    <text x="71"  y="86"  font-size="5">SL</text>
+    <text x="154" y="458" font-size="5">TN</text>
+    <text x="146" y="75"  font-size="5">ThN</text>
+    <text x="131" y="131" font-size="5">TH</text>
+    <text x="120" y="64"  font-size="5">TQ</text>
+    <text x="154" y="502" font-size="5">VL</text>
+  </g>
 </svg>

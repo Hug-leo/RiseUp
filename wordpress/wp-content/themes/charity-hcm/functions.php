@@ -203,12 +203,27 @@ add_action( 'wp_enqueue_scripts', function () {
                 [ 'code' => 'p28', 'count' => 1  ],
                 [ 'code' => 'p23', 'count' => 1  ],
             ];
+            // Read Đông Du contact data (mock data for province member popups).
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+            $contacts_file = get_template_directory() . '/data/contact-dongdu.json';
+            $contacts      = [];
+            if ( file_exists( $contacts_file ) ) {
+                $raw = file_get_contents( $contacts_file ); // phpcs:ignore
+                if ( $raw ) {
+                    $decoded = json_decode( $raw, true );
+                    if ( is_array( $decoded ) ) {
+                        $contacts = $decoded;
+                    }
+                }
+            }
+
             wp_localize_script( 'charity-student-map', 'vuonlenMap', [
                 'lang'         => function_exists( 'charity_get_lang' ) ? charity_get_lang() : 'vi',
                 'students'     => $student_data,
                 'students_34'  => $student_data_34,
                 'provinces'    => $provinces_63,
                 'provinces_34' => $provinces_34,
+                'contacts'     => $contacts,
             ] );
         }
     }

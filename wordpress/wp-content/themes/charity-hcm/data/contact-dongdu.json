@@ -1,0 +1,258 @@
+{
+  "p11": {
+    "name": "Hà Nội",
+    "members": [
+      { "name": "Nguyễn Văn An",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Trần Thị Bình",    "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Lê Minh Cường",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p12": {
+    "name": "TP. Hồ Chí Minh",
+    "members": [
+      { "name": "Phạm Thị Dung",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Hoàng Văn Em",     "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Huỳnh Thị Phương", "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p13": {
+    "name": "Đà Nẵng",
+    "members": [
+      { "name": "Phan Văn Giang",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Vũ Thị Hà",       "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Đặng Minh Hùng",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p14": {
+    "name": "Hải Phòng",
+    "members": [
+      { "name": "Bùi Văn Kha",     "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đỗ Thị Lan",      "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p15": {
+    "name": "Cần Thơ",
+    "members": [
+      { "name": "Ngô Thị Mai",     "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Dương Văn Nam",   "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Lý Thị Ngân",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p16": {
+    "name": "Huế",
+    "members": [
+      { "name": "Nguyễn Hữu Phong", "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Trần Kim Phượng",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p17": {
+    "name": "An Giang",
+    "members": [
+      { "name": "Lê Văn Quân",     "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Phạm Thị Quyên",  "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Hoàng Minh Sơn",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p18": {
+    "name": "Bắc Ninh",
+    "members": [
+      { "name": "Huỳnh Văn Tài",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Phan Thị Tâm",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p19": {
+    "name": "Cà Mau",
+    "members": [
+      { "name": "Vũ Văn Thịnh",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đặng Thị Thu",    "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Bùi Quốc Toàn",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p20": {
+    "name": "Cao Bằng",
+    "members": [
+      { "name": "Đỗ Văn Tùng",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Hồ Thị Tuyết",   "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p21": {
+    "name": "Đắk Lắk",
+    "members": [
+      { "name": "Ngô Minh Tuấn",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Dương Thị Uyên",  "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Lý Văn Việt",     "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p22": {
+    "name": "Điện Biên",
+    "members": [
+      { "name": "Nguyễn Thị Xuân", "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Trần Văn Yên",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p23": {
+    "name": "Đồng Nai",
+    "members": [
+      { "name": "Lê Thị Anh",     "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Phạm Văn Bảo",   "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Hoàng Thị Chi",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p24": {
+    "name": "Đồng Tháp",
+    "members": [
+      { "name": "Huỳnh Văn Danh", "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Phan Thị Duyên", "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p25": {
+    "name": "Gia Lai",
+    "members": [
+      { "name": "Vũ Minh Đạt",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đặng Thị Diễm",  "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Bùi Văn Đức",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p26": {
+    "name": "Hà Tĩnh",
+    "members": [
+      { "name": "Đỗ Thị Giang",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Hồ Văn Hiếu",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p27": {
+    "name": "Hưng Yên",
+    "members": [
+      { "name": "Ngô Thị Hoa",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Dương Văn Hoài", "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Lý Minh Hòa",   "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p28": {
+    "name": "Khánh Hòa",
+    "members": [
+      { "name": "Nguyễn Thị Hồng", "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Trần Văn Hùng",   "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p29": {
+    "name": "Lai Châu",
+    "members": [
+      { "name": "Lê Thị Hương",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Phạm Văn Hưng",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p30": {
+    "name": "Lâm Đồng",
+    "members": [
+      { "name": "Hoàng Thị Khoa", "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Huỳnh Văn Khánh","role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Phan Thị Kim",   "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p31": {
+    "name": "Lạng Sơn",
+    "members": [
+      { "name": "Vũ Văn Lâm",     "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đặng Thị Liên",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p32": {
+    "name": "Lào Cai",
+    "members": [
+      { "name": "Bùi Minh Lộc",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đỗ Thị Loan",    "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Hồ Văn Long",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p33": {
+    "name": "Nghệ An",
+    "members": [
+      { "name": "Ngô Thị Mai Ly", "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Dương Văn Mạnh", "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p34": {
+    "name": "Ninh Bình",
+    "members": [
+      { "name": "Lý Thị Minh",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Nguyễn Văn Mười","role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Trần Thị Mỹ",   "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p35": {
+    "name": "Phú Thọ",
+    "members": [
+      { "name": "Lê Văn Nam",     "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Phạm Thị Nga",   "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p36": {
+    "name": "Quảng Ngãi",
+    "members": [
+      { "name": "Hoàng Minh Nghĩa","role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Huỳnh Thị Ngọc", "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Phan Văn Nguyên","role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p37": {
+    "name": "Quảng Ninh",
+    "members": [
+      { "name": "Vũ Thị Nhung",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đặng Văn Ninh",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p38": {
+    "name": "Quảng Trị",
+    "members": [
+      { "name": "Bùi Thị Nhi",    "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đỗ Văn Phát",    "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Hồ Minh Phú",    "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p39": {
+    "name": "Sơn La",
+    "members": [
+      { "name": "Ngô Văn Phúc",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Dương Thị Phượng","role": "Thành viên",   "contact": "#lien-he" }
+    ]
+  },
+  "p40": {
+    "name": "Tây Ninh",
+    "members": [
+      { "name": "Lý Văn Quang",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Nguyễn Thị Quỳnh","role": "Thành viên",   "contact": "#lien-he" },
+      { "name": "Trần Văn Sáng",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p41": {
+    "name": "Thái Nguyên",
+    "members": [
+      { "name": "Lê Thị Sen",     "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Phạm Văn Sinh",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p42": {
+    "name": "Thanh Hóa",
+    "members": [
+      { "name": "Hoàng Minh Sơn", "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Huỳnh Thị Sung", "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Phan Văn Tân",   "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p43": {
+    "name": "Tuyên Quang",
+    "members": [
+      { "name": "Vũ Thị Thảo",   "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đặng Văn Thắng","role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  },
+  "p44": {
+    "name": "Vĩnh Long",
+    "members": [
+      { "name": "Bùi Thị Thơm",  "role": "Đại diện tỉnh", "contact": "#lien-he" },
+      { "name": "Đỗ Văn Thuận",  "role": "Thành viên",    "contact": "#lien-he" },
+      { "name": "Hồ Minh Tiến",  "role": "Thành viên",    "contact": "#lien-he" }
+    ]
+  }
+}

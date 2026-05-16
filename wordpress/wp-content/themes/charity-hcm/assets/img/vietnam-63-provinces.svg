@@ -65,4 +65,44 @@
     <path id="p18" title="Bạc Liêu" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M132,525 h14 v14 h-14 Z"/>
     <path id="p27" title="Cà Mau" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M107,534 h18 v20 h-18 Z"/>
   </g>
+  <!-- Province abbreviation labels for larger provinces (≥16×16 px) -->
+  <g id="province-labels-63" aria-hidden="true" pointer-events="none"
+     font-family="system-ui,sans-serif" text-anchor="middle" dominant-baseline="central"
+     fill="#444" font-weight="700" font-size="5">
+    <text x="45"  y="41">LC</text>
+    <text x="75"  y="41">LCai</text>
+    <text x="38"  y="79">ĐB</text>
+    <text x="71"  y="86">SL</text>
+    <text x="128" y="101">HB</text>
+    <text x="109" y="26">HG</text>
+    <text x="97"  y="68">YB</text>
+    <text x="120" y="64">TQ</text>
+    <text x="150" y="34">CB</text>
+    <text x="142" y="52">BK</text>
+    <text x="176" y="64">LS</text>
+    <text x="195" y="94">QNinh</text>
+    <text x="146" y="71">TgN</text>
+    <text x="161" y="82">BG</text>
+    <text x="112" y="79">PT</text>
+    <text x="142" y="94">HN</text>
+    <text x="131" y="139">TH</text>
+    <text x="109" y="161">NA</text>
+    <text x="139" y="195">HT</text>
+    <text x="158" y="225">QB</text>
+    <text x="221" y="296">QNam</text>
+    <text x="236" y="465">BT</text>
+    <text x="214" y="338">KT</text>
+    <text x="225" y="364">GL</text>
+    <text x="225" y="405">ĐL</text>
+    <text x="214" y="435">ĐNg</text>
+    <text x="233" y="442">LĐ</text>
+    <text x="188" y="450">BP</text>
+    <text x="154" y="458">TN</text>
+    <text x="195" y="469">ĐNai</text>
+    <text x="158" y="480">LA</text>
+    <text x="135" y="488">ĐT</text>
+    <text x="120" y="491">AG</text>
+    <text x="112" y="506">KG</text>
+    <text x="116" y="544">CM</text>
+  </g>
 </svg>

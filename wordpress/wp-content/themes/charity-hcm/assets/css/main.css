@@ -2823,3 +2823,153 @@ article.page {
 }
 
 /* ── /Student Map ────────────────────────────────────────────────────── */
+
+/* ── Province contact popup ──────────────────────────────────────────────── */
+
+.province-popup {
+  position: fixed;
+  bottom: 24px;
+  right: -300px;
+  width: 260px;
+  max-height: 420px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  transition: right 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.province-popup--open {
+  right: 24px;
+}
+
+.province-popup__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.06);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.province-popup__close:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.province-popup__title {
+  margin: 0;
+  padding: 16px 44px 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary, #2d6a4f);
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.province-popup__members {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.province-popup__empty {
+  padding: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.province-popup__member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  transition: background 0.15s;
+}
+
+.province-popup__member:hover {
+  background: #f7f9f8;
+}
+
+.province-popup__avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-primary, #2d6a4f);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.province-popup__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.province-popup__name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.province-popup__role {
+  font-size: 10px;
+  color: #888;
+}
+
+.province-popup__link {
+  font-size: 10px;
+  color: var(--color-primary, #2d6a4f);
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.province-popup__link:hover {
+  text-decoration: underline;
+}
+
+/* SVG province text labels */
+.student-map__svg-container svg text {
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .province-popup {
+    width: calc(100vw - 32px);
+    right: -110vw;
+    bottom: 16px;
+  }
+
+  .province-popup--open {
+    right: 16px;
+  }
+}
+
+/* ── /Province contact popup ─────────────────────────────────────────────── */

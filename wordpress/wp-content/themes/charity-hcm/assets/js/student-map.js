@@ -7,9 +7,23 @@
  *   Old 63 provinces: p11–p73  |  New 34 provinces: p11–p44
  *
  * Note: SVG files are static theme assets — no user-supplied content rendered.
+ * Contact data (vuonlenMap.contacts) is server-side JSON, not user input.
  */
 (function () {
   'use strict';
+
+  // Escape HTML special characters — prevents XSS if data ever changes source.
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = String(s || '');
+    return d.innerHTML;
+  }
+
+  // Allow only relative URLs (starts with / or #) for contact links.
+  function safeHref(url) {
+    var s = String(url || '#');
+    return /^[/#]/.test(s) ? s : '#';
+  }
 
   document.addEventListener('DOMContentLoaded', function () {
     var mapData = window.vuonlenMap;
@@ -23,7 +37,83 @@
     var toggleBtns = document.querySelectorAll('.map-toggle-btn');
     var activeMap  = '63';
 
-    // Resolve province label from lookup table (falls back to path id)
+    // ── Province contact popup ────────────────────────────────────────────────
+    var popup = document.getElementById('province-popup');
+    if (!popup) {
+      popup = document.createElement('div');
+      popup.id        = 'province-popup';
+      popup.className = 'province-popup';
+      popup.setAttribute('role',            'dialog');
+      popup.setAttribute('aria-modal',      'true');
+      popup.setAttribute('aria-labelledby', 'province-popup-title');
+      popup.innerHTML =
+        '<button class="province-popup__close" aria-label="Đóng">&#x2715;</button>' +
+        '<h3 class="province-popup__title" id="province-popup-title"></h3>' +
+        '<ul class="province-popup__members" aria-label="Danh sách thành viên"></ul>';
+      document.body.appendChild(popup);
+    }
+
+    var popupTitle   = popup.querySelector('.province-popup__title');
+    var popupMembers = popup.querySelector('.province-popup__members');
+    var popupClose   = popup.querySelector('.province-popup__close');
+
+    // Derive initials from the last word of a Vietnamese name (given name).
+    function getInitials(name) {
+      var parts = String(name).trim().split(/\s+/);
+      return parts[parts.length - 1].charAt(0).toUpperCase();
+    }
+
+    function openPopup(pathId, is34) {
+      var label    = getLabel(pathId, is34);
+      var contacts = (mapData.contacts && mapData.contacts[pathId]) || null;
+      var members  = contacts ? (contacts.members || []) : [];
+
+      popupTitle.textContent = label;
+
+      if (!members.length) {
+        popupMembers.innerHTML =
+          '<li class="province-popup__empty">Chưa có thông tin liên hệ</li>';
+      } else {
+        popupMembers.innerHTML = members.map(function (m) {
+          return (
+            '<li class="province-popup__member">' +
+              '<span class="province-popup__avatar">' + esc(getInitials(m.name)) + '</span>' +
+              '<span class="province-popup__info">' +
+                '<span class="province-popup__name">' + esc(m.name) + '</span>' +
+                '<span class="province-popup__role">' + esc(m.role) + '</span>' +
+                '<a class="province-popup__link" href="' + safeHref(m.contact) + '">Liên hệ ›</a>' +
+              '</span>' +
+            '</li>'
+          );
+        }).join('');
+      }
+
+      popup.classList.add('province-popup--open');
+      popupClose.focus();
+    }
+
+    function closePopup() {
+      popup.classList.remove('province-popup--open');
+    }
+
+    popupClose.addEventListener('click', closePopup);
+
+    // Close on outside click
+    document.addEventListener('click', function (e) {
+      if (
+        popup.classList.contains('province-popup--open') &&
+        !popup.contains(e.target) &&
+        !e.target.closest('.student-map__svg-container')
+      ) {
+        closePopup();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closePopup(); }
+    });
+
+    // ── Province label helper ─────────────────────────────────────────────────
     function getLabel(pathId, is34) {
       var lang      = mapData.lang || 'vi';
       var lookupKey = is34 ? 'provinces_34' : 'provinces';
@@ -33,12 +123,11 @@
       return lang === 'en' ? (entry['en'] || entry['vi']) : entry['vi'];
     }
 
-    // Apply fill classes to provinces with student data
+    // ── Apply student data fill classes ──────────────────────────────────────
     function applyData(container, students, is34) {
       if (!container) { return; }
       container.querySelectorAll('path').forEach(function (path) {
         path.classList.remove('province--low', 'province--mid', 'province--high', 'province--active');
-        // Enable hover for ALL provinces using name lookup
         path.classList.add('province--hover');
       });
       students.forEach(function (entry) {
@@ -57,7 +146,7 @@
       });
     }
 
-    // Tooltip
+    // ── Tooltip (hover) ───────────────────────────────────────────────────────
     function showTooltip(e, path, is34) {
       if (!tooltip) { return; }
       var label = getLabel(path.id, is34);
@@ -85,27 +174,38 @@
       tooltip.style.top  = y + 'px';
     }
 
+    // ── Event binding ─────────────────────────────────────────────────────────
     function bindEvents(container, is34) {
       if (!container) { return; }
       container.querySelectorAll('path').forEach(function (path) {
+        path.style.cursor = 'pointer';
+
         path.addEventListener('mouseenter', function (e) { showTooltip(e, path, is34); });
         path.addEventListener('mousemove',  function (e) { positionTooltip(e); });
         path.addEventListener('mouseleave', hideTooltip);
+
+        path.addEventListener('click', function () {
+          hideTooltip();
+          openPopup(path.id, is34);
+        });
+
         path.addEventListener('touchstart', function (e) {
           e.preventDefault();
           showTooltip(e, path, is34);
         }, { passive: false });
+
         path.addEventListener('touchend', function () {
-          setTimeout(hideTooltip, 1800);
+          hideTooltip();
+          openPopup(path.id, is34);
         });
       });
     }
 
-    // Toggle between 63 and 34 province maps
+    // ── Map toggle ────────────────────────────────────────────────────────────
     function switchMap(toKey) {
-      if (!containers[toKey]) { return; }
-      if (toKey === activeMap) { return; }
+      if (!containers[toKey] || toKey === activeMap) { return; }
       hideTooltip();
+      closePopup();
       Object.keys(containers).forEach(function (key) {
         var c = containers[key];
         if (!c) { return; }
