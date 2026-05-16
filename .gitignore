@@ -21,3 +21,6 @@ database/*.bak
 *.sublime-project
 *.sublime-workspace
 .planning/
+
+# Documentation and planning files
+Y_Tuong_De_Muc_Website_HBVL.md
