@@ -2711,6 +2711,7 @@ article.page {
   cursor: default;
 }
 
+.student-map__svg-container path.province--hover,
 .student-map__svg-container path.province--active {
   cursor: pointer;
 }
@@ -2727,10 +2728,16 @@ article.page {
   fill: #c0392b;
 }
 
+.student-map__svg-container path.province--hover:hover,
 .student-map__svg-container path.province--active:hover,
 .student-map__svg-container path.province--active:focus {
-  fill: #922b21;
+  fill: #b5bca8;
   outline: none;
+}
+.student-map__svg-container path.province--low:hover,
+.student-map__svg-container path.province--mid:hover,
+.student-map__svg-container path.province--high:hover {
+  fill: #922b21;
 }
 
 /* Tooltip */
