@@ -562,3 +562,29 @@ function vuonlen_handle_submit_post() {
         'Your post has been submitted successfully! An admin will review it shortly.'
     ) ] );
 }
+
+// ─── Social Links Customizer ──────────────────────────────────────────────────
+add_action( 'customize_register', function ( WP_Customize_Manager $wp_customize ) {
+    $wp_customize->add_section( 'charity_social_links', [
+        'title'    => charity_t( 'Mạng xã hội', 'Social Links' ),
+        'priority' => 120,
+    ] );
+
+    $socials = [
+        'charity_social_facebook'  => charity_t( 'Facebook URL',  'Facebook URL' ),
+        'charity_social_youtube'   => charity_t( 'YouTube URL',   'YouTube URL' ),
+        'charity_social_instagram' => charity_t( 'Instagram URL', 'Instagram URL' ),
+    ];
+
+    foreach ( $socials as $setting_id => $label ) {
+        $wp_customize->add_setting( $setting_id, [
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ] );
+        $wp_customize->add_control( $setting_id, [
+            'label'   => $label,
+            'section' => 'charity_social_links',
+            'type'    => 'url',
+        ] );
+    }
+} );
