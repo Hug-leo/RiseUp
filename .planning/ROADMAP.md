@@ -11,6 +11,7 @@ Milestone v1 — Section Beautification & UI Polish. Fully realize all 5 content
 - [ ] **Phase 3: Section-Specific Category Page Templates** - Distinct layouts for Song Library, Profile showcase, and Tips grid
 - [x] **Phase 4: Navigation, Social Links & SEO** - Wire social links via Customizer and add Open Graph meta tags (completed 2026-05-16)
 - [ ] **Phase 5: README & Documentation Update** - Accurate README with updated screenshots and content architecture docs
+- [ ] **Phase 6: Contact Section Update & Interactive Student Map** - Update contact info and add interactive Vietnam map with 34/63 province toggle
 
 ## Phase Details
 
@@ -95,6 +96,7 @@ Plans:
 | 3. Section-Specific Category Page Templates | 0/3 | Not started | - |
 | 4. Navigation, Social Links & SEO | 2/2 | Complete   | 2026-05-16 |
 | 5. README & Documentation Update | 0/2 | Not started | - |
+| 6. Contact Section Update & Interactive Student Map | 0/3 | Not started | - |
 
 ---
 
@@ -104,6 +106,22 @@ Plans:
 - Full song library with lyrics and search (SONG-01 through SONG-03)
 - Member profile pages (COMM-01)
 - Newsletter subscription (COMM-02)
+
+### Phase 6: Contact Section Update & Interactive Student Map
+**Goal**: Update the contact section with the real school address and phone number, then build an interactive Vietnam student origin map with sample student data and a toggle between the new 34-province and classic 63-province administrative maps.
+**Depends on**: Phase 2
+**Requirements**: CONTACT-01, MAP-01, MAP-02, MAP-03
+**Success Criteria** (what must be TRUE):
+  1. Contact section shows correct address: 43D/46 Hồ Văn Huê, P. Đức Nhuận, TP. HCM and phone 084.3214.142
+  2. Interactive student origin map is displayed with sample student pins across provinces
+  3. Map toggle switches between Vietnam 34-province (new 2025) and 63-province (classic) administrative divisions
+  4. Map is mobile-responsive and visually polished with smooth province-fill hover states
+  5. All new strings use `charity_t($vi, $en)` bilingual helper
+
+Plans:
+- [ ] 06-01: Update contact section address and phone number
+- [ ] 06-02: Build interactive student origin map with province-based choropleth and sample data
+- [ ] 06-03: Add 34-province / 63-province toggle and mobile polish
 
 ---
 *Roadmap created: 2026-05-16*
