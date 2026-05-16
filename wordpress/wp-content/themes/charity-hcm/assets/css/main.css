@@ -2685,40 +2685,33 @@ article.page {
   position: relative;
   max-width: 360px;
   margin: 0 auto var(--space-md);
+  padding: 12px;
+  border-radius: 14px;
+  background: linear-gradient(165deg, #f9fbff 0%, #eef4ff 100%);
+  box-shadow: 0 14px 28px rgba(13, 71, 161, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .student-map__svg-container {
   display: none;
   width: 100%;
-  position: relative;
 }
 
 .student-map__svg-container.active {
   display: block;
 }
 
-.student-map__base-image {
+.student-map__svg-container svg {
   width: 100%;
   height: auto;
-  display: block;
-  border-radius: 10px;
-  box-shadow: var(--shadow-sm);
-}
-
-.student-map__svg-container svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   display: block;
 }
 
 /* Province fill tiers */
 .student-map__svg-container path {
-  fill: transparent;
-  stroke: transparent;
-  stroke-width: 0.5;
-  transition: fill 0.2s ease;
+  fill: #edf2fb;
+  stroke: #ffffff;
+  stroke-width: 1.2;
+  transition: fill 0.22s ease, transform 0.22s ease, filter 0.22s ease;
   cursor: default;
 }
 
@@ -2728,27 +2721,36 @@ article.page {
 }
 
 .student-map__svg-container path.province--low {
-  fill: rgba(244, 196, 178, 0.35);
+  fill: #ffd9c8;
 }
 
 .student-map__svg-container path.province--mid {
-  fill: rgba(224, 122, 95, 0.35);
+  fill: #ffaf91;
 }
 
 .student-map__svg-container path.province--high {
-  fill: rgba(192, 57, 43, 0.4);
+  fill: #ff7d64;
 }
 
 .student-map__svg-container path.province--hover:hover,
 .student-map__svg-container path.province--active:hover,
 .student-map__svg-container path.province--active:focus {
-  fill: rgba(181, 188, 168, 0.35);
+  fill: #d9e6ff;
+  transform: translateY(-1px);
+  filter: drop-shadow(0 2px 4px rgba(13, 71, 161, 0.18));
   outline: none;
 }
+
 .student-map__svg-container path.province--low:hover,
 .student-map__svg-container path.province--mid:hover,
 .student-map__svg-container path.province--high:hover {
-  fill: rgba(146, 43, 33, 0.45);
+  fill: #ff5e48;
+}
+
+.student-map__svg-container svg text {
+  font-weight: 700;
+  fill: #2f3a56;
+  opacity: 0.9;
 }
 
 /* Tooltip */

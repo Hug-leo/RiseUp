@@ -117,7 +117,6 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
                         <div class="student-map__wrap">
                             <!-- SVG container: 63-province view (default active) -->
                             <div class="student-map__svg-container active" id="student-map-63" aria-hidden="true">
-                                <img class="student-map__base-image" src="<?php echo esc_url( CHARITY_HCM_URI . '/assets/img/vietnam-map.jpg' ); ?>" alt="<?php echo esc_attr( charity_t( 'Bản đồ Việt Nam', 'Vietnam map' ) ); ?>">
                                 <?php
                                 $svg_63 = get_template_directory() . '/assets/img/vietnam-63-provinces.svg';
                                 if ( file_exists( $svg_63 ) ) {
@@ -129,7 +128,6 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
 
                             <!-- SVG container: 34-province view (hidden by default) -->
                             <div class="student-map__svg-container" id="student-map-34" aria-hidden="true">
-                                <img class="student-map__base-image" src="<?php echo esc_url( CHARITY_HCM_URI . '/assets/img/vietnam-map.jpg' ); ?>" alt="<?php echo esc_attr( charity_t( 'Bản đồ Việt Nam', 'Vietnam map' ) ); ?>">
                                 <?php
                                 $svg_34 = get_template_directory() . '/assets/img/vietnam-34-provinces.svg';
                                 if ( file_exists( $svg_34 ) ) {
