@@ -4,6 +4,39 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="https://gmpg.org/xfn/11">
+<?php
+// Open Graph meta tags — SEO-02
+if ( is_singular() ) {
+    $og_title       = esc_attr( get_the_title() );
+    $og_description = esc_attr( wp_trim_words( wp_strip_all_tags( get_the_excerpt() ), 30, '...' ) );
+    $og_url         = esc_url( get_permalink() );
+    $og_image       = has_post_thumbnail()
+        ? esc_url( get_the_post_thumbnail_url( null, 'large' ) )
+        : esc_url( CHARITY_HCM_URI . '/assets/img/dong-du-logo.jpg' );
+    ?>
+    <meta property="og:type"        content="article" />
+    <meta property="og:title"       content="<?php echo $og_title; ?>" />
+    <meta property="og:description" content="<?php echo $og_description; ?>" />
+    <meta property="og:url"         content="<?php echo $og_url; ?>" />
+    <meta property="og:image"       content="<?php echo $og_image; ?>" />
+    <?php
+} elseif ( is_category() ) {
+    $cat_desc       = category_description();
+    $og_title       = esc_attr( single_cat_title( '', false ) . ' | ' . get_bloginfo( 'name' ) );
+    $og_description = $cat_desc
+        ? esc_attr( wp_trim_words( wp_strip_all_tags( $cat_desc ), 30, '...' ) )
+        : esc_attr( get_bloginfo( 'description' ) );
+    $og_url         = esc_url( get_category_link( get_queried_object_id() ) );
+    $og_image       = esc_url( CHARITY_HCM_URI . '/assets/img/dong-du-logo.jpg' );
+    ?>
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="<?php echo $og_title; ?>" />
+    <meta property="og:description" content="<?php echo $og_description; ?>" />
+    <meta property="og:url"         content="<?php echo $og_url; ?>" />
+    <meta property="og:image"       content="<?php echo $og_image; ?>" />
+    <?php
+}
+?>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
