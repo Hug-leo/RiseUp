@@ -137,8 +137,8 @@ Plans:
   5. Province detail template uses `charity_t()` for all bilingual strings
 
 Plans:
-- [ ] 07-01: Extend contact-dongdu.json with slugs + download/compress 34 province photos
-- [ ] 07-02: WordPress rewrite rule + page-tinh.php province detail template
+- [x] 07-01: Extend contact-dongdu.json with slugs + download/compress 34 province photos
+- [x] 07-02: WordPress rewrite rule + page-tinh.php province detail template
 - [ ] 07-03: Extend student-map.js click navigation + province detail CSS
 
 ---
