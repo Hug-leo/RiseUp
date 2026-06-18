@@ -21,8 +21,18 @@
 
   // Allow only relative URLs (starts with / or #) for contact links.
   function safeHref(url) {
-    var s = String(url || '#');
-    return /^[/#]/.test(s) ? s : '#';
+    var s = String(url || '#').trim();
+    if (s.charAt(0) === '#') { return '#'; }
+    if (s.charAt(0) === '/') {
+      var mapData = window.vuonlenMap || {};
+      var base = mapData.homeUrl || (window.location.origin + '/');
+      try {
+        return new URL(s.replace(/^\/+/, ''), base).href;
+      } catch (err) {
+        return '#';
+      }
+    }
+    return '#';
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -37,6 +47,22 @@
     var toggleBtns = document.querySelectorAll('.map-toggle-btn');
     var activeMap  = '63';
 
+    function t(vi, en) {
+      return (mapData.lang || 'vi') === 'en' ? en : vi;
+    }
+
+    function provinceUrl(slug) {
+      var base = String(mapData.provinceBaseUrl || '');
+      var cleanSlug = String(slug || '').replace(/^\/+|\/+$/g, '');
+      if (!base || !cleanSlug) { return '#'; }
+      if (base.charAt(base.length - 1) !== '/') { base += '/'; }
+      return base + encodeURIComponent(cleanSlug) + '/';
+    }
+
+    function canOpenDetail(contactData) {
+      return Boolean(contactData && contactData.slug && contactData.has_detail !== false);
+    }
+
     // ── Province contact popup ────────────────────────────────────────────────
     var popup = document.getElementById('province-popup');
     if (!popup) {
@@ -47,9 +73,9 @@
       popup.setAttribute('aria-modal',      'true');
       popup.setAttribute('aria-labelledby', 'province-popup-title');
       popup.innerHTML =
-        '<button class="province-popup__close" aria-label="Đóng">&#x2715;</button>' +
+        '<button class="province-popup__close" aria-label="' + esc(t('Đóng', 'Close')) + '">&#x2715;</button>' +
         '<h3 class="province-popup__title" id="province-popup-title"></h3>' +
-        '<ul class="province-popup__members" aria-label="Danh sách thành viên"></ul>';
+        '<ul class="province-popup__members" aria-label="' + esc(t('Danh sách thành viên', 'Member list')) + '"></ul>';
       document.body.appendChild(popup);
     }
 
@@ -73,7 +99,7 @@
 
       if (!members.length) {
         popupMembers.innerHTML =
-          '<li class="province-popup__empty">Chưa có thông tin liên hệ</li>';
+          '<li class="province-popup__empty">' + esc(t('Chưa có thông tin thành viên cho tỉnh này.', 'No member details are available for this province yet.')) + '</li>';
       } else {
         popupMembers.innerHTML = members.map(function (m) {
           return (
@@ -82,7 +108,7 @@
               '<span class="province-popup__info">' +
                 '<span class="province-popup__name">' + esc(m.name) + '</span>' +
                 '<span class="province-popup__role">' + esc(m.role) + '</span>' +
-                '<a class="province-popup__link" href="' + safeHref(m.contact) + '">Liên hệ ›</a>' +
+                '<a class="province-popup__link" href="' + esc(safeHref(m.contact)) + '">' + esc(t('Liên hệ', 'Contact')) + ' &rsaquo;</a>' +
               '</span>' +
             '</li>'
           );
@@ -193,20 +219,35 @@
         // Add province-clickable class for provinces with a slug (enables cursor CSS)
         var sourceContacts = contactsForMap(is34);
         var contactInfo = sourceContacts && sourceContacts[path.id];
-        if (contactInfo && contactInfo.slug) {
+        if (canOpenDetail(contactInfo)) {
           path.classList.add('province-clickable');
         }
 
-        path.addEventListener('click', function () {
+        path.setAttribute('tabindex', '0');
+        path.setAttribute('role', 'button');
+        path.setAttribute('aria-label', getLabel(path.id, is34));
+
+        function activateProvince() {
           var code = path.id;
           var sourceContacts = contactsForMap(is34);
           var contactData = sourceContacts && sourceContacts[code];
-          if (contactData && contactData.slug) {
-            window.location.href = '/tinh/' + contactData.slug + '/';
-            return; // Navigate — do not show popup
+          if (canOpenDetail(contactData)) {
+            window.location.href = provinceUrl(contactData.slug);
+            return;
           }
           hideTooltip();
           openPopup(path.id, is34);
+        }
+
+        path.addEventListener('click', function () {
+          activateProvince();
+        });
+
+        path.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activateProvince();
+          }
         });
 
         path.addEventListener('touchstart', function (e) {
@@ -215,15 +256,7 @@
         }, { passive: false });
 
         path.addEventListener('touchend', function () {
-          var code = path.id;
-          var sourceContacts = contactsForMap(is34);
-          var contactData = sourceContacts && sourceContacts[code];
-          if (contactData && contactData.slug) {
-            window.location.href = '/tinh/' + contactData.slug + '/';
-            return; // Navigate on touch for member provinces
-          }
-          hideTooltip();
-          openPopup(path.id, is34);
+          activateProvince();
         });
       });
     }

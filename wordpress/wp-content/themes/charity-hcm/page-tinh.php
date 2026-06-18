@@ -10,18 +10,9 @@
 $province_slug = sanitize_title( get_query_var( 'province_slug' ) );
 
 // Load province data from JSON.
-$contacts_file = CHARITY_HCM_DIR . '/data/province-directory.json';
-$all_provinces = [];
-if ( file_exists( $contacts_file ) ) {
-    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-    $raw = file_get_contents( $contacts_file );
-    if ( $raw ) {
-        $decoded = json_decode( $raw, true );
-        if ( is_array( $decoded ) ) {
-            $all_provinces = $decoded;
-        }
-    }
-}
+$all_provinces = function_exists( 'charity_vuonlen_load_province_directory' )
+    ? charity_vuonlen_load_province_directory()
+    : [];
 
 // Find province by slug.
 $province_data = null;
@@ -43,15 +34,21 @@ if ( ! $province_data ) {
     exit;
 }
 
-$province_name = esc_html( $province_data['name'] );
-$members       = $province_data['members'] ?? [];
-$photo_url     = esc_url( CHARITY_HCM_URI . '/assets/img/provinces/' . $province_slug . '.jpg' );
-$map_cat       = get_category_by_slug( 'ban-do-vuon-len' );
-$back_url      = $map_cat ? esc_url( get_category_link( $map_cat->term_id ) ) : esc_url( home_url( '/' ) );
+$province_name_raw = ( function_exists( 'charity_get_lang' ) && charity_get_lang() === 'en' && ! empty( $province_data['name_en'] ) )
+    ? $province_data['name_en']
+    : $province_data['name'];
+$province_name     = esc_html( $province_name_raw );
+$members           = isset( $province_data['members'] ) && is_array( $province_data['members'] ) ? $province_data['members'] : [];
+$photo_path        = CHARITY_HCM_DIR . '/assets/img/provinces/' . $province_slug . '.jpg';
+$photo_url         = file_exists( $photo_path )
+    ? CHARITY_HCM_URI . '/assets/img/provinces/' . $province_slug . '.jpg'
+    : charity_vietnam_map_image_url();
+$map_cat           = get_category_by_slug( 'ban-do-vuon-len' );
+$back_url          = $map_cat ? get_category_link( $map_cat->term_id ) : home_url( '/' );
 
 // Set document title for this virtual page.
-add_filter( 'document_title_parts', function ( $title ) use ( $province_name ) {
-    $title['title'] = $province_name . ' — ' . charity_t( 'Bản đồ Vươn Lên', 'Rise Up Map' );
+add_filter( 'document_title_parts', function ( $title ) use ( $province_name_raw ) {
+    $title['title'] = $province_name_raw . ' — ' . charity_t( 'Bản đồ Vươn Lên', 'Rise Up Map' );
     return $title;
 } );
 
@@ -62,7 +59,7 @@ get_header();
 
     <div class="province-detail__hero">
         <img
-            src="<?php echo $photo_url; ?>"
+            src="<?php echo esc_url( $photo_url ); ?>"
             alt="<?php echo $province_name; ?>"
             class="province-detail__photo"
             width="1200"
@@ -71,7 +68,7 @@ get_header();
         >
         <div class="province-detail__title-wrap">
             <h1 class="province-detail__title"><?php echo $province_name; ?></h1>
-            <a href="<?php echo $back_url; ?>" class="province-detail__back">
+            <a href="<?php echo esc_url( $back_url ); ?>" class="province-detail__back">
                 ← <?php echo charity_t( 'Về bản đồ', 'Back to map' ); ?>
             </a>
         </div>
@@ -94,11 +91,17 @@ get_header();
             </thead>
             <tbody>
                 <?php foreach ( $members as $member ) : ?>
+                <?php
+                $member_contact = $member['contact'] ?? '#';
+                if ( str_starts_with( $member_contact, '/' ) ) {
+                    $member_contact = home_url( $member_contact );
+                }
+                ?>
                 <tr>
-                    <td><?php echo esc_html( $member['name'] ); ?></td>
-                    <td><?php echo esc_html( $member['role'] ); ?></td>
+                    <td><?php echo esc_html( $member['name'] ?? '' ); ?></td>
+                    <td><?php echo esc_html( $member['role'] ?? '' ); ?></td>
                     <td>
-                        <a href="<?php echo esc_url( $member['contact'] ); ?>">
+                        <a href="<?php echo esc_url( $member_contact ); ?>">
                             <?php echo charity_t( 'Liên hệ', 'Contact' ); ?>
                         </a>
                     </td>
