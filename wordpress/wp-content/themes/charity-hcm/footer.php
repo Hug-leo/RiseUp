@@ -12,8 +12,8 @@
                 </div>
                 <p class="footer__about">
                     <?php echo charity_t(
-                        'Website triển khai 5 nhóm nội dung chính của Học Bổng Vươn Lên và sẵn sàng mở rộng thêm trang chuyên đề, bản đồ cộng đồng, bộ lọc và công cụ quản trị nội dung.',
-                        'The website now supports 5 core Rise Up content groups and is ready to expand with feature pages, community map, filters, and content operations tools.'
+                        'Website lưu giữ tin tức, câu chuyện học bổng, hoạt động cộng đồng và bản đồ kết nối của Học Bổng Vươn Lên.',
+                        'The website gathers Rise Up news, scholarship stories, community activities, and the member connection map.'
                     ); ?>
                 </p>
             </div>
@@ -22,7 +22,7 @@
                 <h4 class="footer__heading"><?php echo charity_t( 'Liên kết nhanh', 'Quick Links' ); ?></h4>
                 <ul class="footer__nav">
                     <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo charity_t( 'Trang chủ', 'Home' ); ?></a></li>
-                    <li><a href="#content-roadmap"><?php echo charity_t( 'Chuyên mục', 'Sections' ); ?></a></li>
+                    <li><a href="<?php echo esc_url( home_url( '/#featured-stories' ) ); ?>"><?php echo charity_t( 'Tin nổi bật', 'Featured Stories' ); ?></a></li>
                     <li><a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>"><?php echo charity_t( 'Bài viết', 'Stories' ); ?></a></li>
                     <li><a href="<?php echo esc_url( home_url( '/lien-he/' ) ); ?>"><?php echo charity_t( 'Liên hệ', 'Contact' ); ?></a></li>
                 </ul>
