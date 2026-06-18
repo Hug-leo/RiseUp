@@ -3642,3 +3642,151 @@ textarea:focus-visible {
     white-space: nowrap;
   }
 }
+
+/* ── Regression guard: full-width shell, readable hero, stable header ─── */
+html,
+body,
+#page,
+.site {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+  transform: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.topbar,
+.site-header,
+.cp-hero,
+.hero,
+.page-banner,
+.site-footer,
+.section,
+.content-wrap {
+  width: 100%;
+  max-width: none;
+}
+
+.container,
+.topbar__inner,
+.header__inner,
+.page-banner__inner,
+.footer__inner {
+  width: 100%;
+}
+
+.content-wrap.no-sidebar .container {
+  max-width: var(--container-wide);
+}
+
+.cp-posts .container,
+.search-results-page .container {
+  max-width: var(--container-wide);
+}
+
+.cp-hero,
+.cp-hero h1,
+.cp-hero .cp-hero__eyebrow,
+.cp-hero .cp-hero__subtitle,
+.cp-hero .btn {
+  color: #fff;
+}
+
+.cp-hero h1 {
+  text-shadow: 0 2px 18px rgba(0, 20, 60, .28);
+}
+
+.cp-hero .btn--primary {
+  color: var(--primary);
+}
+
+.cp-hero .btn--primary:hover,
+.cp-hero .btn--primary:focus-visible {
+  color: #000;
+}
+
+@media (min-width: 901px) {
+  .header__inner {
+    max-width: min(1240px, 100%);
+    grid-template-columns: minmax(170px, 220px) minmax(0, 1fr);
+  }
+
+  .header__brand,
+  .main-nav,
+  .nav-menu {
+    min-width: 0;
+  }
+
+  .header__brand {
+    overflow: hidden;
+  }
+
+  .nav-menu {
+    gap: 1px;
+  }
+
+  .nav-menu > li > a {
+    max-width: 128px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-search-form {
+    transition: flex-basis var(--transition), width var(--transition), max-width var(--transition), border-color var(--transition), background-color var(--transition), box-shadow var(--transition);
+  }
+}
+
+@media (min-width: 1181px) {
+  .header__inner {
+    grid-template-columns: minmax(200px, 240px) minmax(0, 1fr);
+  }
+
+  .header__tagline {
+    max-width: 170px;
+  }
+
+  .nav-menu > li > a {
+    padding-inline: 9px;
+    font-size: .76rem;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1080px) {
+  .header__inner {
+    grid-template-columns: minmax(148px, 172px) minmax(0, 1fr);
+  }
+
+  .header__brand {
+    gap: 7px;
+  }
+
+  .header__site-name {
+    font-size: .84rem;
+  }
+
+  .header__tagline {
+    max-width: 104px;
+  }
+
+  .nav-menu > li > a {
+    max-width: 92px;
+    padding-inline: 5px;
+    font-size: .64rem;
+  }
+
+  .nav-search-form:focus-within,
+  .nav-search-form.is-active {
+    flex-basis: 112px;
+    width: 112px;
+    max-width: 112px;
+  }
+
+  .nav-search-form:focus-within .nav-search-input,
+  .nav-search-form.is-active .nav-search-input {
+    width: 68px;
+  }
+}
