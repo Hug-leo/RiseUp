@@ -80,21 +80,63 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
             <?php endif; ?>
 
             <?php if ( $current_item && $current_item['slug'] === 'ban-do-vuon-len' ) : ?>
-                <section class="category-map-demo">
-                    <div class="category-map-demo__map" aria-hidden="true">
-                        <img src="<?php echo esc_url( charity_vietnam_map_image_url() ); ?>" alt="">
-                        <span class="cp-map-pin cp-map-pin--north"></span>
-                        <span class="cp-map-pin cp-map-pin--central"></span>
-                        <span class="cp-map-pin cp-map-pin--south"></span>
+                <section class="student-map-section" id="student-map-interactive">
+                    <div class="student-map__header">
+                        <span class="section-label"><?php echo charity_t( 'Bản đồ tương tác', 'Interactive map' ); ?></span>
+                        <h2 class="student-map__title">
+                            <?php echo esc_html( charity_t( 'Bản đồ sinh viên Vươn Lên', 'Rise Up Student Origins' ) ); ?>
+                        </h2>
+                        <p class="student-map__desc">
+                            <?php echo esc_html( charity_t(
+                                'Khám phá quê quán và nơi kết nối của các thành viên Vươn Lên trên khắp Việt Nam.',
+                                'Explore the hometowns and connection points of Rise Up members across Vietnam.'
+                            ) ); ?>
+                        </p>
                     </div>
-                    <div class="category-map-demo__content">
-                        <span class="section-label"><?php echo charity_t( 'Ý tưởng UI', 'UI Concept' ); ?></span>
-                        <h2><?php echo charity_t( 'Bản đồ kết nối thành viên', 'Member Connection Map' ); ?></h2>
-                        <p><?php echo charity_t(
-                            'Giai đoạn tiếp theo có thể thay mockup này bằng bản đồ tương tác, cho phép lọc theo tỉnh, trạng thái thành viên, mục đích liên hệ và gợi ý chuyến đi chung.',
-                            'A later phase can replace this mockup with an interactive map supporting province filters, member status, contact purpose, and trip planning.'
-                        ); ?></p>
+
+                    <div class="student-map__toggle" role="group" aria-label="<?php echo esc_attr( charity_t( 'Chọn phân chia tỉnh thành', 'Select province division' ) ); ?>">
+                        <button class="map-toggle-btn active" data-map="63" type="button">
+                            <span><?php echo esc_html( charity_t( '63 tỉnh thành', '63 provinces' ) ); ?></span>
+                        </button>
+                        <button class="map-toggle-btn" data-map="34" type="button">
+                            <span><?php echo esc_html( charity_t( '34 tỉnh thành', '34 provinces' ) ); ?></span>
+                        </button>
                     </div>
+
+                    <div class="student-map__wrap" aria-live="polite">
+                        <div class="student-map__svg-container active" id="student-map-63" data-map="63" aria-hidden="false">
+                            <?php
+                            $svg_63 = CHARITY_HCM_DIR . '/assets/img/vietnam-63-provinces.svg';
+                            if ( file_exists( $svg_63 ) ) {
+                                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme SVG asset.
+                                echo file_get_contents( $svg_63 );
+                            } else {
+                                echo '<p class="student-map__fallback">' . esc_html( charity_t( 'Chưa tìm thấy bản đồ 63 tỉnh thành.', 'The 63-province map asset is missing.' ) ) . '</p>';
+                            }
+                            ?>
+                        </div>
+
+                        <div class="student-map__svg-container" id="student-map-34" data-map="34" aria-hidden="true">
+                            <?php
+                            $svg_34 = CHARITY_HCM_DIR . '/assets/img/vietnam-34-provinces.svg';
+                            if ( file_exists( $svg_34 ) ) {
+                                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme SVG asset.
+                                echo file_get_contents( $svg_34 );
+                            } else {
+                                echo '<p class="student-map__fallback">' . esc_html( charity_t( 'Chưa tìm thấy bản đồ 34 tỉnh thành.', 'The 34-province map asset is missing.' ) ) . '</p>';
+                            }
+                            ?>
+                        </div>
+
+                        <div class="student-map__tooltip" id="student-map-tooltip" role="tooltip" aria-live="polite"></div>
+                    </div>
+
+                    <p class="student-map__note">
+                        <?php echo esc_html( charity_t(
+                            'Số lượng được tính từ danh sách thành viên theo từng tỉnh.',
+                            'Counts are derived from the member list for each province.'
+                        ) ); ?>
+                    </p>
                 </section>
             <?php endif; ?>
 

@@ -56,7 +56,187 @@ add_action( 'wp_enqueue_scripts', function () {
         'nonce'        => wp_create_nonce( 'charity_load_more' ),
         'loadMoreText' => charity_t( 'Xem thêm bài viết', 'Load more stories' ),
     ] );
+
+    if ( charity_is_student_map_category() ) {
+        wp_enqueue_script(
+            'charity-student-map',
+            CHARITY_HCM_URI . '/assets/js/student-map.js',
+            [],
+            CHARITY_HCM_VERSION,
+            true
+        );
+
+        $province_directory = charity_vuonlen_load_province_directory();
+        $provinces_63       = charity_vuonlen_province_lookup_63( $province_directory );
+        $provinces_34       = charity_vuonlen_province_lookup_34();
+        $contacts_63        = charity_vuonlen_contacts_for_lookup( $provinces_63, $province_directory );
+        $contacts_34        = charity_vuonlen_contacts_for_lookup( $provinces_34, $province_directory );
+
+        wp_localize_script( 'charity-student-map', 'vuonlenMap', [
+            'lang'            => function_exists( 'charity_get_lang' ) ? charity_get_lang() : 'vi',
+            'homeUrl'         => trailingslashit( home_url( '/' ) ),
+            'provinceBaseUrl' => trailingslashit( home_url( '/tinh/' ) ),
+            'students'        => charity_vuonlen_student_counts( $contacts_63 ),
+            'students_34'     => charity_vuonlen_student_counts( $contacts_34 ),
+            'provinces'       => $provinces_63,
+            'provinces_34'    => $provinces_34,
+            'contacts_63'     => $contacts_63,
+            'contacts_34'     => $contacts_34,
+            'contacts'        => $contacts_63,
+        ] );
+    }
 } );
+
+function charity_is_student_map_category() {
+    if ( ! is_category() ) {
+        return false;
+    }
+
+    $queried = get_queried_object();
+    return $queried instanceof WP_Term && $queried->slug === 'ban-do-vuon-len';
+}
+
+function charity_vuonlen_load_province_directory() {
+    static $directory = null;
+
+    if ( null !== $directory ) {
+        return $directory;
+    }
+
+    $directory = [];
+    $path      = CHARITY_HCM_DIR . '/data/province-directory.json';
+
+    if ( ! file_exists( $path ) ) {
+        return $directory;
+    }
+
+    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+    $raw = file_get_contents( $path );
+    if ( ! $raw ) {
+        return $directory;
+    }
+
+    $decoded = json_decode( $raw, true );
+    if ( is_array( $decoded ) ) {
+        $directory = $decoded;
+    }
+
+    return $directory;
+}
+
+function charity_vuonlen_province_lookup_63( array $directory ) {
+    $lookup = [];
+
+    foreach ( $directory as $code => $entry ) {
+        if ( ! is_array( $entry ) || empty( $entry['name'] ) ) {
+            continue;
+        }
+
+        $lookup[ $code ] = [
+            'vi' => $entry['name'],
+            'en' => $entry['name_en'] ?? $entry['name'],
+        ];
+    }
+
+    return $lookup;
+}
+
+function charity_vuonlen_province_lookup_34() {
+    return [
+        'p11' => [ 'vi' => 'Hà Nội',          'en' => 'Hanoi' ],
+        'p12' => [ 'vi' => 'TP. Hồ Chí Minh', 'en' => 'Ho Chi Minh City' ],
+        'p13' => [ 'vi' => 'Đà Nẵng',         'en' => 'Da Nang' ],
+        'p14' => [ 'vi' => 'Hải Phòng',       'en' => 'Hai Phong' ],
+        'p15' => [ 'vi' => 'Cần Thơ',         'en' => 'Can Tho' ],
+        'p16' => [ 'vi' => 'Huế',             'en' => 'Hue' ],
+        'p17' => [ 'vi' => 'An Giang',        'en' => 'An Giang' ],
+        'p18' => [ 'vi' => 'Bắc Ninh',        'en' => 'Bac Ninh' ],
+        'p19' => [ 'vi' => 'Cà Mau',          'en' => 'Ca Mau' ],
+        'p20' => [ 'vi' => 'Cao Bằng',        'en' => 'Cao Bang' ],
+        'p21' => [ 'vi' => 'Đắk Lắk',         'en' => 'Dak Lak' ],
+        'p22' => [ 'vi' => 'Điện Biên',       'en' => 'Dien Bien' ],
+        'p23' => [ 'vi' => 'Đồng Nai',        'en' => 'Dong Nai' ],
+        'p24' => [ 'vi' => 'Đồng Tháp',       'en' => 'Dong Thap' ],
+        'p25' => [ 'vi' => 'Gia Lai',         'en' => 'Gia Lai' ],
+        'p26' => [ 'vi' => 'Hà Tĩnh',         'en' => 'Ha Tinh' ],
+        'p27' => [ 'vi' => 'Hưng Yên',        'en' => 'Hung Yen' ],
+        'p28' => [ 'vi' => 'Khánh Hòa',       'en' => 'Khanh Hoa' ],
+        'p29' => [ 'vi' => 'Lai Châu',        'en' => 'Lai Chau' ],
+        'p30' => [ 'vi' => 'Lâm Đồng',        'en' => 'Lam Dong' ],
+        'p31' => [ 'vi' => 'Lạng Sơn',        'en' => 'Lang Son' ],
+        'p32' => [ 'vi' => 'Lào Cai',         'en' => 'Lao Cai' ],
+        'p33' => [ 'vi' => 'Nghệ An',         'en' => 'Nghe An' ],
+        'p34' => [ 'vi' => 'Ninh Bình',       'en' => 'Ninh Binh' ],
+        'p35' => [ 'vi' => 'Phú Thọ',         'en' => 'Phu Tho' ],
+        'p36' => [ 'vi' => 'Quảng Ngãi',      'en' => 'Quang Ngai' ],
+        'p37' => [ 'vi' => 'Quảng Ninh',      'en' => 'Quang Ninh' ],
+        'p38' => [ 'vi' => 'Quảng Trị',       'en' => 'Quang Tri' ],
+        'p39' => [ 'vi' => 'Sơn La',          'en' => 'Son La' ],
+        'p40' => [ 'vi' => 'Tây Ninh',        'en' => 'Tay Ninh' ],
+        'p41' => [ 'vi' => 'Thái Nguyên',     'en' => 'Thai Nguyen' ],
+        'p42' => [ 'vi' => 'Thanh Hóa',       'en' => 'Thanh Hoa' ],
+        'p43' => [ 'vi' => 'Tuyên Quang',     'en' => 'Tuyen Quang' ],
+        'p44' => [ 'vi' => 'Vĩnh Long',       'en' => 'Vinh Long' ],
+    ];
+}
+
+function charity_vuonlen_province_slug_from_name( $name ) {
+    $name = str_replace( [ 'TP. ', 'Thừa Thiên ' ], '', (string) $name );
+    return sanitize_title( $name );
+}
+
+function charity_vuonlen_contacts_for_lookup( array $lookup, array $directory ) {
+    $by_slug = [];
+
+    foreach ( $directory as $entry ) {
+        if ( is_array( $entry ) && ! empty( $entry['slug'] ) ) {
+            $by_slug[ $entry['slug'] ] = $entry;
+        }
+    }
+
+    $contacts = [];
+
+    foreach ( $lookup as $code => $province ) {
+        $slug     = charity_vuonlen_province_slug_from_name( $province['vi'] ?? $code );
+        $has_data = isset( $by_slug[ $slug ] );
+        $entry    = $has_data ? $by_slug[ $slug ] : [
+            'name'    => $province['vi'] ?? $code,
+            'name_en' => $province['en'] ?? ( $province['vi'] ?? $code ),
+            'slug'    => '',
+            'members' => [],
+        ];
+
+        $entry['name']       = $province['vi'] ?? ( $entry['name'] ?? $code );
+        $entry['name_en']    = $province['en'] ?? ( $entry['name_en'] ?? $entry['name'] );
+        $entry['has_detail'] = $has_data;
+
+        if ( empty( $entry['slug'] ) && $has_data ) {
+            $entry['slug'] = $slug;
+        }
+
+        if ( ! isset( $entry['members'] ) || ! is_array( $entry['members'] ) ) {
+            $entry['members'] = [];
+        }
+
+        $contacts[ $code ] = $entry;
+    }
+
+    return $contacts;
+}
+
+function charity_vuonlen_student_counts( array $contacts ) {
+    $counts = [];
+
+    foreach ( $contacts as $code => $entry ) {
+        $members  = isset( $entry['members'] ) && is_array( $entry['members'] ) ? $entry['members'] : [];
+        $counts[] = [
+            'code'  => $code,
+            'count' => count( $members ),
+        ];
+    }
+
+    return $counts;
+}
 
 // ─── Widget Areas ─────────────────────────────────────────────────────────────
 add_action( 'widgets_init', function () {
@@ -485,6 +665,29 @@ function charity_ajax_toggle_like() {
 // ─── Flush rewrite rules on activation ───────────────────────────────────────
 add_action( 'after_switch_theme', function () {
     flush_rewrite_rules();
+} );
+
+// Province detail pages: /tinh/{province-slug}/.
+add_action( 'init', function () {
+    add_rewrite_rule( '^tinh/([^/]+)/?$', 'index.php?province_slug=$matches[1]', 'top' );
+} );
+
+add_filter( 'query_vars', function ( $vars ) {
+    $vars[] = 'province_slug';
+    return $vars;
+} );
+
+add_action( 'template_redirect', function () {
+    $slug = get_query_var( 'province_slug' );
+    if ( ! $slug ) {
+        return;
+    }
+
+    $template = CHARITY_HCM_DIR . '/page-tinh.php';
+    if ( file_exists( $template ) ) {
+        include $template;
+        exit;
+    }
 } );
 
 // ─── Bilingual System (VI/EN) ────────────────────────────────────────────────
