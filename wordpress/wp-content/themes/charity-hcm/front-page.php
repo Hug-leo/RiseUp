@@ -2,7 +2,82 @@
 
 <?php
 $content_groups = function_exists( 'charity_content_groups' ) ? charity_content_groups() : [];
-$submit_url = function_exists( 'charity_submit_post_url' ) ? charity_submit_post_url() : home_url( '/gui-bai-viet/' );
+$submit_url     = function_exists( 'charity_submit_post_url' ) ? charity_submit_post_url() : home_url( '/gui-bai-viet/' );
+$featured_query = new WP_Query( [
+    'post_type'           => 'post',
+    'posts_per_page'      => 5,
+    'post_status'         => 'publish',
+    'orderby'             => 'date',
+    'order'               => 'DESC',
+    'ignore_sticky_posts' => true,
+    'no_found_rows'       => true,
+] );
+$featured_posts = $featured_query->posts;
+$featured_ids   = wp_list_pluck( $featured_posts, 'ID' );
+
+global $post;
+
+$category_label = static function ( $category ) use ( $content_groups ) {
+    if ( ! $category instanceof WP_Term ) {
+        return charity_t( 'Tin HBVL', 'HBVL' );
+    }
+
+    foreach ( $content_groups as $group ) {
+        if ( ! empty( $group['slug'] ) && $group['slug'] === $category->slug ) {
+            return charity_t( $group['title_vi'], $group['title_en'] );
+        }
+
+        foreach ( $group['items'] ?? [] as $item ) {
+            if ( ! empty( $item['slug'] ) && $item['slug'] === $category->slug ) {
+                return charity_t( $item['vi'], $item['en'] );
+            }
+        }
+    }
+
+    return $category->name;
+};
+
+$render_home_card = static function ( $variant = 'standard' ) use ( $category_label ) {
+    $post_categories = get_the_category();
+    $primary_cat     = $post_categories[0] ?? null;
+    $category_name   = $category_label( $primary_cat );
+    $category_url    = $primary_cat instanceof WP_Term ? get_category_link( $primary_cat ) : '';
+    $image_size      = 'lead' === $variant ? 'card-wide' : 'card-thumb';
+    ?>
+    <article <?php post_class( 'vl-news-card vl-news-card--' . sanitize_html_class( $variant ) ); ?>>
+        <a class="vl-news-card__media" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
+            <?php if ( has_post_thumbnail() ) : ?>
+                <?php the_post_thumbnail( $image_size, [ 'alt' => get_the_title(), 'loading' => 'lead' === $variant ? 'eager' : 'lazy' ] ); ?>
+            <?php else : ?>
+                <span class="vl-news-card__placeholder" aria-hidden="true">
+                    <span>HBVL</span>
+                </span>
+            <?php endif; ?>
+        </a>
+
+        <div class="vl-news-card__body">
+            <?php if ( $category_url ) : ?>
+                <a class="vl-news-card__badge" href="<?php echo esc_url( $category_url ); ?>"><?php echo esc_html( $category_name ); ?></a>
+            <?php else : ?>
+                <span class="vl-news-card__badge"><?php echo esc_html( $category_name ); ?></span>
+            <?php endif; ?>
+
+            <h3 class="vl-news-card__title">
+                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+            </h3>
+
+            <p class="vl-news-card__excerpt">
+                <?php echo esc_html( wp_trim_words( get_the_excerpt(), 'lead' === $variant ? 34 : 18 ) ); ?>
+            </p>
+
+            <div class="vl-news-card__meta">
+                <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+                <a href="<?php the_permalink(); ?>"><?php echo esc_html( charity_t( 'Đọc tiếp', 'Read More' ) ); ?></a>
+            </div>
+        </div>
+    </article>
+    <?php
+};
 ?>
 
 <section class="cp-hero" id="home">
@@ -13,55 +88,111 @@ $submit_url = function_exists( 'charity_submit_post_url' ) ? charity_submit_post
         <h1><?php echo charity_t( 'Học Bổng Vươn Lên', 'Rise Up Scholarship' ); ?></h1>
         <p class="cp-hero__subtitle"><?php echo charity_t( 'Một không gian lưu giữ câu chuyện học bổng, kết nối thành viên và lan tỏa tinh thần vươn lên.', 'A home for scholarship stories, member connection, and the spirit of rising through education.' ); ?></p>
         <div class="cp-hero__actions">
-            <a class="btn btn--primary" href="#content-roadmap"><?php echo charity_t( 'Khám phá chuyên mục', 'Explore Sections' ); ?></a>
+            <a class="btn btn--primary" href="#featured-stories"><?php echo charity_t( 'Đọc tin mới', 'Read Stories' ); ?></a>
             <a class="btn btn--outline" href="<?php echo esc_url( $submit_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo charity_t( 'Gửi bài viết', 'Submit a Story' ); ?></a>
         </div>
     </div>
 </section>
 
-<section class="section cp-roadmap" id="content-roadmap">
+<section class="section vl-featured" id="featured-stories">
     <div class="container container--wide">
-        <div class="section-header cp-section-header">
-            <span class="section-label"><?php echo charity_t( 'Định hướng nội dung', 'Content Strategy' ); ?></span>
-            <h2 class="section-title"><?php echo charity_t( '5 nhóm nội dung chính của Vươn Lên', '5 Core Rise Up Content Groups' ); ?></h2>
-            <p class="cp-section-header__lead"><?php echo charity_t(
-                'Các chuyên mục được triển khai theo bản đề xuất mới: tin tức, hành trình Đồng Du, sổ tay kiến thức, góc sách và sinh hoạt cộng đồng.',
-                'The site now follows the new content proposal: news, Dong Du journeys, knowledge handbook, book corner, and community activities.'
-            ); ?></p>
+        <div class="vl-editorial-header">
+            <div>
+                <span class="section-label"><?php echo esc_html( charity_t( 'Dòng tin Vươn Lên', 'Rise Up Newsroom' ) ); ?></span>
+                <h2 class="section-title"><?php echo esc_html( charity_t( 'Tin nổi bật', 'Featured Stories' ) ); ?></h2>
+            </div>
+            <a class="vl-section-link" href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">
+                <?php echo esc_html( charity_t( 'Xem tất cả', 'View All' ) ); ?>
+            </a>
         </div>
 
-        <div class="cp-category-grid cp-category-grid--expanded">
-            <?php foreach ( $content_groups as $group ) : ?>
-                <?php $group_term = get_category_by_slug( $group['slug'] ); ?>
-                <article class="cp-group-card animate-in" data-group="<?php echo esc_attr( $group['slug'] ); ?>">
-                    <div class="cp-group-card__head">
-                        <div class="cp-group-card__icon" aria-hidden="true"><?php echo charity_group_icon( $group['slug'] ); ?></div>
-                        <h3 class="cp-group-card__title">
-                            <?php if ( $group_term ) : ?>
-                                <a href="<?php echo esc_url( get_category_link( $group_term ) ); ?>"><?php echo esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ); ?></a>
-                            <?php else : ?>
-                                <?php echo esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ); ?>
-                            <?php endif; ?>
-                        </h3>
-                        <p><?php echo esc_html( charity_t( $group['summary_vi'], $group['summary_en'] ) ); ?></p>
-                    </div>
-                    <ul class="cp-group-card__list">
-                        <?php foreach ( $group['items'] as $item ) : ?>
-                            <?php $item_term = get_category_by_slug( $item['slug'] ); ?>
-                            <li class="cp-group-item">
-                                <h4>
-                                    <?php if ( $item_term ) : ?>
-                                        <a href="<?php echo esc_url( get_category_link( $item_term ) ); ?>"><?php echo esc_html( charity_t( $item['vi'], $item['en'] ) ); ?></a>
-                                    <?php else : ?>
-                                        <?php echo esc_html( charity_t( $item['vi'], $item['en'] ) ); ?>
-                                    <?php endif; ?>
-                                </h4>
-                                <p><?php echo esc_html( charity_t( $item['desc_vi'], $item['desc_en'] ) ); ?></p>
-                            </li>
+        <?php if ( ! empty( $featured_posts ) ) : ?>
+            <div class="vl-featured-grid">
+                <?php
+                $lead_post = array_shift( $featured_posts );
+                $post      = $lead_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+                setup_postdata( $post );
+                $render_home_card( 'lead' );
+                wp_reset_postdata();
+                ?>
+
+                <?php if ( ! empty( $featured_posts ) ) : ?>
+                    <div class="vl-secondary-grid">
+                        <?php foreach ( $featured_posts as $post ) : // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited ?>
+                            <?php setup_postdata( $post ); ?>
+                            <?php $render_home_card( 'secondary' ); ?>
                         <?php endforeach; ?>
-                    </ul>
-                </article>
-            <?php endforeach; ?>
+                        <?php wp_reset_postdata(); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php else : ?>
+            <div class="vl-news-empty">
+                <h3><?php echo esc_html( charity_t( 'Chưa có bài viết nào.', 'No stories yet.' ) ); ?></h3>
+                <p><?php echo esc_html( charity_t( 'Khi có bài viết mới, các tin nổi bật sẽ xuất hiện ngay tại khu vực này.', 'Newly published stories will appear in this featured area.' ) ); ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+<section class="section vl-category-news">
+    <div class="container container--wide">
+        <div class="vl-editorial-header">
+            <div>
+                <span class="section-label"><?php echo esc_html( charity_t( 'Theo chuyên mục', 'By Section' ) ); ?></span>
+                <h2 class="section-title"><?php echo esc_html( charity_t( 'Cập nhật mới nhất', 'Latest Updates' ) ); ?></h2>
+            </div>
+        </div>
+
+        <div class="vl-category-list">
+            <?php
+            $rendered_rows = 0;
+            foreach ( $content_groups as $group ) :
+                if ( $rendered_rows >= 5 || empty( $group['slug'] ) ) {
+                    break;
+                }
+
+                $group_term = get_category_by_slug( $group['slug'] );
+                if ( ! $group_term ) {
+                    continue;
+                }
+
+                $row_query = new WP_Query( [
+                    'cat'                 => $group_term->term_id,
+                    'post_type'           => 'post',
+                    'posts_per_page'      => 3,
+                    'post_status'         => 'publish',
+                    'orderby'             => 'date',
+                    'order'               => 'DESC',
+                    'post__not_in'        => $featured_ids,
+                    'ignore_sticky_posts' => true,
+                    'no_found_rows'       => true,
+                ] );
+
+                if ( ! $row_query->have_posts() ) {
+                    wp_reset_postdata();
+                    continue;
+                }
+
+                $rendered_rows++;
+                ?>
+                <section class="vl-category-block">
+                    <div class="vl-category-block__head">
+                        <h3><?php echo esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ); ?></h3>
+                        <a href="<?php echo esc_url( get_category_link( $group_term ) ); ?>"><?php echo esc_html( charity_t( 'Xem thêm', 'More' ) ); ?></a>
+                    </div>
+
+                    <div class="vl-category-block__grid">
+                        <?php while ( $row_query->have_posts() ) : ?>
+                            <?php $row_query->the_post(); ?>
+                            <?php $render_home_card( 'row' ); ?>
+                        <?php endwhile; ?>
+                    </div>
+                </section>
+                <?php
+                wp_reset_postdata();
+            endforeach;
+            ?>
         </div>
     </div>
 </section>
@@ -72,8 +203,8 @@ $submit_url = function_exists( 'charity_submit_post_url' ) ? charity_submit_post
             <span class="section-label"><?php echo charity_t( 'Đồng Du Ký', 'Dong Du Journeys' ); ?></span>
             <h2 class="section-title"><?php echo charity_t( 'Bản đồ Vươn Lên', 'Rise Up Map' ); ?></h2>
             <p><?php echo charity_t(
-                'Ý tưởng bản đồ Việt Nam sẽ giúp đánh dấu nơi thành viên và cựu thành viên HBVL đang học tập, làm việc hoặc sinh hoạt. Đây là nền cho các hoạt động rủ rê chuyến đi, ghé thăm khi qua tỉnh và kết nối cộng đồng theo vùng.',
-                'The Vietnam map concept will show where members and alumni are studying, working, or active. It can support trip planning, local visits, and regional community connection.'
+                'Bản đồ Việt Nam giúp đánh dấu nơi thành viên và cựu thành viên HBVL đang học tập, làm việc hoặc sinh hoạt. Đây là nền cho các hoạt động ghé thăm, gặp gỡ và kết nối cộng đồng theo vùng.',
+                'The Vietnam map shows where members and alumni are studying, working, or active. It supports local visits, meetups, and regional community connection.'
             ); ?></p>
         </div>
         <div class="cp-map-feature__visual" aria-hidden="true">
@@ -88,67 +219,6 @@ $submit_url = function_exists( 'charity_submit_post_url' ) ? charity_submit_post
                 <li><?php echo charity_t( 'Cựu học bổng', 'Alumni' ); ?></li>
                 <li><?php echo charity_t( 'Điểm hẹn chuyến đi', 'Trip meetups' ); ?></li>
             </ul>
-        </div>
-    </div>
-</section>
-
-<section class="section cp-future section--bg-light" id="future-ready">
-    <div class="container container--wide">
-        <div class="section-header cp-section-header">
-            <span class="section-label"><?php echo charity_t( 'Sẵn sàng vận hành', 'Ready To Operate' ); ?></span>
-            <h2 class="section-title"><?php echo charity_t( 'Từ ý tưởng đến chuyên mục có thể đăng bài', 'From Proposal To Publishable Sections' ); ?></h2>
-        </div>
-        <div class="cp-future__grid">
-            <article class="cp-future-card animate-in">
-                <h3><?php echo charity_t( 'Category tự tạo', 'Auto-created Categories' ); ?></h3>
-                <p><?php echo charity_t( 'Khi theme chạy, các nhóm lớn và mục nhỏ được tạo trong WordPress Category để bài viết có nơi phân loại rõ ràng.', 'When the theme runs, parent groups and child sections are created as WordPress categories for clear publishing.' ); ?></p>
-            </article>
-            <article class="cp-future-card animate-in">
-                <h3><?php echo charity_t( 'Song ngữ VI/EN', 'VI/EN Ready' ); ?></h3>
-                <p><?php echo charity_t( 'Homepage dùng cùng hệ thống chuyển ngôn ngữ hiện có, giữ nội dung tiếng Việt và bản tiếng Anh tương ứng.', 'The homepage uses the existing language switcher with Vietnamese copy and matching English labels.' ); ?></p>
-            </article>
-            <article class="cp-future-card animate-in">
-                <h3><?php echo charity_t( 'Mở rộng theo module', 'Modular Growth' ); ?></h3>
-                <p><?php echo charity_t( 'Dữ liệu chuyên mục được gom trong một hàm riêng để dùng lại cho form gửi bài, bộ lọc hoặc trang chuyên mục sau này.', 'Section data is centralized for reuse in submission forms, filters, and future section pages.' ); ?></p>
-            </article>
-        </div>
-    </div>
-</section>
-
-<section class="section cp-posts" id="stories">
-    <div class="container">
-        <div class="section-header cp-section-header">
-            <span class="section-label"><?php echo charity_t( 'Cập nhật gần đây', 'Latest Updates' ); ?></span>
-            <h2 class="section-title"><?php echo charity_t( 'Bài viết mới', 'Recent Stories' ); ?></h2>
-        </div>
-
-        <div class="cp-post-grid">
-            <?php
-            $latest_query = new WP_Query( [
-                'post_type'      => 'post',
-                'posts_per_page' => 4,
-                'post_status'    => 'publish',
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-            ] );
-            ?>
-
-            <?php if ( $latest_query->have_posts() ) : ?>
-                <?php while ( $latest_query->have_posts() ) : $latest_query->the_post(); ?>
-                    <article class="cp-post-card animate-in">
-                        <?php if ( has_post_thumbnail() ) : ?>
-                            <a href="<?php the_permalink(); ?>" class="cp-post-card__thumb"><?php the_post_thumbnail( 'card-thumb', [ 'alt' => get_the_title() ] ); ?></a>
-                        <?php endif; ?>
-                        <div class="cp-post-card__body">
-                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                            <p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 22 ) ); ?></p>
-                            <a class="cp-post-card__link" href="<?php the_permalink(); ?>"><?php echo charity_t( 'Đọc tiếp', 'Read More' ); ?> &rarr;</a>
-                        </div>
-                    </article>
-                <?php endwhile; wp_reset_postdata(); ?>
-            <?php else : ?>
-                <p class="no-content"><?php echo charity_t( 'Chưa có bài viết nào. Hãy bắt đầu với các chuyên mục ở trên.', 'No stories yet. Start publishing under the sections above.' ); ?></p>
-            <?php endif; ?>
         </div>
     </div>
 </section>

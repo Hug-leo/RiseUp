@@ -69,7 +69,7 @@
 function charity_fallback_menu() {
     echo '<ul class="nav-menu">';
     echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . charity_t( 'Trang chủ', 'Home' ) . '</a></li>';
-    echo '<li><a href="#content-roadmap">' . charity_t( 'Chuyên mục', 'Sections' ) . '</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/#featured-stories' ) ) . '">' . charity_t( 'Tin nổi bật', 'Featured Stories' ) . '</a></li>';
     echo '<li><a href="' . esc_url( get_permalink( get_option( 'page_for_posts' ) ) ) . '">' . charity_t( 'Bài viết', 'Stories' ) . '</a></li>';
     echo '<li><a href="' . esc_url( home_url( '/lien-he/' ) ) . '">' . charity_t( 'Liên hệ', 'Contact' ) . '</a></li>';
     echo '</ul>';
