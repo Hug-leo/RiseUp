@@ -38,7 +38,7 @@
       const link = item.querySelector('a');
       if (link) {
         link.addEventListener('click', (e) => {
-          if (window.innerWidth <= 768) {
+          if (window.innerWidth <= 900) {
             e.preventDefault();
             item.classList.toggle('open');
           }
@@ -46,6 +46,53 @@
       }
     });
   }
+
+  // ── Navbar Search Guard ───────────────────────────────────────────────
+  document.querySelectorAll('[data-nav-search]').forEach((form) => {
+    const input = form.querySelector('.nav-search-input');
+    const button = form.querySelector('.nav-search-button');
+    if (!input || !button) return;
+
+    function openSearch() {
+      form.classList.add('is-active');
+      window.requestAnimationFrame(() => input.focus());
+    }
+
+    function hasQuery() {
+      return input.value.trim().length > 0;
+    }
+
+    button.addEventListener('click', (e) => {
+      if (!hasQuery()) {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      if (!hasQuery()) {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !hasQuery()) {
+        e.preventDefault();
+        openSearch();
+      }
+    });
+
+    input.addEventListener('focus', () => {
+      form.classList.add('is-active');
+    });
+
+    input.addEventListener('blur', () => {
+      if (!hasQuery()) {
+        form.classList.remove('is-active');
+      }
+    });
+  });
 
   // ── Feed Category Tabs ──────────────────────────────────────────────────
   const feedTabs = document.querySelectorAll('.feed-tabs__btn');

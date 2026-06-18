@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.2.1' );
+define( 'CHARITY_HCM_VERSION', '2.2.3' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
 
@@ -298,6 +298,7 @@ function charity_content_groups() {
             'slug'     => 'tin-tuc',
             'title_vi' => 'TIN TỨC',
             'title_en' => 'NEWS',
+            'nav_en'   => 'NEWS',
             'summary_vi' => 'Cập nhật hoạt động, gương mặt tiêu biểu và hành trình tiếp nối của cộng đồng học bổng.',
             'summary_en' => 'Updates, featured members, and alumni giving-back stories from the scholarship community.',
             'items'    => [
@@ -328,6 +329,7 @@ function charity_content_groups() {
             'slug'     => 'dong-du-ky',
             'title_vi' => 'ĐÔNG DU KÝ',
             'title_en' => 'DONG DU JOURNEYS',
+            'nav_en'   => 'JOURNEYS',
             'summary_vi' => 'Không gian ghi lại hành trình, bản đồ kết nối và những địa điểm đáng trải nghiệm.',
             'summary_en' => 'A space for journeys, connection maps, and meaningful places to experience.',
             'items'    => [
@@ -358,6 +360,7 @@ function charity_content_groups() {
             'slug'     => 'so-tay-kien-thuc',
             'title_vi' => 'SỔ TAY KIẾN THỨC',
             'title_en' => 'KNOWLEDGE HANDBOOK',
+            'nav_en'   => 'HANDBOOK',
             'summary_vi' => 'Các mẹo học tập, kỹ năng sống và góc nhìn tích cực từ đời sống quanh ta.',
             'summary_en' => 'Study tips, life skills, and positive observations from everyday life.',
             'items'    => [
@@ -381,6 +384,7 @@ function charity_content_groups() {
             'slug'     => 'goc-sach-hay',
             'title_vi' => 'GÓC SÁCH HAY',
             'title_en' => 'BOOK CORNER',
+            'nav_en'   => 'BOOKS',
             'summary_vi' => 'Tóm tắt và cảm nhận về những cuốn sách nuôi dưỡng nghị lực, tri thức và lối sống đẹp.',
             'summary_en' => 'Summaries and reflections on books that nurture resilience, knowledge, and meaningful living.',
             'items'    => [
@@ -404,6 +408,7 @@ function charity_content_groups() {
             'slug'     => 'sinh-hoat',
             'title_vi' => 'SINH HOẠT',
             'title_en' => 'COMMUNITY ACTIVITIES',
+            'nav_en'   => 'ACTIVITIES',
             'summary_vi' => 'Kho tư liệu phục vụ sinh hoạt tập thể, trò chơi cộng đồng và bài hát truyền thống.',
             'summary_en' => 'Resources for group activities, community games, and traditional songs.',
             'items'    => [
@@ -486,7 +491,7 @@ function charity_vietnam_map_image_url() {
 }
 
 function charity_drive_upload_url() {
-    return 'https://drive.google.com/drive/folders/dan-link-drive-o-day';
+    return 'https://drive.google.com/drive/folders/1-xo_RlTnbA2_VvjDAEWzZRZoxk_KL5WH?usp=sharing';
 }
 
 function charity_submit_post_url() {
@@ -496,20 +501,23 @@ function charity_submit_post_url() {
 function charity_header_search_form() {
     $label       = charity_t( 'Tìm kiếm', 'Search' );
     $placeholder = charity_t( 'Tìm kiếm...', 'Search...' );
+    $field_id    = 'nav-search-field';
 
     ob_start();
     ?>
-    <form class="nav-search-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-        <label class="screen-reader-text" for="nav-search-field"><?php echo esc_html( $label ); ?></label>
+    <form class="nav-search-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" data-nav-search aria-label="<?php echo esc_attr( $label ); ?>">
+        <label class="screen-reader-text" for="<?php echo esc_attr( $field_id ); ?>"><?php echo esc_html( $label ); ?></label>
         <input
-            id="nav-search-field"
+            id="<?php echo esc_attr( $field_id ); ?>"
             class="nav-search-input"
             type="search"
             name="s"
             value="<?php echo esc_attr( get_search_query() ); ?>"
             placeholder="<?php echo esc_attr( $placeholder ); ?>"
+            autocomplete="off"
+            aria-label="<?php echo esc_attr( $placeholder ); ?>"
         >
-        <button class="nav-search-button" type="submit" aria-label="<?php echo esc_attr( $label ); ?>">
+        <button class="nav-search-button" type="submit" aria-label="<?php echo esc_attr( $label ); ?>" aria-controls="<?php echo esc_attr( $field_id ); ?>">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="7"></circle>
                 <path d="m20 20-3.5-3.5"></path>
@@ -520,16 +528,32 @@ function charity_header_search_form() {
     return trim( ob_get_clean() );
 }
 
+function charity_nav_label( array $item ) {
+    if ( charity_get_lang() !== 'en' || empty( $item['nav_en'] ) ) {
+        return charity_t( $item['vi'], $item['en'] );
+    }
+
+    return $item['nav_en'];
+}
+
+function charity_nav_group_label( array $group ) {
+    if ( charity_get_lang() !== 'en' || empty( $group['nav_en'] ) ) {
+        return charity_t( $group['title_vi'], $group['title_en'] );
+    }
+
+    return $group['nav_en'];
+}
+
 function charity_render_primary_menu() {
     echo '<ul id="primary-menu" class="nav-menu">';
     echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( charity_t( 'Trang chủ', 'Home' ) ) . '</a></li>';
 
     foreach ( charity_content_groups() as $group ) {
         echo '<li class="menu-item-has-children">';
-        echo '<a href="' . esc_url( charity_category_url_by_slug( $group['slug'] ) ) . '">' . esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ) . '</a>';
+        echo '<a href="' . esc_url( charity_category_url_by_slug( $group['slug'] ) ) . '">' . esc_html( charity_nav_group_label( $group ) ) . '</a>';
         echo '<ul class="sub-menu">';
         foreach ( $group['items'] as $item ) {
-            echo '<li><a href="' . esc_url( charity_category_url_by_slug( $item['slug'] ) ) . '">' . esc_html( charity_t( $item['vi'], $item['en'] ) ) . '</a></li>';
+            echo '<li><a href="' . esc_url( charity_category_url_by_slug( $item['slug'] ) ) . '">' . esc_html( charity_nav_label( $item ) ) . '</a></li>';
         }
         echo '</ul>';
         echo '</li>';

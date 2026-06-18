@@ -24,6 +24,14 @@ $drive_upload_url = function_exists( 'charity_drive_upload_url' ) ? charity_driv
     <div class="container">
         <main id="main" class="site-main" role="main">
             <div class="submit-post-drive-card">
+                <span class="submit-post-drive-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M12 3v12"></path>
+                        <path d="m7 10 5 5 5-5"></path>
+                        <path d="M5 21h14"></path>
+                    </svg>
+                </span>
+                <h2><?php echo esc_html( charity_t( 'Gửi bài qua Google Drive', 'Submit via Google Drive' ) ); ?></h2>
                 <p><?php echo charity_t(
                     'Bạn muốn gửi bài viết đến ban tác giả? Hãy gửi bài của bạn thông qua liên kết bên dưới.',
                     'Want to submit your article to the editorial team? Please upload your submission using the link below.'
@@ -35,36 +43,5 @@ $drive_upload_url = function_exists( 'charity_drive_upload_url' ) ? charity_driv
         </main>
     </div>
 </div>
-
-<style>
-.submit-post-drive-card {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 36px;
-    text-align: center;
-    color: var(--text-secondary);
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-}
-
-.submit-post-drive-card p {
-    max-width: 560px;
-    margin: 0 auto;
-    font-size: 1rem;
-    line-height: 1.7;
-}
-
-.submit-post-drive-btn {
-    margin-top: 22px;
-}
-
-@media (max-width: 600px) {
-    .submit-post-drive-card {
-        padding: 24px 18px;
-    }
-}
-</style>
 
 <?php get_footer(); ?>
