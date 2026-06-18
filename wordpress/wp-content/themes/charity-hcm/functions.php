@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.2.0' );
+define( 'CHARITY_HCM_VERSION', '2.2.1' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
 
@@ -305,14 +305,39 @@ function charity_vietnam_map_image_url() {
     return 'https://meeymap.com/tin-tuc/wp-content/uploads/2025/06/Ban-do-34-tinh-thanh-Viet-Nam-sau-sat-nhap.jpg';
 }
 
-function charity_submit_post_url() {
-    $submit_pages = get_pages( [
-        'meta_key'   => '_wp_page_template',
-        'meta_value' => 'page-submit-post.php',
-        'number'     => 1,
-    ] );
+function charity_drive_upload_url() {
+    return 'https://drive.google.com/drive/folders/dan-link-drive-o-day';
+}
 
-    return $submit_pages ? get_permalink( $submit_pages[0] ) : home_url( '/gui-bai-viet/' );
+function charity_submit_post_url() {
+    return charity_drive_upload_url();
+}
+
+function charity_header_search_form() {
+    $label       = charity_t( 'Tìm kiếm', 'Search' );
+    $placeholder = charity_t( 'Tìm kiếm...', 'Search...' );
+
+    ob_start();
+    ?>
+    <form class="nav-search-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+        <label class="screen-reader-text" for="nav-search-field"><?php echo esc_html( $label ); ?></label>
+        <input
+            id="nav-search-field"
+            class="nav-search-input"
+            type="search"
+            name="s"
+            value="<?php echo esc_attr( get_search_query() ); ?>"
+            placeholder="<?php echo esc_attr( $placeholder ); ?>"
+        >
+        <button class="nav-search-button" type="submit" aria-label="<?php echo esc_attr( $label ); ?>">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-3.5-3.5"></path>
+            </svg>
+        </button>
+    </form>
+    <?php
+    return trim( ob_get_clean() );
 }
 
 function charity_render_primary_menu() {
@@ -330,8 +355,9 @@ function charity_render_primary_menu() {
         echo '</li>';
     }
 
-    echo '<li><a href="' . esc_url( charity_submit_post_url() ) . '">' . esc_html( charity_t( 'Gửi bài', 'Submit' ) ) . '</a></li>';
+    echo '<li><a href="' . esc_url( charity_submit_post_url() ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( charity_t( 'Gửi bài', 'Submit' ) ) . '</a></li>';
     echo '<li><a href="' . esc_url( home_url( '/lien-he/' ) ) . '">' . esc_html( charity_t( 'Liên hệ', 'Contact' ) ) . '</a></li>';
+    echo '<li class="nav-search-item">' . charity_header_search_form() . '</li>';
     echo '</ul>';
 }
 

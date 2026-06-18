@@ -14,7 +14,7 @@ $submit_url = function_exists( 'charity_submit_post_url' ) ? charity_submit_post
         <p class="cp-hero__subtitle"><?php echo charity_t( 'Một không gian lưu giữ câu chuyện học bổng, kết nối thành viên và lan tỏa tinh thần vươn lên.', 'A home for scholarship stories, member connection, and the spirit of rising through education.' ); ?></p>
         <div class="cp-hero__actions">
             <a class="btn btn--primary" href="#content-roadmap"><?php echo charity_t( 'Khám phá chuyên mục', 'Explore Sections' ); ?></a>
-            <a class="btn btn--outline" href="<?php echo esc_url( $submit_url ); ?>"><?php echo charity_t( 'Gửi bài viết', 'Submit a Story' ); ?></a>
+            <a class="btn btn--outline" href="<?php echo esc_url( $submit_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo charity_t( 'Gửi bài viết', 'Submit a Story' ); ?></a>
         </div>
     </div>
 </section>
