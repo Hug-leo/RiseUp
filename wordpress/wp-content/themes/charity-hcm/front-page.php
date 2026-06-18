@@ -33,8 +33,9 @@ $submit_url = function_exists( 'charity_submit_post_url' ) ? charity_submit_post
         <div class="cp-category-grid cp-category-grid--expanded">
             <?php foreach ( $content_groups as $group ) : ?>
                 <?php $group_term = get_category_by_slug( $group['slug'] ); ?>
-                <article class="cp-group-card animate-in">
+                <article class="cp-group-card animate-in" data-group="<?php echo esc_attr( $group['slug'] ); ?>">
                     <div class="cp-group-card__head">
+                        <div class="cp-group-card__icon" aria-hidden="true"><?php echo charity_group_icon( $group['slug'] ); ?></div>
                         <h3 class="cp-group-card__title">
                             <?php if ( $group_term ) : ?>
                                 <a href="<?php echo esc_url( get_category_link( $group_term ) ); ?>"><?php echo esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ); ?></a>
