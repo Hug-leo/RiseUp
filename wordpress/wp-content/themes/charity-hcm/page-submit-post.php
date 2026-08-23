@@ -4,6 +4,11 @@
  *
  * Sends article submissions to the shared Google Drive upload folder.
  */
+if ( ! current_user_can( 'edit_posts' ) ) {
+    wp_safe_redirect( charity_portal_url( 'collaborator' ) );
+    exit;
+}
+
 get_header();
 
 $drive_upload_url = function_exists( 'charity_drive_upload_url' ) ? charity_drive_upload_url() : home_url( '/' );

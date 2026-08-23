@@ -1,5 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 600" role="img" aria-label="Bản đồ 63 tỉnh thành Việt Nam">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 600" role="img" aria-label="Bản đồ Việt Nam 63 tỉnh thành, gồm các đảo và hai quần đảo Hoàng Sa, Trường Sa">
   <title>Bản đồ 63 tỉnh thành Việt Nam</title>
+  <desc>Lãnh thổ Việt Nam được thể hiện cùng Phú Quốc, các đảo ven bờ và hai quần đảo Hoàng Sa, Trường Sa.</desc>
+  <style>
+    .sovereignty-islands { color: #0d47a1; font-family: system-ui, sans-serif; pointer-events: none; }
+    .sovereignty-islands circle, .sovereignty-islands ellipse { fill: currentColor; stroke: #fff; stroke-width: .8; }
+    .sovereignty-islands text { fill: #17365d; font-size: 9px; font-weight: 700; paint-order: stroke; stroke: #f7fbff; stroke-width: 2px; stroke-linejoin: round; }
+    .sovereignty-islands .sea-label { fill: #6d8eb7; font-size: 13px; letter-spacing: 2px; text-anchor: middle; }
+    .sovereignty-islands .archipelago-boundary { fill: rgba(13,71,161,.04); stroke: #0d47a1; stroke-width: 1; stroke-dasharray: 4 3; }
+    .sovereignty-islands .archipelago-label { fill: #b71c1c; font-size: 10px; text-anchor: middle; }
+    .sovereignty-islands .sovereignty-label { fill: #b71c1c; font-size: 8px; letter-spacing: 1.2px; text-anchor: middle; }
+    .sovereignty-islands .island-marker--featured circle, .sovereignty-islands .island-marker--featured ellipse { fill: #d32f2f; }
+  </style>
   <g id="provinces-63">
     <path id="p45" title="Lai Châu" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M31,24 h28 v34 h-28 Z"/>
     <path id="p48" title="Lào Cai" fill="var(--province-fill,#e8ead6)" stroke="#fff" stroke-width="0.5" d="M62,25 h26 v32 h-26 Z"/>
@@ -104,5 +115,55 @@
     <text x="120" y="491">AG</text>
     <text x="112" y="506">KG</text>
     <text x="116" y="544">CM</text>
+  </g>
+  <g class="sovereignty-islands" id="vietnam-islands-63" role="group" aria-label="Biển đảo Việt Nam">
+    <text class="sea-label" x="352" y="180">BIỂN ĐÔNG</text>
+
+    <g class="island-marker" id="cat-ba-63" aria-label="Đảo Cát Bà">
+      <circle cx="205" cy="112" r="2.8"/><text x="212" y="114">Cát Bà</text>
+    </g>
+    <g class="island-marker" id="bach-long-vi-63" aria-label="Đảo Bạch Long Vĩ">
+      <circle cx="248" cy="126" r="2.4"/><text x="256" y="128">Bạch Long Vĩ</text>
+    </g>
+    <g class="island-marker" id="con-co-63" aria-label="Đảo Cồn Cỏ">
+      <circle cx="218" cy="238" r="2.3"/><text x="226" y="240">Cồn Cỏ</text>
+    </g>
+    <g class="island-marker" id="cu-lao-cham-63" aria-label="Cù Lao Chàm">
+      <circle cx="278" cy="294" r="2.5"/><text x="286" y="296">Cù Lao Chàm</text>
+    </g>
+    <g class="island-marker" id="ly-son-63" aria-label="Đảo Lý Sơn">
+      <circle cx="286" cy="323" r="2.6"/><text x="294" y="325">Lý Sơn</text>
+    </g>
+    <g class="island-marker" id="phu-quy-63" aria-label="Đảo Phú Quý">
+      <circle cx="278" cy="469" r="2.8"/><text x="286" y="471">Phú Quý</text>
+    </g>
+    <g class="island-marker island-marker--featured" id="phu-quoc-63" aria-label="Đảo Phú Quốc">
+      <ellipse cx="82" cy="505" rx="5" ry="8"/><text x="70" y="493">Phú Quốc</text>
+    </g>
+    <g class="island-marker" id="nam-du-63" aria-label="Quần đảo Nam Du">
+      <circle cx="78" cy="529" r="2.4"/><circle cx="84" cy="533" r="1.6"/><text x="49" y="531">Nam Du</text>
+    </g>
+    <g class="island-marker" id="tho-chu-63" aria-label="Quần đảo Thổ Chu">
+      <circle cx="49" cy="542" r="2.7"/><circle cx="55" cy="546" r="1.4"/><text x="18" y="544">Thổ Chu</text>
+    </g>
+    <g class="island-marker" id="con-dao-63" aria-label="Quần đảo Côn Đảo">
+      <ellipse cx="211" cy="532" rx="3" ry="5"/><circle cx="217" cy="537" r="1.5"/><text x="220" y="535">Côn Đảo</text>
+    </g>
+
+    <g class="archipelago-marker island-marker--featured" id="hoang-sa-63" aria-label="Quần đảo Hoàng Sa của Việt Nam">
+      <circle cx="337" cy="250" r="3"/><circle cx="350" cy="242" r="2"/><circle cx="362" cy="254" r="2.4"/>
+      <circle cx="345" cy="264" r="1.8"/><circle cx="371" cy="245" r="1.5"/><circle cx="376" cy="263" r="1.8"/>
+      <path class="archipelago-boundary" d="M326 234 L380 232 L388 269 L334 278 Z"/>
+      <text class="archipelago-label" x="357" y="216">QUẦN ĐẢO HOÀNG SA</text>
+      <text class="sovereignty-label" x="357" y="228">VIỆT NAM</text>
+    </g>
+    <g class="archipelago-marker island-marker--featured" id="truong-sa-63" aria-label="Quần đảo Trường Sa của Việt Nam">
+      <circle cx="340" cy="382" r="2.2"/><circle cx="363" cy="393" r="2.8"/><circle cx="387" cy="406" r="2"/>
+      <circle cx="330" cy="416" r="1.8"/><circle cx="353" cy="428" r="2.3"/><circle cx="380" cy="438" r="1.7"/>
+      <circle cx="405" cy="424" r="2.4"/><circle cx="370" cy="458" r="1.8"/><circle cx="411" cy="462" r="1.6"/>
+      <path class="archipelago-boundary" d="M320 368 L410 384 L427 468 L355 480 L315 430 Z"/>
+      <text class="archipelago-label" x="371" y="493">QUẦN ĐẢO TRƯỜNG SA</text>
+      <text class="sovereignty-label" x="371" y="504">VIỆT NAM</text>
+    </g>
   </g>
 </svg>

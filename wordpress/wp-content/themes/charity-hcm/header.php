@@ -18,6 +18,9 @@
             <?php echo charity_t( 'Thành phố Hồ Chí Minh, Việt Nam', 'Ho Chi Minh City, Vietnam' ); ?>
         </span>
         <div class="topbar__right">
+            <div class="account-nav">
+                <?php charity_render_account_nav(); ?>
+            </div>
             <div class="lang-switcher">
                 <a href="<?php echo esc_url( charity_lang_url( 'vi' ) ); ?>" class="lang-switcher__btn <?php echo charity_get_lang() === 'vi' ? 'active' : ''; ?>">VI</a>
                 <span class="lang-switcher__sep">|</span>

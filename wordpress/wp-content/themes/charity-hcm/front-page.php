@@ -207,12 +207,12 @@ $render_home_card = static function ( $variant = 'standard' ) use ( $category_la
                 'The Vietnam map shows where members and alumni are studying, working, or active. It supports local visits, meetups, and regional community connection.'
             ); ?></p>
         </div>
-        <div class="cp-map-feature__visual" aria-hidden="true">
+        <div class="cp-map-feature__visual">
             <figure class="cp-map-feature__map">
-                <img src="<?php echo esc_url( charity_vietnam_map_image_url() ); ?>" alt="">
-                <span class="cp-map-pin cp-map-pin--north"></span>
-                <span class="cp-map-pin cp-map-pin--central"></span>
-                <span class="cp-map-pin cp-map-pin--south"></span>
+                <img src="<?php echo esc_url( charity_vietnam_map_image_url() ); ?>" alt="<?php echo esc_attr( charity_t( 'Bản đồ Việt Nam gồm Phú Quốc, quần đảo Hoàng Sa và quần đảo Trường Sa', 'Map of Vietnam including Phu Quoc, Hoang Sa and Truong Sa archipelagos' ) ); ?>">
+                <span class="cp-map-pin cp-map-pin--north" aria-hidden="true"></span>
+                <span class="cp-map-pin cp-map-pin--central" aria-hidden="true"></span>
+                <span class="cp-map-pin cp-map-pin--south" aria-hidden="true"></span>
             </figure>
             <ul class="cp-map-feature__legend">
                 <li><?php echo charity_t( 'Thành viên đang hoạt động', 'Active members' ); ?></li>
