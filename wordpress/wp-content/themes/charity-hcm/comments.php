@@ -1,6 +1,49 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
+if ( ! function_exists( 'charity_comment' ) ) :
+    /**
+     * Render one comment for wp_list_comments().
+     *
+     * This callback must exist before wp_list_comments() invokes it.
+     */
+    function charity_comment( $comment, $args, $depth ) {
+        $tag = ( 'div' === $args['style'] ) ? 'div' : 'li';
+        ?>
+        <<?php echo esc_attr( $tag ); ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( 'comment-item', $comment ); ?>>
+            <div class="comment-body">
+                <div class="comment-author-avatar">
+                    <?php echo get_avatar( $comment, 40, '', get_comment_author( $comment ), [ 'class' => 'avatar' ] ); ?>
+                </div>
+                <div class="comment-content-wrap">
+                    <div class="comment-header">
+                        <strong class="comment-author-name"><?php comment_author_link( $comment ); ?></strong>
+                        <time class="comment-date" datetime="<?php echo esc_attr( get_comment_date( 'c', $comment ) ); ?>">
+                            <?php echo esc_html( get_comment_date( '', $comment ) ); ?>
+                        </time>
+                        <div class="comment-actions">
+                            <?php
+                            comment_reply_link( array_merge( $args, [
+                                'add_below'  => 'comment',
+                                'depth'      => $depth,
+                                'max_depth'  => $args['max_depth'],
+                                'reply_text' => charity_t( 'Trả lời', 'Reply' ),
+                            ] ) );
+                            ?>
+                        </div>
+                    </div>
+                    <div class="comment-text">
+                        <?php if ( '0' === $comment->comment_approved ) : ?>
+                            <p><em><?php echo esc_html( charity_t( 'Bình luận đang chờ duyệt.', 'Your comment is awaiting moderation.' ) ); ?></em></p>
+                        <?php endif; ?>
+                        <?php comment_text(); ?>
+                    </div>
+                </div>
+            </div>
+        <?php
+    }
+endif;
+
 if ( post_password_required() ) {
     echo '<p class="comments-password-required">' . charity_t( 'Bài viết này được bảo vệ bằng mật khẩu.', 'This post is password protected. Enter the password to view comments.' ) . '</p>';
     return;
@@ -100,7 +143,7 @@ if ( post_password_required() ) {
             : '',
         'must_log_in'          => sprintf(
             '<p class="must-log-in">' . charity_t( 'Bạn phải', 'You must' ) . ' <a href="%s">' . charity_t( 'đăng nhập', 'log in' ) . '</a> ' . charity_t( 'để bình luận.', 'to post a comment.' ) . '</p>',
-            esc_url( wp_login_url( get_permalink() ) )
+            esc_url( add_query_arg( 'redirect_to', get_permalink(), charity_portal_url( 'member' ) ) )
         ),
     ] );
     ?>
@@ -108,44 +151,3 @@ if ( post_password_required() ) {
     <?php endif; ?>
 
 </div><!-- #comments -->
-
-<?php
-if ( ! function_exists( 'charity_comment' ) ) :
-function charity_comment( $comment, $args, $depth ) {
-    $tag = ( 'div' === $args['style'] ) ? 'div' : 'li';
-    ?>
-    <<?php echo $tag; ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( 'comment-item', $comment ); ?>>
-        <div class="comment-body">
-            <div class="comment-author-avatar">
-                <?php echo get_avatar( $comment, 40, '', get_comment_author( $comment ), [ 'class' => 'avatar' ] ); ?>
-            </div>
-            <div class="comment-content-wrap">
-                <div class="comment-header">
-                    <strong class="comment-author-name">
-                        <?php comment_author_link( $comment ); ?>
-                    </strong>
-                    <time class="comment-date" datetime="<?php comment_date( 'c', $comment ); ?>">
-                        <?php comment_date( '', $comment ); ?>
-                    </time>
-                    <div class="comment-actions">
-                        <?php
-                        comment_reply_link( array_merge( $args, [
-                            'add_below' => 'comment',
-                            'depth'     => $depth,
-                            'max_depth' => $args['max_depth'],
-                            'reply_text' => charity_t( 'Trả lời', 'Reply' ),
-                        ] ) );
-                        ?>
-                    </div>
-                </div>
-                <div class="comment-text">
-                    <?php if ( '0' === $comment->comment_approved ) : ?>
-                    <p><em><?php echo charity_t( 'Bình luận đang chờ duyệt.', 'Your comment is awaiting moderation.' ); ?></em></p>
-                    <?php endif; ?>
-                    <?php comment_text(); ?>
-                </div>
-            </div>
-        </div>
-    <?php
-}
-endif;

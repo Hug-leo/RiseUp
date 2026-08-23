@@ -1,9 +1,11 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.2.3' );
+define( 'CHARITY_HCM_VERSION', '2.3.0' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
+
+require_once CHARITY_HCM_DIR . '/inc/access-control.php';
 
 // ─── Theme Setup ──────────────────────────────────────────────────────────────
 add_action( 'after_setup_theme', function () {
@@ -499,7 +501,7 @@ function charity_group_icon( $slug ) {
 }
 
 function charity_vietnam_map_image_url() {
-    return 'https://meeymap.com/tin-tuc/wp-content/uploads/2025/06/Ban-do-34-tinh-thanh-Viet-Nam-sau-sat-nhap.jpg';
+    return CHARITY_HCM_URI . '/assets/img/vietnam-34-provinces.svg';
 }
 
 function charity_drive_upload_url() {
@@ -507,7 +509,7 @@ function charity_drive_upload_url() {
 }
 
 function charity_submit_post_url() {
-    return charity_drive_upload_url();
+    return current_user_can( 'edit_posts' ) ? admin_url( 'post-new.php' ) : charity_portal_url( 'collaborator' );
 }
 
 function charity_header_search_form() {
@@ -571,8 +573,15 @@ function charity_render_primary_menu() {
         echo '</li>';
     }
 
-    echo '<li><a href="' . esc_url( charity_submit_post_url() ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( charity_t( 'Gửi bài', 'Submit' ) ) . '</a></li>';
+    if ( current_user_can( 'edit_posts' ) ) {
+        echo '<li><a href="' . esc_url( charity_submit_post_url() ) . '">' . esc_html( charity_t( 'Đăng bài', 'New post' ) ) . '</a></li>';
+    }
     echo '<li><a href="' . esc_url( home_url( '/lien-he/' ) ) . '">' . esc_html( charity_t( 'Liên hệ', 'Contact' ) ) . '</a></li>';
+    if ( is_user_logged_in() ) {
+        echo '<li><a href="' . esc_url( charity_portal_url( 'account' ) ) . '">' . esc_html( charity_t( 'Tài khoản', 'Account' ) ) . '</a></li>';
+    } else {
+        echo '<li><a href="' . esc_url( charity_portal_url( 'member' ) ) . '">' . esc_html( charity_t( 'Đăng nhập', 'Sign in' ) ) . '</a></li>';
+    }
     echo '<li class="nav-search-item">' . charity_header_search_form() . '</li>';
     echo '</ul>';
 }
@@ -671,11 +680,14 @@ function charity_ajax_load_more() {
 add_filter( 'excerpt_length', fn() => 25, 999 );
 add_filter( 'excerpt_more',   fn() => '…', 999 );
 // ─── AJAX: Post Reactions (Like) ─────────────────────────────────────────
-add_action( 'wp_ajax_toggle_post_like',        'charity_ajax_toggle_like' );
-add_action( 'wp_ajax_nopriv_toggle_post_like', 'charity_ajax_toggle_like' );
+add_action( 'wp_ajax_toggle_post_like', 'charity_ajax_toggle_like' );
 
 function charity_ajax_toggle_like() {
     check_ajax_referer( 'charity_load_more', 'nonce' );
+
+    if ( ! is_user_logged_in() ) {
+        wp_send_json_error( [ 'message' => 'Authentication required' ], 403 );
+    }
 
     $post_id = absint( $_POST['post_id'] ?? 0 );
     if ( ! $post_id || ! get_post( $post_id ) ) {
@@ -745,11 +757,14 @@ function charity_lang_url( $lang ) {
 }
 
 // ─── AJAX: Frontend Post Submission ──────────────────────────────────────────
-add_action( 'wp_ajax_vuonlen_submit_post',        'vuonlen_handle_submit_post' );
-add_action( 'wp_ajax_nopriv_vuonlen_submit_post', 'vuonlen_handle_submit_post' );
+add_action( 'wp_ajax_vuonlen_submit_post', 'vuonlen_handle_submit_post' );
 
 function vuonlen_handle_submit_post() {
     check_ajax_referer( 'vuonlen_submit_post', 'nonce' );
+
+    if ( ! current_user_can( 'edit_posts' ) ) {
+        wp_send_json_error( [ 'message' => charity_t( 'Bạn không có quyền đăng bài.', 'You are not allowed to submit posts.' ) ], 403 );
+    }
 
     $title   = sanitize_text_field( wp_unslash( $_POST['post_title'] ?? '' ) );
     $content = wp_kses_post( wp_unslash( $_POST['post_content'] ?? '' ) );
@@ -776,6 +791,7 @@ function vuonlen_handle_submit_post() {
         'post_content' => $content,
         'post_status'  => 'pending',
         'post_type'    => 'post',
+        'post_author'  => get_current_user_id(),
     ];
 
     if ( $cat_id && term_exists( $cat_id, 'category' ) ) {

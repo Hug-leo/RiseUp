@@ -77,11 +77,19 @@
                 <!-- Reactions -->
                 <?php $likes = (int) get_post_meta( get_the_ID(), '_post_likes', true ); ?>
                 <div class="post-reactions">
+                    <?php if ( is_user_logged_in() ) : ?>
                     <button class="reaction-btn" data-post-id="<?php the_ID(); ?>">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
                         <span class="reaction-count"><?php echo $likes; ?></span>
                         <?php echo charity_t( 'Thích', 'Like' ); ?>
                     </button>
+                    <?php else : ?>
+                    <span class="reaction-btn reaction-btn--readonly">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                        <span class="reaction-count"><?php echo esc_html( $likes ); ?></span>
+                        <?php echo esc_html( charity_t( 'Lượt thích', 'Likes' ) ); ?>
+                    </span>
+                    <?php endif; ?>
                 </div>
 
             </article>

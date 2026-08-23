@@ -133,8 +133,8 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
 
                     <p class="student-map__note">
                         <?php echo esc_html( charity_t(
-                            'Số lượng được tính từ danh sách thành viên theo từng tỉnh.',
-                            'Counts are derived from the member list for each province.'
+                            'Bản đồ thể hiện đất liền, Phú Quốc, các đảo ven bờ và hai quần đảo Hoàng Sa, Trường Sa của Việt Nam. Số lượng được tính từ danh sách thành viên theo từng tỉnh.',
+                            'The map shows mainland Vietnam, Phu Quoc, coastal islands, and the Hoang Sa and Truong Sa archipelagos of Vietnam. Counts are derived from the member list for each province.'
                         ) ); ?>
                     </p>
                 </section>

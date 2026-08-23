@@ -11,7 +11,9 @@ $form_sent  = false;
 $form_error = '';
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['contact_nonce'] ) ) {
-    if ( ! wp_verify_nonce( $_POST['contact_nonce'], 'vuonlen_contact_form' ) ) {
+    if ( ! is_user_logged_in() ) {
+        $form_error = charity_t( 'Bạn phải đăng nhập để gửi tin nhắn.', 'You must sign in to send a message.' );
+    } elseif ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['contact_nonce'] ) ), 'vuonlen_contact_form' ) ) {
         $form_error = charity_t( 'Yêu cầu không hợp lệ.', 'Invalid request.' );
     } else {
         $name    = sanitize_text_field( wp_unslash( $_POST['contact_name'] ?? '' ) );
@@ -122,6 +124,15 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['contact_nonce'] ) )
                             'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.',
                             'Thank you for contacting us. We will respond as soon as possible.'
                         ); ?></p>
+                    </div>
+                    <?php elseif ( ! is_user_logged_in() ) : ?>
+                    <div class="contact-login-required">
+                        <h2 class="contact-form-title"><?php echo esc_html( charity_t( 'Đăng nhập để gửi tin nhắn', 'Sign in to send a message' ) ); ?></h2>
+                        <p class="contact-form-desc"><?php echo esc_html( charity_t(
+                            'Khách chưa đăng nhập chỉ có thể xem nội dung. Thành viên có thể gửi tin nhắn và ý kiến sau khi đăng nhập.',
+                            'Guests can view content only. Members can send messages and feedback after signing in.'
+                        ) ); ?></p>
+                        <a class="btn btn--primary" href="<?php echo esc_url( charity_portal_url( 'member' ) ); ?>"><?php echo esc_html( charity_t( 'Đăng nhập thành viên', 'Member sign in' ) ); ?></a>
                     </div>
                     <?php else : ?>
                     <h2 class="contact-form-title"><?php echo charity_t( 'Gửi tin nhắn', 'Send a Message' ); ?></h2>

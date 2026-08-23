@@ -158,7 +158,7 @@
     // ── Apply student data fill classes ──────────────────────────────────────
     function applyData(container, students, is34) {
       if (!container) { return; }
-      container.querySelectorAll('path').forEach(function (path) {
+      container.querySelectorAll('[id^="provinces-"] > path').forEach(function (path) {
         path.classList.remove('province--low', 'province--mid', 'province--high', 'province--active');
         path.classList.add('province--hover');
       });
@@ -209,7 +209,7 @@
     // ── Event binding ─────────────────────────────────────────────────────────
     function bindEvents(container, is34) {
       if (!container) { return; }
-      container.querySelectorAll('path').forEach(function (path) {
+      container.querySelectorAll('[id^="provinces-"] > path').forEach(function (path) {
         path.style.cursor = 'pointer';
 
         path.addEventListener('mouseenter', function (e) { showTooltip(e, path, is34); });

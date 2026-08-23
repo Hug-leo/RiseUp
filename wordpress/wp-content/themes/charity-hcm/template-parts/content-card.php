@@ -36,10 +36,17 @@ $comment_count = get_comments_number();
             <p class="story-card__excerpt"><?php echo wp_trim_words( get_the_excerpt(), 30 ); ?></p>
 
             <div class="story-card__footer">
-                <button class="story-card__action reaction-like-btn" data-post-id="<?php the_ID(); ?>" aria-label="Like">
+                <?php if ( is_user_logged_in() ) : ?>
+                <button class="story-card__action reaction-like-btn" data-post-id="<?php the_ID(); ?>" aria-label="<?php echo esc_attr( charity_t( 'Thích', 'Like' ) ); ?>">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
                     <span class="like-count"><?php echo $likes > 0 ? esc_html( $likes ) : ''; ?></span>
                 </button>
+                <?php elseif ( $likes > 0 ) : ?>
+                <span class="story-card__action story-card__action--readonly" aria-label="<?php echo esc_attr( charity_t( 'Lượt thích', 'Likes' ) ); ?>">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    <span class="like-count"><?php echo esc_html( $likes ); ?></span>
+                </span>
+                <?php endif; ?>
 
                 <a href="<?php the_permalink(); ?>#comments" class="story-card__action">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
