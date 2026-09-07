@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vươn Lên frontend QA preview</title>
+  <link rel="stylesheet" href="../wordpress/wp-content/themes/charity-hcm/assets/css/main.css">
+  <style>@media (max-width:520px){html,body{width:390px;max-width:390px}}</style>
+</head>
+<body>
+  <div class="topbar"><div class="container topbar__inner">Thành phố Hồ Chí Minh, Việt Nam <span>VI | EN</span></div></div>
+  <header class="site-header"><div class="container header__inner">
+    <div class="header__brand"><div class="header__logo-placeholder"><img src="../wordpress/wp-content/themes/charity-hcm/assets/img/dong-du-logo.jpg" alt="Vươn Lên"></div><div class="header__title"><a class="header__site-name">Vươn Lên</a><span class="header__tagline">Quỹ Khuyến Học Đồng Du</span></div></div>
+    <nav class="main-nav"><ul class="nav-menu"><li><a>Trang chủ</a></li><li><a>Học bổng Vươn Lên</a></li><li><a>Chia sẻ</a></li><li><a>Liên hệ</a></li></ul></nav>
+  </div></header>
+  <main>
+    <section class="cp-hero"><div class="cp-hero__pattern"></div><div class="container cp-hero__inner"><img class="cp-hero__logo" src="../wordpress/wp-content/themes/charity-hcm/assets/img/dong-du-logo.jpg" alt=""><p class="cp-hero__eyebrow">QUỸ KHUYẾN HỌC ĐỒNG DU</p><h1>Học Bổng Vươn Lên</h1><p class="cp-hero__subtitle">Một không gian lưu giữ câu chuyện học bổng, kết nối thành viên và lan tỏa tinh thần vươn lên.</p><div class="cp-hero__actions"><a class="btn btn--primary">Đọc tin mới</a><a class="btn btn--outline">Gửi bài viết</a></div></div></section>
+    <section class="section vl-featured"><div class="container"><div class="vl-editorial-header"><div><span class="section-label">DÒNG TIN VƯƠN LÊN</span><h2 class="section-title">Tin nổi bật</h2></div></div><div class="vl-featured-grid"><article class="vl-news-card vl-news-card--lead"><a class="vl-news-card__media"><span class="vl-news-card__placeholder"><span>HBVL</span></span></a><div class="vl-news-card__body"><span class="vl-news-card__badge">Câu chuyện</span><h3 class="vl-news-card__title">Những hành trình học tập được nâng đỡ bởi cộng đồng</h3><p class="vl-news-card__excerpt">Không gian kể lại những bước tiến bình dị, bền bỉ của các thành viên Vươn Lên.</p></div></article><div class="vl-secondary-grid"><article class="vl-news-card"><a class="vl-news-card__media"><span class="vl-news-card__placeholder"><span>HBVL</span></span></a><div class="vl-news-card__body"><span class="vl-news-card__badge">Hoạt động</span><h3 class="vl-news-card__title">Gặp gỡ và kết nối thành viên</h3></div></article></div></div></div></section>
+    <section class="student-map-section"><div class="student-map__header"><h2 class="student-map__title">Bản đồ sinh viên Vươn Lên</h2><p class="student-map__desc">Khám phá cộng đồng thành viên trên khắp Việt Nam.</p></div>
+      <div class="student-map__toolbar"><div class="student-map__toggle"><button class="map-toggle-btn active" data-map="34" aria-pressed="true">34 tỉnh/thành hiện hành</button><button class="map-toggle-btn" data-map="63" aria-pressed="false">63 tỉnh/thành trước sắp xếp</button></div><div class="student-map__search"><input id="student-map-search" placeholder="Tìm tỉnh/thành hoặc thành viên"><div id="student-map-search-results" class="student-map__search-results" hidden></div></div></div>
+      <div class="student-map__atlas"><div class="student-map__wrap"><div id="student-map-canvas" class="student-map__canvas">Đang tải bản đồ…</div><div class="student-map__legend"><span><i class="map-swatch map-swatch--empty"></i>Chưa có thành viên</span><span><i class="map-swatch map-swatch--members"></i>Có thành viên</span><span><i class="map-swatch map-swatch--selected"></i>Đang chọn</span></div><p class="student-map__islands">Hoàng Sa · Trường Sa</p></div>
+        <aside class="student-map__detail"><p class="student-map__detail-kicker">Tỉnh/thành đang chọn</p><h3 id="student-map-detail-title">Chọn một tỉnh/thành</h3><p id="student-map-detail-count" class="student-map__detail-count">—</p><div id="student-map-constituents" hidden><h4>Hình thành từ</h4><ul id="student-map-constituent-list"></ul></div><div><h4>Thành viên HBVL</h4><ol id="student-map-member-list"><li>Chọn một tỉnh/thành trên bản đồ.</li></ol></div></aside><div id="student-map-tooltip" class="student-map__tooltip" hidden></div></div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer__top">Vươn Lên · Quỹ Khuyến Học Đồng Du</div></footer>
+  <script src="../wordpress/wp-content/themes/charity-hcm/assets/js/student-map.js"></script>
+  <script>
+    (function selectForQa() {
+      var historical = new URLSearchParams(location.search).get('mode') === '63';
+      function choose() {
+        if (!document.querySelector('.map-province')) return;
+        if (historical && !document.querySelector('[data-map="63"]').classList.contains('active')) {
+          document.querySelector('[data-map="63"]').click();
+        }
+        document.querySelector('.map-province.has-members')?.click();
+      }
+      document.getElementById('student-map-canvas').addEventListener('hbvl-map-ready', choose);
+      choose();
+    }());
+  </script>
+</body>
+</html>

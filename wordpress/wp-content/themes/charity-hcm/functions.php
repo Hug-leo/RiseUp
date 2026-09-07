@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.3.0' );
+define( 'CHARITY_HCM_VERSION', '2.3.5' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
 
@@ -42,7 +42,7 @@ add_action( 'wp_enqueue_scripts', function () {
     );
     wp_enqueue_style(
         'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Noto+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Noto+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap',
         [],
         null
     );
@@ -501,7 +501,11 @@ function charity_group_icon( $slug ) {
 }
 
 function charity_vietnam_map_image_url() {
-    return CHARITY_HCM_URI . '/assets/img/vietnam-34-provinces.svg';
+    return add_query_arg(
+        'ver',
+        CHARITY_HCM_VERSION,
+        CHARITY_HCM_URI . '/assets/img/vietnam-34-provinces.svg'
+    );
 }
 
 function charity_drive_upload_url() {

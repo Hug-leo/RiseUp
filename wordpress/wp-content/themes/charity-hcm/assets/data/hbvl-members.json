@@ -1,0 +1,164 @@
+{
+  "members": [
+    {
+      "name": "BÙI MINH LỘC",
+      "oldProvince": "Vĩnh Long",
+      "currentProvince": "Vĩnh Long"
+    },
+    {
+      "name": "BÙI PHƯƠNG THẢO",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "CAO THUẬN THIÊN",
+      "oldProvince": "Đắk Lắk",
+      "currentProvince": "Đắk Lắk"
+    },
+    {
+      "name": "ĐÀO MỸ GIA HUY",
+      "oldProvince": "Đồng Nai",
+      "currentProvince": "Đồng Nai"
+    },
+    {
+      "name": "ĐẶNG PHÚC HẬU",
+      "oldProvince": "An Giang",
+      "currentProvince": "An Giang"
+    },
+    {
+      "name": "ĐOÀN TRUNG NHÂN",
+      "oldProvince": "Đồng Tháp",
+      "currentProvince": "Đồng Tháp"
+    },
+    {
+      "name": "HOÀNG MINH DƯƠNG",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "HOÀNG THỊ TƯỜNG VY",
+      "oldProvince": "Bình Định",
+      "currentProvince": "Gia Lai"
+    },
+    {
+      "name": "HUỲNH THỊ TRÚC NGÂN",
+      "oldProvince": "Đồng Tháp",
+      "currentProvince": "Đồng Tháp"
+    },
+    {
+      "name": "LÂM CHÍ THẬT",
+      "oldProvince": "Sóc Trăng",
+      "currentProvince": "Cần Thơ"
+    },
+    {
+      "name": "LÊ QUANG DŨNG",
+      "oldProvince": "Bình Phước",
+      "currentProvince": "Đồng Nai"
+    },
+    {
+      "name": "LƯƠNG MINH TRIẾT",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "MAI THỊ THANH NHÀN",
+      "oldProvince": "Quảng Ngãi",
+      "currentProvince": "Quảng Ngãi"
+    },
+    {
+      "name": "NGÔ HOÀI NAM",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "NGUYỄN CÔNG PHÁT",
+      "oldProvince": "Khánh Hòa",
+      "currentProvince": "Khánh Hòa"
+    },
+    {
+      "name": "NGUYỄN MINH QUÂN",
+      "oldProvince": "Đà Nẵng",
+      "currentProvince": "Đà Nẵng"
+    },
+    {
+      "name": "NGUYỄN PHÚC HẬU",
+      "oldProvince": "Tiền Giang",
+      "currentProvince": "Đồng Tháp"
+    },
+    {
+      "name": "NGUYỄN THỊ DIỂM PHƯƠNG",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "NGUYỄN THỊ NGỌC TRÂM",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "NGUYỄN THÚY AN",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "NGUYỄN TRẦN ĐỨC HOÀNG",
+      "oldProvince": "Khánh Hòa",
+      "currentProvince": "Khánh Hòa"
+    },
+    {
+      "name": "NGUYỄN TRẦN ĐỨC HÙNG",
+      "oldProvince": "Khánh Hòa",
+      "currentProvince": "Khánh Hòa"
+    },
+    {
+      "name": "NGUYỄN VĂN HẢO",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "PHẠM VĂN NGUYÊN",
+      "oldProvince": "Đắk Lắk",
+      "currentProvince": "Đắk Lắk"
+    },
+    {
+      "name": "PHAN TUYẾT NGÂN",
+      "oldProvince": "Tây Ninh",
+      "currentProvince": "Tây Ninh"
+    },
+    {
+      "name": "THÁI CÔNG LỘC",
+      "oldProvince": "Đà Nẵng",
+      "currentProvince": "Đà Nẵng"
+    },
+    {
+      "name": "THÁI THANH OANH",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    },
+    {
+      "name": "TRƯƠNG ĐÌNH VĂN",
+      "oldProvince": "Quảng Ngãi",
+      "currentProvince": "Quảng Ngãi"
+    },
+    {
+      "name": "VÕ THỊ NY NA",
+      "oldProvince": "Quảng Ngãi",
+      "currentProvince": "Quảng Ngãi"
+    },
+    {
+      "name": "VŨ THỊ THÚY HẰNG",
+      "oldProvince": "An Giang",
+      "currentProvince": "An Giang"
+    },
+    {
+      "name": "VŨ TRỌNG KHÔI",
+      "oldProvince": "TP. Hồ Chí Minh",
+      "currentProvince": "TP. Hồ Chí Minh"
+    }
+  ],
+  "meta": {
+    "memberCount": 31,
+    "oldProvinceCount": 63,
+    "currentProvinceCount": 34
+  }
+}

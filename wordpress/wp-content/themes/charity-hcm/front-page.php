@@ -201,23 +201,30 @@ $render_home_card = static function ( $variant = 'standard' ) use ( $category_la
     <div class="container container--wide cp-map-feature__inner">
         <div class="cp-map-feature__copy">
             <span class="section-label"><?php echo charity_t( 'Đồng Du Ký', 'Dong Du Journeys' ); ?></span>
-            <h2 class="section-title"><?php echo charity_t( 'Bản đồ Vươn Lên', 'Rise Up Map' ); ?></h2>
+            <h2 class="section-title"><?php echo charity_t( 'Cộng đồng Vươn Lên trên khắp Việt Nam', 'The Rise Up community across Vietnam' ); ?></h2>
             <p><?php echo charity_t(
-                'Bản đồ Việt Nam giúp đánh dấu nơi thành viên và cựu thành viên HBVL đang học tập, làm việc hoặc sinh hoạt. Đây là nền cho các hoạt động ghé thăm, gặp gỡ và kết nối cộng đồng theo vùng.',
-                'The Vietnam map shows where members and alumni are studying, working, or active. It supports local visits, meetups, and regional community connection.'
+                'Khám phá quê quán của thành viên HBVL theo 34 tỉnh/thành hiện hành hoặc 63 tỉnh/thành trước sắp xếp năm 2025.',
+                'Explore HBVL member hometowns using either the 34 current units or the 63 units before the 2025 reorganisation.'
             ); ?></p>
+            <div class="cp-map-feature__modes" aria-label="<?php echo esc_attr( charity_t( 'Hai chế độ bản đồ', 'Two map modes' ) ); ?>">
+                <span><?php echo esc_html( charity_t( '34 tỉnh/thành hiện hành', '34 current provinces/cities' ) ); ?></span>
+                <span><?php echo esc_html( charity_t( '63 tỉnh/thành trước sắp xếp', '63 before reorganisation' ) ); ?></span>
+            </div>
+            <a class="btn btn--map" href="<?php echo esc_url( home_url( '/category/dong-du-ky/ban-do-vuon-len/' ) ); ?>">
+                <?php echo esc_html( charity_t( 'Khám phá bản đồ', 'Explore the map' ) ); ?>
+                <span aria-hidden="true">→</span>
+            </a>
         </div>
         <div class="cp-map-feature__visual">
+            <a class="cp-map-feature__map-link" href="<?php echo esc_url( home_url( '/category/dong-du-ky/ban-do-vuon-len/' ) ); ?>" aria-label="<?php echo esc_attr( charity_t( 'Mở bản đồ thành viên Vươn Lên', 'Open the Rise Up member map' ) ); ?>">
             <figure class="cp-map-feature__map">
                 <img src="<?php echo esc_url( charity_vietnam_map_image_url() ); ?>" alt="<?php echo esc_attr( charity_t( 'Bản đồ Việt Nam gồm Phú Quốc, quần đảo Hoàng Sa và quần đảo Trường Sa', 'Map of Vietnam including Phu Quoc, Hoang Sa and Truong Sa archipelagos' ) ); ?>">
-                <span class="cp-map-pin cp-map-pin--north" aria-hidden="true"></span>
-                <span class="cp-map-pin cp-map-pin--central" aria-hidden="true"></span>
-                <span class="cp-map-pin cp-map-pin--south" aria-hidden="true"></span>
+                <figcaption><?php echo esc_html( charity_t( 'Dữ liệu thành viên HBVL theo tỉnh/thành', 'HBVL member data by province/city' ) ); ?></figcaption>
             </figure>
+            </a>
             <ul class="cp-map-feature__legend">
-                <li><?php echo charity_t( 'Thành viên đang hoạt động', 'Active members' ); ?></li>
-                <li><?php echo charity_t( 'Cựu học bổng', 'Alumni' ); ?></li>
-                <li><?php echo charity_t( 'Điểm hẹn chuyến đi', 'Trip meetups' ); ?></li>
+                <li class="cp-map-feature__legend-empty"><?php echo esc_html( charity_t( 'Chưa có thành viên', 'No members' ) ); ?></li>
+                <li class="cp-map-feature__legend-members"><?php echo esc_html( charity_t( 'Có thành viên HBVL', 'Has HBVL members' ) ); ?></li>
             </ul>
         </div>
     </div>
