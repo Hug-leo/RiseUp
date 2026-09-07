@@ -12,6 +12,18 @@
 (function () {
   'use strict';
 
+  /* Keep the established WordPress enqueue handle while delegating presentation to modules. */
+  var loaderScript = document.currentScript;
+  if (loaderScript) {
+    import(new URL('./hbvl-map.js', loaderScript.src).href)
+      .then(function (module) { module.initHBVLMap(); })
+      .catch(function () {
+        var canvas = document.getElementById('student-map-canvas');
+        if (canvas) canvas.textContent = 'Không thể tải bản đồ. Vui lòng thử lại.';
+      });
+  }
+  return;
+
   // Escape HTML special characters — prevents XSS if data ever changes source.
   function esc(s) {
     var d = document.createElement('div');

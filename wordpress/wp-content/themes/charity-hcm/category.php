@@ -82,7 +82,6 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
             <?php if ( $current_item && $current_item['slug'] === 'ban-do-vuon-len' ) : ?>
                 <section class="student-map-section" id="student-map-interactive">
                     <div class="student-map__header">
-                        <span class="section-label"><?php echo charity_t( 'Bản đồ tương tác', 'Interactive map' ); ?></span>
                         <h2 class="student-map__title">
                             <?php echo esc_html( charity_t( 'Bản đồ sinh viên Vươn Lên', 'Rise Up Student Origins' ) ); ?>
                         </h2>
@@ -94,47 +93,59 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
                         </p>
                     </div>
 
-                    <div class="student-map__toggle" role="group" aria-label="<?php echo esc_attr( charity_t( 'Chọn phân chia tỉnh thành', 'Select province division' ) ); ?>">
-                        <button class="map-toggle-btn active" data-map="63" type="button">
-                            <span><?php echo esc_html( charity_t( '63 tỉnh thành', '63 provinces' ) ); ?></span>
-                        </button>
-                        <button class="map-toggle-btn" data-map="34" type="button">
-                            <span><?php echo esc_html( charity_t( '34 tỉnh thành', '34 provinces' ) ); ?></span>
-                        </button>
+                    <div class="student-map__toolbar">
+                        <div class="student-map__toggle" role="group" aria-label="<?php echo esc_attr( charity_t( 'Chọn hệ thống đơn vị hành chính cấp tỉnh', 'Select provincial-level administrative system' ) ); ?>">
+                            <button class="map-toggle-btn active" data-map="34" type="button" aria-pressed="true">
+                                <span><?php echo esc_html( charity_t( '34 tỉnh/thành hiện hành', '34 current provinces/cities' ) ); ?></span>
+                            </button>
+                            <button class="map-toggle-btn" data-map="63" type="button" aria-pressed="false">
+                                <span><?php echo esc_html( charity_t( '63 tỉnh/thành trước sắp xếp', '63 before reorganisation' ) ); ?></span>
+                            </button>
+                        </div>
+
+                        <div class="student-map__search">
+                            <label class="screen-reader-text" for="student-map-search"><?php echo esc_html( charity_t( 'Tìm tỉnh, thành hoặc thành viên', 'Search provinces, cities or members' ) ); ?></label>
+                            <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                            <input id="student-map-search" type="search" autocomplete="off" placeholder="<?php echo esc_attr( charity_t( 'Tìm tỉnh/thành hoặc thành viên', 'Search province/city or member' ) ); ?>">
+                            <div class="student-map__search-results" id="student-map-search-results" hidden></div>
+                        </div>
                     </div>
 
-                    <div class="student-map__wrap" aria-live="polite">
-                        <div class="student-map__svg-container active" id="student-map-63" data-map="63" aria-hidden="false">
-                            <?php
-                            $svg_63 = CHARITY_HCM_DIR . '/assets/img/vietnam-63-provinces.svg';
-                            if ( file_exists( $svg_63 ) ) {
-                                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme SVG asset.
-                                echo file_get_contents( $svg_63 );
-                            } else {
-                                echo '<p class="student-map__fallback">' . esc_html( charity_t( 'Chưa tìm thấy bản đồ 63 tỉnh thành.', 'The 63-province map asset is missing.' ) ) . '</p>';
-                            }
-                            ?>
+                    <div class="student-map__atlas">
+                        <div class="student-map__wrap" aria-label="<?php echo esc_attr( charity_t( 'Bản đồ hành chính Việt Nam tương tác', 'Interactive administrative map of Vietnam' ) ); ?>">
+                            <div class="student-map__canvas" id="student-map-canvas" aria-live="polite">
+                                <p class="student-map__loading"><?php echo esc_html( charity_t( 'Đang tải bản đồ…', 'Loading map…' ) ); ?></p>
+                            </div>
+                            <div class="student-map__legend" aria-label="<?php echo esc_attr( charity_t( 'Chú giải bản đồ', 'Map legend' ) ); ?>">
+                                <span><i class="map-swatch map-swatch--empty"></i><?php echo esc_html( charity_t( 'Chưa có thành viên', 'No members' ) ); ?></span>
+                                <span><i class="map-swatch map-swatch--members"></i><?php echo esc_html( charity_t( 'Có thành viên', 'Has members' ) ); ?></span>
+                                <span><i class="map-swatch map-swatch--selected"></i><?php echo esc_html( charity_t( 'Đang chọn', 'Selected' ) ); ?></span>
+                            </div>
+                            <p class="student-map__islands" aria-hidden="true">Hoàng Sa · Trường Sa</p>
                         </div>
 
-                        <div class="student-map__svg-container" id="student-map-34" data-map="34" aria-hidden="true">
-                            <?php
-                            $svg_34 = CHARITY_HCM_DIR . '/assets/img/vietnam-34-provinces.svg';
-                            if ( file_exists( $svg_34 ) ) {
-                                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme SVG asset.
-                                echo file_get_contents( $svg_34 );
-                            } else {
-                                echo '<p class="student-map__fallback">' . esc_html( charity_t( 'Chưa tìm thấy bản đồ 34 tỉnh thành.', 'The 34-province map asset is missing.' ) ) . '</p>';
-                            }
-                            ?>
-                        </div>
-
+                        <aside class="student-map__detail" id="student-map-detail" aria-live="polite" aria-labelledby="student-map-detail-title">
+                            <p class="student-map__detail-kicker"><?php echo esc_html( charity_t( 'Tỉnh/thành đang chọn', 'Selected province/city' ) ); ?></p>
+                            <h3 id="student-map-detail-title"><?php echo esc_html( charity_t( 'Chọn một tỉnh/thành', 'Choose a province/city' ) ); ?></h3>
+                            <p class="student-map__detail-count" id="student-map-detail-count">—</p>
+                            <div class="student-map__constituents" id="student-map-constituents" hidden>
+                                <h4><?php echo esc_html( charity_t( 'Hình thành từ', 'Formed from' ) ); ?></h4>
+                                <ul id="student-map-constituent-list"></ul>
+                            </div>
+                            <div class="student-map__members">
+                                <h4><?php echo esc_html( charity_t( 'Thành viên HBVL', 'HBVL members' ) ); ?></h4>
+                                <ol id="student-map-member-list">
+                                    <li class="student-map__empty"><?php echo esc_html( charity_t( 'Nhấp hoặc dùng bàn phím để chọn một tỉnh/thành trên bản đồ.', 'Click or use the keyboard to choose a province/city on the map.' ) ); ?></li>
+                                </ol>
+                            </div>
+                        </aside>
                         <div class="student-map__tooltip" id="student-map-tooltip" role="tooltip" aria-live="polite"></div>
                     </div>
 
                     <p class="student-map__note">
                         <?php echo esc_html( charity_t(
-                            'Bản đồ thể hiện đất liền, Phú Quốc, các đảo ven bờ và hai quần đảo Hoàng Sa, Trường Sa của Việt Nam. Số lượng được tính từ danh sách thành viên theo từng tỉnh.',
-                            'The map shows mainland Vietnam, Phu Quoc, coastal islands, and the Hoang Sa and Truong Sa archipelagos of Vietnam. Counts are derived from the member list for each province.'
+                            'Bản đồ hỗ trợ 34 đơn vị hành chính cấp tỉnh hiện hành và 63 đơn vị ngay trước sắp xếp năm 2025. Số lượng được tính trực tiếp từ danh sách thành viên HBVL; Hoàng Sa và Trường Sa được thể hiện dưới dạng nhãn tham chiếu, không phải đơn vị bổ sung.',
+                            'The map supports the 34 current provincial-level units and the 63 units immediately before the 2025 reorganisation. Counts are derived directly from the HBVL member list; Hoang Sa and Truong Sa are reference labels, not additional units.'
                         ) ); ?>
                     </p>
                 </section>
