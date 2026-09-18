@@ -5139,3 +5139,77 @@ h1, h2, h3, .section-title, .entry-title { color: var(--color-text); font-family
   .cp-map-feature__modes { align-items: stretch; flex-direction: column; }
   .cp-map-feature__modes span { justify-content: center; border-radius: 8px; }
 }
+
+/* Balanced centered homepage hero */
+.home .cp-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(100% - 48px, 1120px);
+  max-width: 1120px;
+  margin-inline: auto;
+  text-align: center;
+}
+.home .cp-hero__logo {
+  margin-inline: auto;
+  margin-bottom: 22px;
+}
+.home .cp-hero .cp-hero__eyebrow {
+  margin: 0 0 18px;
+  font-size: clamp(.88rem, 1vw, 1rem);
+  line-height: 1.5;
+  letter-spacing: .12em;
+  text-align: center;
+}
+.home .cp-hero h1 {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0;
+  font-size: clamp(3.4rem, 6vw, 5.8rem);
+  line-height: 1.02;
+  text-align: center;
+  text-wrap: balance;
+}
+.home .cp-hero .cp-hero__subtitle {
+  width: min(100%, 730px);
+  max-width: 730px;
+  margin: 24px auto 0;
+  color: #4f6274;
+  font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+  line-height: 1.75;
+  text-align: center;
+  text-wrap: balance;
+}
+.home .cp-hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 30px;
+}
+.home .cp-hero__actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 158px;
+  min-height: 54px;
+  padding: 13px 24px;
+  border-width: 2px;
+  border-radius: 9px;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .home .cp-hero__inner { width: min(100% - 32px, 720px); }
+  .home .cp-hero h1 { font-size: clamp(3rem, 12vw, 4.6rem); }
+  .home .cp-hero .cp-hero__subtitle { font-size: 1.05rem; }
+}
+@media (max-width: 520px) {
+  .home .cp-hero__inner { width: min(100% - 24px, 480px); padding-block: 52px 60px; }
+  .home .cp-hero h1 { font-size: clamp(2.65rem, 13vw, 3.5rem); }
+  .home .cp-hero__actions { align-items: stretch; flex-direction: column; gap: 10px; max-width: 300px; }
+  .home .cp-hero__actions .btn { width: 100%; min-height: 52px; }
+}
