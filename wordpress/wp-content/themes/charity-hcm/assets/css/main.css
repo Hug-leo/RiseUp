@@ -385,6 +385,8 @@ ul, ol {
 
 .topbar__inner {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: space-between;
   align-items: center;
   min-height: 38px;
@@ -404,12 +406,17 @@ ul, ol {
 
 .topbar__right {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   align-items: center;
   gap: 18px;
 }
 
 .account-nav {
   display: inline-flex;
+  flex-wrap: wrap;
+  min-width: 0;
+  overflow-wrap: anywhere;
   align-items: center;
   gap: 12px;
 }
@@ -483,10 +490,11 @@ ul, ol {
 }
 
 .header__inner {
+  max-width: 1600px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 72px;
+  min-height: 96px;
   gap: 20px;
 }
 
@@ -500,8 +508,8 @@ ul, ol {
 }
 
 .header__logo, .header__logo-placeholder {
-  width: 44px;
-  height: 44px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -525,7 +533,7 @@ ul, ol {
 }
 
 .header__site-name {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--text-main);
   letter-spacing: -0.02em;
@@ -562,8 +570,8 @@ ul, ol {
 .nav-menu > li > a {
   display: inline-flex;
   align-items: center;
-  padding: 8px 13px;
-  font-size: 0.91rem;
+  padding: 14px 13px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-secondary);
   border-radius: var(--radius-sm);
@@ -702,6 +710,8 @@ ul, ol {
 /* Mobile Toggle Hamburger */
 .nav-toggle {
   display: none;
+  position: relative;
+  z-index: 101;
   width: 40px;
   height: 40px;
   flex-direction: column;
@@ -3787,30 +3797,32 @@ ul, ol {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1560px) {
   .header__inner {
-    min-height: 64px;
+    min-height: 80px;
   }
   .nav-toggle {
     display: flex;
   }
   .main-nav {
+    display: none;
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0;
     width: 320px;
+    max-width: 100vw;
     height: 100vh;
     background: #ffffff;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
     flex-direction: column;
     align-items: stretch;
-    padding: 24px;
+    padding: 80px 24px 24px;
     overflow-y: auto;
     transition: right 300ms cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 100;
   }
   .main-nav.open {
-    right: 0;
+    display: flex;
   }
   .main-nav__mobile-head {
     display: flex;
@@ -3859,6 +3871,9 @@ ul, ol {
   .nav-search-form.is-active .nav-search-input {
     width: 100%;
   }
+}
+
+@media (max-width: 900px) {
   .content-wrap .container {
     grid-template-columns: 1fr;
   }

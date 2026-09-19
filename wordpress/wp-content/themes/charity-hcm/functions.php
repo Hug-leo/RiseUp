@@ -1,11 +1,12 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.3.6' );
+define( 'CHARITY_HCM_VERSION', '2.3.7' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
 
 require_once CHARITY_HCM_DIR . '/inc/access-control.php';
+require_once CHARITY_HCM_DIR . '/inc/contact.php';
 
 // ─── Theme Setup ──────────────────────────────────────────────────────────────
 add_action( 'after_setup_theme', function () {
