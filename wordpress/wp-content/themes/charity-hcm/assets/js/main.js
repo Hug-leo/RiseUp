@@ -38,7 +38,7 @@
       const link = item.querySelector('a');
       if (link) {
         link.addEventListener('click', (e) => {
-          if (window.innerWidth <= 900) {
+          if (window.innerWidth <= 1560) {
             e.preventDefault();
             item.classList.toggle('open');
           }
@@ -338,5 +338,8 @@
   // ── Init on load ───────────────────────────────────────────────────────
   initAnimations();
   initLikeButtons();
+
+  // Expose globally for dynamic page templates
+  window.initLikeButtons = initLikeButtons;
 
 })();

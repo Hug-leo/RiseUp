@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const CHARITY_ACCESS_VERSION = '1.1.0';
+const CHARITY_ACCESS_VERSION = '1.1.1';
 
 function charity_portal_url( $portal = 'member' ) {
     $paths = [
@@ -154,6 +154,7 @@ function charity_register_account_routes() {
         'dang-nhap-thanh-vien'    => 'member',
         'tai-khoan'               => 'account',
         'gui-y-kien'              => 'feedback',
+        'dong-gop-y-kien'         => 'feedback',
     ];
 
     foreach ( $routes as $path => $portal ) {
@@ -213,34 +214,56 @@ function charity_handle_feedback_submission() {
         exit;
     }
 
+    if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
+        wp_die( 'Method not allowed.', '', [ 'response' => 405 ] );
+    }
+    if ( isset( $_POST['feedback_nonce'] ) && ! is_string( $_POST['feedback_nonce'] ) ) {
+        wp_die( 'Invalid nonce.', '', [ 'response' => 403 ] );
+    }
     check_admin_referer( 'charity_submit_feedback', 'feedback_nonce' );
 
     if ( ! empty( $_POST['feedback_website'] ) ) {
-        wp_safe_redirect( add_query_arg( 'feedback', 'success', charity_portal_url( 'feedback' ) ) );
+        wp_safe_redirect( add_query_arg( 'feedback', 'success', charity_portal_url( 'feedback' ) ), 303 );
         exit;
     }
 
+    foreach ( [ 'feedback_subject', 'feedback_message' ] as $field ) {
+        if ( isset( $_POST[ $field ] ) && ! is_string( $_POST[ $field ] ) ) {
+            wp_safe_redirect( add_query_arg( 'feedback', 'invalid', charity_portal_url( 'feedback' ) ), 303 );
+            exit;
+        }
+    }
     $subject = sanitize_text_field( wp_unslash( $_POST['feedback_subject'] ?? '' ) );
     $message = sanitize_textarea_field( wp_unslash( $_POST['feedback_message'] ?? '' ) );
 
     if ( '' === $subject || '' === $message || mb_strlen( $subject ) > 160 || mb_strlen( $message ) > 5000 ) {
-        wp_safe_redirect( add_query_arg( 'feedback', 'invalid', charity_portal_url( 'feedback' ) ) );
+        wp_safe_redirect( add_query_arg( 'feedback', 'invalid', charity_portal_url( 'feedback' ) ), 303 );
         exit;
     }
 
-    $feedback_id = wp_insert_post( [
+    $rate_key = 'charity_feedback_' . get_current_user_id();
+    if ( get_transient( $rate_key ) ) {
+        wp_safe_redirect( add_query_arg( 'feedback', 'rate', charity_portal_url( 'feedback' ) ), 303 );
+        exit;
+    }
+
+    $feedback_id = wp_insert_post( wp_slash( [
         'post_type'    => 'riseup_feedback',
         'post_status'  => 'private',
         'post_title'   => $subject,
         'post_content' => $message,
         'post_author'  => get_current_user_id(),
-    ], true );
+    ] ), true );
 
-    $result = is_wp_error( $feedback_id ) ? 'error' : 'success';
-    wp_safe_redirect( add_query_arg( 'feedback', $result, charity_portal_url( 'feedback' ) ) );
+    $result = is_wp_error( $feedback_id ) || ! $feedback_id ? 'error' : 'success';
+    if ( 'success' === $result ) {
+        set_transient( $rate_key, $feedback_id, MINUTE_IN_SECONDS );
+    }
+    wp_safe_redirect( add_query_arg( 'feedback', $result, charity_portal_url( 'feedback' ) ), 303 );
     exit;
 }
 add_action( 'admin_post_charity_submit_feedback', 'charity_handle_feedback_submission' );
+add_action( 'admin_post_nopriv_charity_submit_feedback', 'charity_handle_feedback_submission' );
 
 // WordPress must reject anonymous comments even if a request bypasses the theme form.
 add_filter( 'pre_option_comment_registration', '__return_true' );
@@ -315,12 +338,17 @@ add_action( 'admin_init', function () {
         return;
     }
 
+    global $pagenow;
+    // This front-end form posts through wp-admin, but does not grant admin access.
+    if ( 'admin-post.php' === $pagenow && 'charity_submit_feedback' === ( $_REQUEST['action'] ?? '' ) ) {
+        return;
+    }
+
     if ( charity_user_is_member() ) {
         wp_safe_redirect( charity_portal_url( 'account' ) );
         exit;
     }
 
-    global $pagenow;
     if ( charity_user_is_collaborator() && 'index.php' === $pagenow ) {
         wp_safe_redirect( admin_url( 'edit.php' ) );
         exit;

@@ -83,13 +83,119 @@ $render_home_card = static function ( $variant = 'standard' ) use ( $category_la
 <section class="cp-hero" id="home">
     <div class="cp-hero__pattern"></div>
     <div class="container cp-hero__inner">
-        <img class="cp-hero__logo" src="<?php echo esc_url( CHARITY_HCM_URI . '/assets/img/dong-du-logo.jpg' ); ?>" alt="Dong Du logo">
-        <p class="cp-hero__eyebrow"><?php echo charity_t( 'Quỹ Khuyến Học Đông Du', 'Dong Du Study Encouragement Fund' ); ?></p>
-        <h1><?php echo charity_t( 'Học Bổng Vươn Lên', 'Rise Up Scholarship' ); ?></h1>
-        <p class="cp-hero__subtitle"><?php echo charity_t( 'Một không gian lưu giữ câu chuyện học bổng, kết nối thành viên và lan tỏa tinh thần vươn lên.', 'A home for scholarship stories, member connection, and the spirit of rising through education.' ); ?></p>
+        <div class="cp-hero__badge-wrap">
+            <span class="cp-hero__badge">
+                <span class="cp-hero__badge-dot"></span>
+                <?php echo charity_t( 'Quỹ Khuyến Học Đông Du • Tiếp Sức Tri Thức', 'Dong Du Study Encouragement Fund • Rise Up' ); ?>
+            </span>
+        </div>
+        <h1 class="cp-hero__title"><?php echo charity_t( 'Học Bổng <span class="cp-hero__title-highlight">Vươn Lên</span>', 'Rise Up <span class="cp-hero__title-highlight">Scholarship</span>' ); ?></h1>
+        <p class="cp-hero__desc"><?php echo charity_t( 'Một không gian kết nối câu chuyện học bổng, lan tỏa tinh thần hiếu học và nâng bước ước mơ trên khắp 63 tỉnh thành Việt Nam.', 'A home for scholarship stories, member connection, and the spirit of rising through education across Vietnam.' ); ?></p>
         <div class="cp-hero__actions">
-            <a class="btn btn--primary" href="#featured-stories"><?php echo charity_t( 'Đọc tin mới', 'Read Stories' ); ?></a>
-            <a class="btn btn--outline" href="<?php echo esc_url( $submit_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo charity_t( 'Gửi bài viết', 'Submit a Story' ); ?></a>
+            <a class="btn btn--primary btn--lg" href="#featured-stories"><?php echo charity_t( 'Đọc tin nổi bật', 'Featured Stories' ); ?></a>
+            <a class="btn btn--map btn--lg" href="<?php echo esc_url( home_url( '/category/dong-du-ky/ban-do-vuon-len/' ) ); ?>"><?php echo charity_t( 'Bản đồ Vươn Lên', 'Member Map' ); ?></a>
+            <a class="btn btn--outline btn--lg" href="<?php echo esc_url( $submit_url ); ?>"><?php echo charity_t( 'Gửi bài viết', 'Submit a Story' ); ?></a>
+        </div>
+        <div class="cp-hero__stats">
+            <div class="hero-stat">
+                <span class="hero-stat__num">63 / 34</span>
+                <span class="hero-stat__label"><?php echo charity_t( 'Tỉnh/thành kết nối', 'Provinces & Cities' ); ?></span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat__num">5</span>
+                <span class="hero-stat__label"><?php echo charity_t( 'Trụ cột nội dung', 'Content Pillars' ); ?></span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat__num">20+</span>
+                <span class="hero-stat__label"><?php echo charity_t( 'Năm khuyến học', 'Years of Giving' ); ?></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mission-section" id="mission">
+    <div class="container container--wide">
+        <div class="section-header">
+            <span class="section-label"><?php echo esc_html( charity_t( 'Sứ mệnh & Giá trị', 'Mission & Values' ) ); ?></span>
+            <h2 class="section-title"><?php echo esc_html( charity_t( 'Nuôi Dưỡng Khát Vọng, Lan Tỏa Tinh Thần Tự Lực', 'Nurturing Ambition, Spreading Resilience' ) ); ?></h2>
+            <p class="section-desc"><?php echo esc_html( charity_t( 'Học bổng Vươn Lên không chỉ là sự hỗ trợ tài chính, mà là bệ phóng tinh thần giúp sinh viên vững bước trên con đường lập thân, lập nghiệp.', 'Rise Up is more than financial assistance; it is a community launchpad empowering students to rise.' ) ); ?></p>
+        </div>
+
+        <div class="mission-grid">
+            <div class="mission-card">
+                <div class="mission-card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3 class="mission-card__title"><?php echo esc_html( charity_t( 'Tiếp Sức Tri Thức', 'Educational Support' ) ); ?></h3>
+                <p class="mission-card__desc"><?php echo esc_html( charity_t( 'Đồng hành cùng các bạn sinh viên vượt khó, tạo điều kiện tiếp cận tri thức và phát triển kỹ năng toàn diện.', 'Accompanying underprivileged students with resources, academic tools, and career skills.' ) ); ?></p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3 class="mission-card__title"><?php echo esc_html( charity_t( 'Mạng Lưới Gắn Kết', 'Connected Community' ) ); ?></h3>
+                <p class="mission-card__desc"><?php echo esc_html( charity_t( 'Kết nối các thế hệ thành viên HBVL trên khắp mọi miền tổ quốc thông qua bản đồ số và các hoạt động giao lưu.', 'Connecting HBVL alumni and members across 63 provinces through digital mapping and interactive events.' ) ); ?></p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
+                <h3 class="mission-card__title"><?php echo esc_html( charity_t( 'Lan Tỏa & Tiếp Nối', 'Pay It Forward' ) ); ?></h3>
+                <p class="mission-card__desc"><?php echo esc_html( charity_t( 'Tinh thần Đông Du: người đi trước dìu dắt người đi sau, đóng góp giá trị thiết thực và trách nhiệm cho cộng đồng.', 'Embodying the Dong Du ethos: alumni guiding juniors and paying forward values to wider society.' ) ); ?></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pillars-section" id="pillars">
+    <div class="container container--wide">
+        <div class="section-header">
+            <span class="section-label"><?php echo esc_html( charity_t( '5 Trụ cột nội dung', '5 Content Pillars' ) ); ?></span>
+            <h2 class="section-title"><?php echo esc_html( charity_t( 'Không Gian Tri Thức & Trải Nghiệm', 'Knowledge & Experience Spaces' ) ); ?></h2>
+            <p class="section-desc"><?php echo esc_html( charity_t( 'Khám phá các chuyên mục được xây dựng dành riêng cho cộng đồng học bổng Vươn Lên.', 'Explore dedicated sections tailored for the Rise Up scholarship community.' ) ); ?></p>
+        </div>
+
+        <div class="pillars-grid">
+            <?php foreach ( $content_groups as $index => $group ) : 
+                $group_slug = $group['slug'] ?? '';
+                $group_url  = charity_category_url_by_slug( $group_slug );
+                $group_num  = sprintf( '%02d', $index + 1 );
+            ?>
+                <a class="pillar-card" href="<?php echo esc_url( $group_url ); ?>">
+                    <div>
+                        <div class="pillar-card__head">
+                            <span class="pillar-card__icon">
+                                <?php if ( 'tin-tuc' === $group_slug ) : ?>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                                <?php elseif ( 'dong-du-ky' === $group_slug ) : ?>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                                <?php elseif ( 'so-tay-kien-thuc' === $group_slug ) : ?>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                                <?php elseif ( 'goc-sach-hay' === $group_slug ) : ?>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                <?php else : ?>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                                <?php endif; ?>
+                            </span>
+                            <span class="pillar-card__number"><?php echo esc_html( $group_num ); ?></span>
+                        </div>
+                        <h3 class="pillar-card__title"><?php echo esc_html( charity_t( $group['title_vi'], $group['title_en'] ) ); ?></h3>
+                        <p class="pillar-card__desc"><?php echo esc_html( charity_t( $group['summary_vi'] ?? '', $group['summary_en'] ?? '' ) ); ?></p>
+                        
+                        <?php if ( ! empty( $group['items'] ) ) : ?>
+                            <div class="pillar-card__tags">
+                                <?php foreach ( array_slice( $group['items'], 0, 3 ) as $sub_item ) : ?>
+                                    <span class="pillar-card__tag"><?php echo esc_html( charity_t( $sub_item['vi'], $sub_item['en'] ) ); ?></span>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="pillar-card__footer">
+                        <span><?php echo esc_html( charity_t( 'Khám phá', 'Explore' ) ); ?></span>
+                        <span aria-hidden="true">→</span>
+                    </div>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>

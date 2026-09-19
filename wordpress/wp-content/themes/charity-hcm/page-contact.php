@@ -3,54 +3,32 @@
  * Template Name: Contact
  *
  * Contact page for Dong Du Study Encouragement Fund. Displays contact info cards,
- * embedded Google Map, and a contact form that sends via wp_mail().
+ * embedded Google Map, and a contact form backed by a private inbox.
  */
-get_header();
-
 $form_sent  = false;
 $form_error = '';
+$values = [ 'contact_name' => '', 'contact_email' => '', 'contact_subject' => '', 'contact_message' => '' ];
+if ( is_user_logged_in() ) {
+    $values['contact_name'] = wp_get_current_user()->display_name;
+    $values['contact_email'] = wp_get_current_user()->user_email;
+}
 
-if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['contact_nonce'] ) ) {
-    if ( ! is_user_logged_in() ) {
-        $form_error = charity_t( 'Bạn phải đăng nhập để gửi tin nhắn.', 'You must sign in to send a message.' );
-    } elseif ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['contact_nonce'] ) ), 'vuonlen_contact_form' ) ) {
-        $form_error = charity_t( 'Yêu cầu không hợp lệ.', 'Invalid request.' );
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+    $input = wp_unslash( $_POST );
+    foreach ( $values as $key => $value ) {
+        $values[ $key ] = isset( $input[ $key ] ) && is_string( $input[ $key ] ) ? $input[ $key ] : '';
+    }
+    $result = charity_receive_contact( $input );
+    if ( is_wp_error( $result ) ) {
+        $form_error = $result->get_error_message();
     } else {
-        $name    = sanitize_text_field( wp_unslash( $_POST['contact_name'] ?? '' ) );
-        $email   = sanitize_email( wp_unslash( $_POST['contact_email'] ?? '' ) );
-        $subject = sanitize_text_field( wp_unslash( $_POST['contact_subject'] ?? '' ) );
-        $message = sanitize_textarea_field( wp_unslash( $_POST['contact_message'] ?? '' ) );
-
-        if ( empty( $name ) || empty( $email ) || empty( $message ) ) {
-            $form_error = charity_t(
-                'Vui lòng điền đầy đủ các trường bắt buộc.',
-                'Please fill in all required fields.'
-            );
-        } elseif ( ! is_email( $email ) ) {
-            $form_error = charity_t( 'Email không hợp lệ.', 'Invalid email address.' );
-        } else {
-            $to      = 'quykhuyenhocdongdu@gmail.com';
-            $subject = ! empty( $subject ) ? $subject : charity_t( 'Liên hệ từ website', 'Contact from website' );
-            $body    = sprintf(
-                "%s: %s\n%s: %s\n\n%s",
-                charity_t( 'Tên', 'Name' ), $name,
-                'Email', $email,
-                $message
-            );
-            $headers = [ 'Content-Type: text/plain; charset=UTF-8', "Reply-To: {$name} <{$email}>" ];
-
-            $sent = wp_mail( $to, $subject, $body, $headers );
-            if ( $sent ) {
-                $form_sent = true;
-            } else {
-                $form_error = charity_t(
-                    'Gửi thất bại. Vui lòng thử lại hoặc liên hệ trực tiếp.',
-                    'Send failed. Please try again or contact us directly.'
-                );
-            }
-        }
+        wp_safe_redirect( add_query_arg( 'contact_received', $result, get_permalink() ) . '#contact-result', 303 );
+        exit;
     }
 }
+$receipt = isset( $_GET['contact_received'] ) && is_scalar( $_GET['contact_received'] ) ? get_post( absint( $_GET['contact_received'] ) ) : null;
+$form_sent = is_user_logged_in() && $receipt && 'riseup_contact' === $receipt->post_type && (int) $receipt->post_author === get_current_user_id();
+get_header();
 ?>
 
 <div class="page-banner">
@@ -117,9 +95,10 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['contact_nonce'] ) )
 
                 <div class="contact-form-wrap animate-in">
                     <?php if ( $form_sent ) : ?>
-                    <div class="contact-success">
+                    <div class="contact-success" id="contact-result" role="status">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        <h3><?php echo charity_t( 'Gửi thành công!', 'Sent successfully!' ); ?></h3>
+                        <h3><?php echo charity_t( 'Đã tiếp nhận tin nhắn!', 'Message received!' ); ?></h3>
+                        <p><?php echo esc_html( charity_t( 'Mã liên hệ: #', 'Reference: #' ) . $receipt->ID ); ?></p>
                         <p><?php echo charity_t(
                             'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.',
                             'Thank you for contacting us. We will respond as soon as possible.'
@@ -142,35 +121,35 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['contact_nonce'] ) )
                     ); ?></p>
 
                     <?php if ( $form_error ) : ?>
-                    <div class="contact-error"><?php echo esc_html( $form_error ); ?></div>
+                    <div class="contact-error" role="alert"><?php echo esc_html( $form_error ); ?></div>
                     <?php endif; ?>
 
-                    <form method="POST" class="contact-form">
+                    <form method="POST" action="<?php echo esc_url( get_permalink() ); ?>" class="contact-form">
                         <?php wp_nonce_field( 'vuonlen_contact_form', 'contact_nonce' ); ?>
 
                         <div class="cf-row">
                             <div class="cf-field">
                                 <label for="cf-name"><?php echo charity_t( 'Họ và tên', 'Full Name' ); ?> *</label>
-                                <input type="text" id="cf-name" name="contact_name" required
+                                <input type="text" id="cf-name" name="contact_name" required maxlength="120" value="<?php echo esc_attr( $values['contact_name'] ); ?>"
                                        placeholder="<?php echo esc_attr( charity_t( 'Nguyễn Văn A', 'Your name' ) ); ?>" autocomplete="name">
                             </div>
                             <div class="cf-field">
                                 <label for="cf-email">Email *</label>
-                                <input type="email" id="cf-email" name="contact_email" required
+                                <input type="email" id="cf-email" name="contact_email" required maxlength="254" value="<?php echo esc_attr( $values['contact_email'] ); ?>"
                                        placeholder="email@example.com" autocomplete="email">
                             </div>
                         </div>
 
                         <div class="cf-field">
                             <label for="cf-subject"><?php echo charity_t( 'Tiêu đề', 'Subject' ); ?></label>
-                            <input type="text" id="cf-subject" name="contact_subject"
+                            <input type="text" id="cf-subject" name="contact_subject" maxlength="200" value="<?php echo esc_attr( $values['contact_subject'] ); ?>"
                                    placeholder="<?php echo esc_attr( charity_t( 'Chủ đề liên hệ', 'What is this about?' ) ); ?>">
                         </div>
 
                         <div class="cf-field">
                             <label for="cf-message"><?php echo charity_t( 'Nội dung', 'Message' ); ?> *</label>
-                            <textarea id="cf-message" name="contact_message" rows="6" required
-                                      placeholder="<?php echo esc_attr( charity_t( 'Viết nội dung tin nhắn...', 'Write your message...' ) ); ?>"></textarea>
+                            <textarea id="cf-message" name="contact_message" rows="6" required maxlength="5000"
+                                      placeholder="<?php echo esc_attr( charity_t( 'Viết nội dung tin nhắn...', 'Write your message...' ) ); ?>"><?php echo esc_textarea( $values['contact_message'] ); ?></textarea>
                         </div>
 
                         <button type="submit" class="btn btn--primary cf-submit">
@@ -184,143 +163,5 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['contact_nonce'] ) )
         </main>
     </div>
 </div>
-
-<style>
-/* ===== Contact Page Styles ===== */
-.contact-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 40px;
-}
-.contact-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    text-align: center;
-    transition: box-shadow .25s, transform .25s;
-}
-.contact-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
-}
-.contact-card__icon {
-    width: 50px;
-    height: 50px;
-    margin: 0 auto 14px;
-    background: var(--red-bg);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--red);
-}
-.contact-card h3 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 6px;
-}
-.contact-card p {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
-}
-.contact-form-wrap {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-}
-.contact-form-title {
-    font-family: var(--font-serif);
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 6px;
-}
-.contact-form-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-}
-.contact-error {
-    background: #fce4ec;
-    border: 1px solid #ef9a9a;
-    color: #c62828;
-    padding: 10px 14px;
-    border-radius: var(--radius);
-    font-size: 13px;
-    margin-bottom: 16px;
-}
-.contact-success {
-    text-align: center;
-    padding: 40px 20px;
-}
-.contact-success h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #2e7d32;
-    margin-bottom: 8px;
-}
-.contact-success p {
-    font-size: 14px;
-    color: var(--text-secondary);
-}
-.cf-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-.cf-field {
-    margin-bottom: 16px;
-}
-.cf-field label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: var(--text);
-}
-.cf-field input,
-.cf-field textarea {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    font-size: 14px;
-    font-family: var(--font-sans);
-    color: var(--text);
-    transition: border-color var(--transition);
-}
-.cf-field input:focus,
-.cf-field textarea:focus {
-    outline: none;
-    border-color: var(--red);
-    box-shadow: 0 0 0 3px var(--red-bg);
-}
-.cf-field textarea { resize: vertical; }
-.cf-submit {
-    width: 100%;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 8px;
-}
-
-@media (max-width: 768px) {
-    .contact-cards { grid-template-columns: 1fr 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .cf-row { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-    .contact-cards { grid-template-columns: 1fr; }
-    .contact-form-wrap { padding: 20px; }
-}
-</style>
 
 <?php get_footer(); ?>

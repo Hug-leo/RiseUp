@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template Name: Member Feedback
+ *
+ * Member-only feedback submission form.
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! is_user_logged_in() ) {
@@ -6,7 +12,7 @@ if ( ! is_user_logged_in() ) {
     exit;
 }
 
-$state = sanitize_key( wp_unslash( $_GET['feedback'] ?? '' ) );
+$state = isset( $_GET['feedback'] ) && is_string( $_GET['feedback'] ) ? sanitize_key( wp_unslash( $_GET['feedback'] ) ) : '';
 get_header();
 ?>
 
@@ -23,7 +29,9 @@ get_header();
 
         <section class="feedback-card">
             <?php if ( 'success' === $state ) : ?>
-                <div class="auth-message auth-message--success"><?php echo esc_html( charity_t( 'Ý kiến đã được gửi thành công.', 'Your feedback was sent.' ) ); ?></div>
+                <div class="auth-message auth-message--success" role="status"><?php echo esc_html( charity_t( 'Ý kiến đã được gửi thành công.', 'Your feedback was sent.' ) ); ?></div>
+            <?php elseif ( 'rate' === $state ) : ?>
+                <div class="auth-message auth-message--error" role="alert"><?php echo esc_html( charity_t( 'Vui lòng đợi một phút trước khi gửi ý kiến tiếp theo.', 'Please wait one minute before sending more feedback.' ) ); ?></div>
             <?php elseif ( in_array( $state, [ 'invalid', 'error' ], true ) ) : ?>
                 <div class="auth-message auth-message--error" role="alert"><?php echo esc_html( charity_t( 'Không thể gửi ý kiến. Hãy kiểm tra nội dung và thử lại.', 'Feedback could not be sent. Check the form and try again.' ) ); ?></div>
             <?php endif; ?>
@@ -31,7 +39,7 @@ get_header();
             <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="feedback-form">
                 <input type="hidden" name="action" value="charity_submit_feedback">
                 <?php wp_nonce_field( 'charity_submit_feedback', 'feedback_nonce' ); ?>
-                <input class="auth-honeypot" type="text" name="feedback_website" tabindex="-1" autocomplete="off">
+                <input class="auth-honeypot" type="text" name="feedback_website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                 <label for="feedback-subject"><?php echo esc_html( charity_t( 'Tiêu đề', 'Subject' ) ); ?></label>
                 <input id="feedback-subject" name="feedback_subject" type="text" required maxlength="160">
