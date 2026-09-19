@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const CHARITY_ACCESS_VERSION = '1.1.0';
+const CHARITY_ACCESS_VERSION = '1.1.1';
 
 function charity_portal_url( $portal = 'member' ) {
     $paths = [
@@ -154,6 +154,7 @@ function charity_register_account_routes() {
         'dang-nhap-thanh-vien'    => 'member',
         'tai-khoan'               => 'account',
         'gui-y-kien'              => 'feedback',
+        'dong-gop-y-kien'         => 'feedback',
     ];
 
     foreach ( $routes as $path => $portal ) {

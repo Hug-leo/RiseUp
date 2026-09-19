@@ -339,4 +339,7 @@
   initAnimations();
   initLikeButtons();
 
+  // Expose globally for dynamic page templates
+  window.initLikeButtons = initLikeButtons;
+
 })();

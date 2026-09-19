@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template Name: Auth Portal
+ *
+ * Authentication portal for admin, collaborator, and member roles.
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 $portal = sanitize_key( get_query_var( 'charity_portal' ) );
@@ -92,9 +98,9 @@ get_header();
             <h1><?php echo esc_html( charity_t( $label[0], $label[1] ) ); ?></h1>
             <p><?php echo esc_html( charity_t( $label[2], $label[3] ) ); ?></p>
             <div class="auth-portal__switcher">
-                <a href="<?php echo esc_url( charity_portal_url( 'admin' ) ); ?>"><?php echo esc_html( charity_t( 'Quản trị viên', 'Administrator' ) ); ?></a>
-                <a href="<?php echo esc_url( charity_portal_url( 'collaborator' ) ); ?>"><?php echo esc_html( charity_t( 'Cộng tác viên', 'Collaborator' ) ); ?></a>
-                <a href="<?php echo esc_url( charity_portal_url( 'member' ) ); ?>"><?php echo esc_html( charity_t( 'Thành viên', 'Member' ) ); ?></a>
+                <a class="<?php echo 'admin' === $portal ? 'active' : ''; ?>" href="<?php echo esc_url( charity_portal_url( 'admin' ) ); ?>"><?php echo esc_html( charity_t( 'Quản trị viên', 'Administrator' ) ); ?></a>
+                <a class="<?php echo 'collaborator' === $portal ? 'active' : ''; ?>" href="<?php echo esc_url( charity_portal_url( 'collaborator' ) ); ?>"><?php echo esc_html( charity_t( 'Cộng tác viên', 'Collaborator' ) ); ?></a>
+                <a class="<?php echo in_array( $portal, [ 'member', 'account' ], true ) ? 'active' : ''; ?>" href="<?php echo esc_url( charity_portal_url( 'member' ) ); ?>"><?php echo esc_html( charity_t( 'Thành viên', 'Member' ) ); ?></a>
             </div>
         </section>
 

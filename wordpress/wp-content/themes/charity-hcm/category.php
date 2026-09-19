@@ -12,6 +12,15 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
 } elseif ( is_array( $section_data ) && isset( $section_data['items'] ) ) {
     $group = $section_data;
 }
+
+$card_type = 'card';
+if ( is_category( 'guong-mat-vuon-len' ) || ( $current_item && $current_item['slug'] === 'guong-mat-vuon-len' ) ) {
+    $card_type = 'profile';
+} elseif ( is_category( 'tong-hop-bai-hat' ) || ( $current_item && $current_item['slug'] === 'tong-hop-bai-hat' ) ) {
+    $card_type = 'song';
+} elseif ( is_category( [ 'bi-kip', 'the-gioi-quanh-ta' ] ) || ( $current_item && in_array( $current_item['slug'], [ 'bi-kip', 'the-gioi-quanh-ta' ], true ) ) ) {
+    $card_type = 'tip';
+}
 ?>
 
 <div class="page-banner">
@@ -160,7 +169,7 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
                 <?php if ( have_posts() ) : ?>
                     <div class="archive-grid">
                         <?php while ( have_posts() ) : the_post(); ?>
-                            <?php get_template_part( 'template-parts/content', 'card' ); ?>
+                            <?php get_template_part( 'template-parts/content', $card_type ); ?>
                         <?php endwhile; ?>
                     </div>
 
@@ -171,7 +180,13 @@ if ( isset( $section_data['item'], $section_data['parent'] ) ) {
                     ] );
                     ?>
                 <?php else : ?>
-                    <p class="no-content"><?php echo charity_t( 'Chưa có bài viết trong chuyên mục này. Có thể bắt đầu bằng phần mô tả ý tưởng ở trên.', 'No posts in this section yet. Start from the content idea above.' ); ?></p>
+                    <div class="no-content">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin: 0 auto 16px; color: var(--text-light);"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="M10 14h4"/></svg>
+                        <p><?php echo esc_html( charity_t( 'Chưa có bài viết trong chuyên mục này. Hãy là người đầu tiên chia sẻ câu chuyện!', 'No posts in this section yet. Be the first to share your story!' ) ); ?></p>
+                        <a href="<?php echo esc_url( charity_submit_post_url() ); ?>" class="btn btn--secondary btn--sm" style="margin-top: 16px;">
+                            <?php echo esc_html( charity_t( 'Đóng góp bài viết', 'Submit a Story' ) ); ?> &rarr;
+                        </a>
+                    </div>
                 <?php endif; ?>
             </section>
         </main>

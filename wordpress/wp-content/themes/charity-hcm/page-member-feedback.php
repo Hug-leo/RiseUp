@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template Name: Member Feedback
+ *
+ * Member-only feedback submission form.
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! is_user_logged_in() ) {
