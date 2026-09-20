@@ -15,6 +15,19 @@
   const nav    = document.getElementById('site-navigation');
 
   if (toggle && nav) {
+    function closeMenu() {
+      nav.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    window.matchMedia('(max-width: 1560px)').addEventListener('change', closeMenu);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        closeMenu();
+        toggle.focus();
+      }
+    });
     toggle.addEventListener('click', () => {
       const open = nav.classList.toggle('open');
       toggle.classList.toggle('active', open);

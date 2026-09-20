@@ -1,6 +1,7 @@
 # Local Development Setup (XAMPP)
 
 Hướng dẫn gửi, nhận và xử lý liên hệ: [CONTACT.md](CONTACT.md).
+Hướng dẫn gửi bài, yêu cầu sửa và duyệt đăng: [SUBMISSIONS.md](SUBMISSIONS.md).
 > Follow these steps to run the site on your own machine using XAMPP.
 >
 > For deploying to a real hosting provider, see [DEPLOY_GUIDE.md](DEPLOY_GUIDE.md).

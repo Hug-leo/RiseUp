@@ -13,6 +13,11 @@ $error  = '';
 $notice = '';
 
 if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['charity_auth_action'] ) ) {
+    foreach ( [ 'charity_auth_action', 'charity_auth_nonce', 'login_portal', 'log', 'pwd', 'redirect_to', 'user_login', 'display_name', 'user_email', 'user_password', 'user_password_confirm' ] as $field ) {
+        if ( isset( $_POST[ $field ] ) && ! is_string( $_POST[ $field ] ) ) {
+            wp_die( 'Invalid form data.', '', [ 'response' => 400 ] );
+        }
+    }
     $action = sanitize_key( wp_unslash( $_POST['charity_auth_action'] ) );
 
     if ( ! isset( $_POST['charity_auth_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['charity_auth_nonce'] ) ), 'charity_auth_' . $action ) ) {
@@ -45,7 +50,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['charity_auth_action
     } elseif ( 'register' === $action ) {
         $username = sanitize_user( wp_unslash( $_POST['user_login'] ?? '' ), true );
         $name     = sanitize_text_field( wp_unslash( $_POST['display_name'] ?? '' ) );
-        $email    = sanitize_email( wp_unslash( $_POST['user_email'] ?? '' ) );
+        $email    = trim( wp_unslash( $_POST['user_email'] ?? '' ) );
         $password = (string) wp_unslash( $_POST['user_password'] ?? '' );
         $confirm  = (string) wp_unslash( $_POST['user_password_confirm'] ?? '' );
 
@@ -82,7 +87,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['charity_auth_action
 
 $labels = [
     'admin'        => [ 'Quản trị viên', 'Administrator', 'Toàn quyền quản trị website.', 'Full website administration access.' ],
-    'collaborator' => [ 'Cộng tác viên', 'Collaborator', 'Đăng, sửa, xóa bài viết và quản lý bình luận.', 'Create, edit and delete posts and manage comments.' ],
+    'collaborator' => [ 'Cộng tác viên', 'Collaborator', 'Biên tập bài chờ duyệt và yêu cầu người gửi chỉnh sửa.', 'Edit pending articles and request revisions.' ],
     'member'       => [ 'Thành viên', 'Member', 'Bình luận bài viết và gửi ý kiến cho ban biên tập.', 'Comment on posts and send feedback to the editorial team.' ],
     'account'      => [ 'Tài khoản của bạn', 'Your account', 'Quản lý các thao tác dành cho thành viên.', 'Access the actions available to your account.' ],
 ];
@@ -112,6 +117,7 @@ get_header();
                 <h2><?php echo esc_html( sprintf( charity_t( 'Xin chào, %s', 'Hello, %s' ), $current_user->display_name ) ); ?></h2>
                 <p><?php echo esc_html( charity_t( 'Bạn đã đăng nhập thành công.', 'You are signed in.' ) ); ?></p>
                 <div class="auth-card__actions">
+                    <a class="btn btn--outline" href="<?php echo esc_url( home_url( '/bai-cua-toi/' ) ); ?>">Gửi bài / Bài của tôi</a>
                     <?php if ( charity_user_is_member( $current_user ) ) : ?>
                         <a class="btn btn--primary" href="<?php echo esc_url( charity_portal_url( 'feedback' ) ); ?>"><?php echo esc_html( charity_t( 'Gửi ý kiến', 'Send feedback' ) ); ?></a>
                     <?php else : ?>
@@ -125,7 +131,7 @@ get_header();
                     <?php wp_nonce_field( 'charity_auth_login', 'charity_auth_nonce' ); ?>
                     <input type="hidden" name="charity_auth_action" value="login">
                     <input type="hidden" name="login_portal" value="<?php echo esc_attr( 'account' === $portal ? 'member' : $portal ); ?>">
-                    <?php if ( ! empty( $_GET['redirect_to'] ) ) : ?>
+                    <?php if ( ! empty( $_GET['redirect_to'] ) && is_string( $_GET['redirect_to'] ) ) : ?>
                         <input type="hidden" name="redirect_to" value="<?php echo esc_attr( wp_unslash( $_GET['redirect_to'] ) ); ?>">
                     <?php endif; ?>
                     <label for="auth-log"><?php echo esc_html( charity_t( 'Tên đăng nhập hoặc email', 'Username or email' ) ); ?></label>

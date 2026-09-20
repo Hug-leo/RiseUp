@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const CHARITY_ACCESS_VERSION = '1.1.1';
+const CHARITY_ACCESS_VERSION = '1.2.0';
 
 function charity_portal_url( $portal = 'member' ) {
     $paths = [
@@ -63,13 +63,13 @@ function charity_sync_access_roles() {
         'upload_files'                  => true,
         'edit_posts'                    => true,
         'edit_others_posts'             => true,
-        'edit_published_posts'          => true,
+        'edit_published_posts'          => false,
         'edit_private_posts'            => true,
-        'publish_posts'                 => true,
+        'publish_posts'                 => false,
         'read_private_posts'            => true,
         'delete_posts'                  => true,
-        'delete_others_posts'           => true,
-        'delete_published_posts'        => true,
+        'delete_others_posts'           => false,
+        'delete_published_posts'        => false,
         'delete_private_posts'          => true,
         'moderate_comments'             => true,
         'edit_riseup_feedbacks'         => true,
@@ -155,6 +155,8 @@ function charity_register_account_routes() {
         'tai-khoan'               => 'account',
         'gui-y-kien'              => 'feedback',
         'dong-gop-y-kien'         => 'feedback',
+        'gui-bai'                  => 'submissions',
+        'bai-cua-toi'              => 'submissions',
     ];
 
     foreach ( $routes as $path => $portal ) {
@@ -189,6 +191,9 @@ add_filter( 'template_include', function ( $template ) {
     if ( 'feedback' === $portal ) {
         return CHARITY_HCM_DIR . '/page-member-feedback.php';
     }
+    if ( 'submissions' === $portal ) {
+        return CHARITY_HCM_DIR . '/page-submit-post.php';
+    }
 
     return CHARITY_HCM_DIR . '/page-auth-portal.php';
 }, 99 );
@@ -201,6 +206,7 @@ add_filter( 'document_title_parts', function ( $parts ) {
         'member'       => 'Đăng nhập thành viên',
         'account'      => 'Tài khoản',
         'feedback'     => 'Gửi ý kiến',
+        'submissions'  => 'Gửi bài / Bài của tôi',
     ];
     if ( isset( $titles[ $portal ] ) ) {
         $parts['title'] = $titles[ $portal ];

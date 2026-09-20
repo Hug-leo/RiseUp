@@ -1,12 +1,13 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-define( 'CHARITY_HCM_VERSION', '2.3.7' );
+define( 'CHARITY_HCM_VERSION', '2.3.8' );
 define( 'CHARITY_HCM_DIR', get_template_directory() );
 define( 'CHARITY_HCM_URI', get_template_directory_uri() );
 
 require_once CHARITY_HCM_DIR . '/inc/access-control.php';
 require_once CHARITY_HCM_DIR . '/inc/contact.php';
+require_once CHARITY_HCM_DIR . '/inc/submissions.php';
 
 // ─── Theme Setup ──────────────────────────────────────────────────────────────
 add_action( 'after_setup_theme', function () {
@@ -514,7 +515,7 @@ function charity_drive_upload_url() {
 }
 
 function charity_submit_post_url() {
-    return current_user_can( 'edit_posts' ) ? admin_url( 'post-new.php' ) : charity_portal_url( 'collaborator' );
+    return home_url( '/gui-bai/' );
 }
 
 function charity_header_search_form() {
@@ -578,7 +579,7 @@ function charity_render_primary_menu() {
         echo '</li>';
     }
 
-    if ( current_user_can( 'edit_posts' ) ) {
+    if ( is_user_logged_in() ) {
         echo '<li><a href="' . esc_url( charity_submit_post_url() ) . '">' . esc_html( charity_t( 'Đăng bài', 'New post' ) ) . '</a></li>';
     }
     echo '<li><a href="' . esc_url( home_url( '/lien-he/' ) ) . '">' . esc_html( charity_t( 'Liên hệ', 'Contact' ) ) . '</a></li>';
@@ -695,8 +696,9 @@ function charity_ajax_toggle_like() {
     }
 
     $post_id = absint( $_POST['post_id'] ?? 0 );
-    if ( ! $post_id || ! get_post( $post_id ) ) {
-        wp_send_json_error( [ 'message' => 'Invalid post' ] );
+    $post = get_post( $post_id );
+    if ( ! $post || 'post' !== $post->post_type || 'publish' !== $post->post_status || post_password_required( $post ) ) {
+        wp_send_json_error( [ 'message' => 'Invalid post' ], 403 );
     }
 
     $cookie_key = 'vuonlen_liked_' . $post_id;
@@ -746,11 +748,16 @@ add_action( 'template_redirect', function () {
 // ─── Bilingual System (VI/EN) ────────────────────────────────────────────────
 function charity_get_lang() {
     if ( isset( $_GET['lang'] ) && in_array( $_GET['lang'], [ 'vi', 'en' ], true ) ) {
-        setcookie( 'charity_lang', $_GET['lang'], time() + YEAR_IN_SECONDS, '/' );
         return $_GET['lang'];
     }
-    return $_COOKIE['charity_lang'] ?? 'vi';
+    return isset( $_COOKIE['charity_lang'] ) && in_array( $_COOKIE['charity_lang'], [ 'vi', 'en' ], true ) ? $_COOKIE['charity_lang'] : 'vi';
 }
+
+add_action( 'init', function () {
+    if ( isset( $_GET['lang'] ) && in_array( $_GET['lang'], [ 'vi', 'en' ], true ) ) {
+        setcookie( 'charity_lang', $_GET['lang'], time() + YEAR_IN_SECONDS, '/' );
+    }
+} );
 
 function charity_t( $vi, $en ) {
     return charity_get_lang() === 'en' ? $en : $vi;
@@ -771,8 +778,21 @@ function vuonlen_handle_submit_post() {
         wp_send_json_error( [ 'message' => charity_t( 'Bạn không có quyền đăng bài.', 'You are not allowed to submit posts.' ) ], 403 );
     }
 
+    foreach ( [ 'post_title', 'post_content', 'post_category', 'author_name', 'author_email' ] as $field ) {
+        if ( isset( $_POST[ $field ] ) && ! is_string( $_POST[ $field ] ) ) {
+            wp_send_json_error( [ 'message' => charity_t( 'Dữ liệu không hợp lệ.', 'Invalid form data.' ) ], 400 );
+        }
+    }
+    if ( isset( $_FILES['post_image'] ) && ( ! isset( $_FILES['post_image']['error'] ) || ! is_int( $_FILES['post_image']['error'] )
+        || ! in_array( $_FILES['post_image']['error'], [ UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE ], true ) ) ) {
+        wp_send_json_error( [ 'message' => charity_t( 'Tải ảnh thất bại. Vui lòng chọn lại ảnh.', 'Image upload failed. Please select the image again.' ) ], 400 );
+    }
+    if ( isset( $_FILES['post_image']['error'] ) && UPLOAD_ERR_OK === $_FILES['post_image']['error'] && ! current_user_can( 'upload_files' ) ) {
+        wp_send_json_error( [ 'message' => charity_t( 'Bạn không có quyền tải ảnh.', 'You cannot upload images.' ) ], 403 );
+    }
+
     $title   = sanitize_text_field( wp_unslash( $_POST['post_title'] ?? '' ) );
-    $content = wp_kses_post( wp_unslash( $_POST['post_content'] ?? '' ) );
+    $content = trim( wp_kses_post( wp_unslash( $_POST['post_content'] ?? '' ) ) );
     $cat_id  = absint( $_POST['post_category'] ?? 0 );
     $author  = sanitize_text_field( wp_unslash( $_POST['author_name'] ?? '' ) );
     $email   = sanitize_email( wp_unslash( $_POST['author_email'] ?? '' ) );
@@ -803,9 +823,9 @@ function vuonlen_handle_submit_post() {
         $post_data['post_category'] = [ $cat_id ];
     }
 
-    $post_id = wp_insert_post( $post_data, true );
+    $post_id = wp_insert_post( wp_slash( $post_data ), true );
 
-    if ( is_wp_error( $post_id ) ) {
+    if ( is_wp_error( $post_id ) || ! $post_id ) {
         wp_send_json_error( [ 'message' => charity_t(
             'Đã xảy ra lỗi. Vui lòng thử lại.',
             'An error occurred. Please try again.'
@@ -827,9 +847,11 @@ function vuonlen_handle_submit_post() {
         require_once ABSPATH . 'wp-admin/includes/media.php';
 
         $attach_id = media_handle_upload( 'post_image', $post_id );
-        if ( ! is_wp_error( $attach_id ) ) {
-            set_post_thumbnail( $post_id, $attach_id );
+        if ( is_wp_error( $attach_id ) ) {
+            wp_delete_post( $post_id, true );
+            wp_send_json_error( [ 'message' => charity_t( 'Không thể tải ảnh. Bài chưa được gửi; hãy kiểm tra ảnh rồi thử lại.', 'Image upload failed. The post was not submitted; check the image and retry.' ) ], 400 );
         }
+        set_post_thumbnail( $post_id, $attach_id );
     }
 
     wp_send_json_success( [ 'message' => charity_t(
