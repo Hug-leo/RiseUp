@@ -130,7 +130,6 @@ if ( is_category( 'guong-mat-vuon-len' ) || ( $current_item && $current_item['sl
                                 <span><i class="map-swatch map-swatch--members"></i><?php echo esc_html( charity_t( 'Có thành viên', 'Has members' ) ); ?></span>
                                 <span><i class="map-swatch map-swatch--selected"></i><?php echo esc_html( charity_t( 'Đang chọn', 'Selected' ) ); ?></span>
                             </div>
-                            <p class="student-map__islands" aria-hidden="true">Hoàng Sa · Trường Sa</p>
                         </div>
 
                         <aside class="student-map__detail" id="student-map-detail" aria-live="polite" aria-labelledby="student-map-detail-title">
@@ -153,8 +152,8 @@ if ( is_category( 'guong-mat-vuon-len' ) || ( $current_item && $current_item['sl
 
                     <p class="student-map__note">
                         <?php echo esc_html( charity_t(
-                            'Bản đồ hỗ trợ 34 đơn vị hành chính cấp tỉnh hiện hành và 63 đơn vị ngay trước sắp xếp năm 2025. Số lượng được tính trực tiếp từ danh sách thành viên HBVL; Hoàng Sa và Trường Sa được thể hiện dưới dạng nhãn tham chiếu, không phải đơn vị bổ sung.',
-                            'The map supports the 34 current provincial-level units and the 63 units immediately before the 2025 reorganisation. Counts are derived directly from the HBVL member list; Hoang Sa and Truong Sa are reference labels, not additional units.'
+                            'Bản đồ hỗ trợ 34 đơn vị hành chính cấp tỉnh hiện hành và 63 đơn vị ngay trước sắp xếp năm 2025. Số lượng được tính trực tiếp từ danh sách thành viên HBVL. Các đảo và quần đảo được thể hiện bằng ký hiệu vị trí, không tính thành tỉnh/thành riêng.',
+                            'The map supports the 34 current provincial-level units and the 63 units immediately before the 2025 reorganisation. Counts are derived directly from the HBVL member list. Islands and archipelagos are shown with location symbols and are not counted as separate provinces.'
                         ) ); ?>
                     </p>
                 </section>

@@ -1673,7 +1673,7 @@ ul, ol {
 /* Province SVG Styling */
 .map-province {
   fill: #e2e8f0;
-  stroke: #ffffff;
+  stroke: #789bb8;
   stroke-width: 0.75;
   cursor: pointer;
   transition: fill 180ms ease, stroke 180ms ease, filter 180ms ease;
@@ -1771,6 +1771,30 @@ ul, ol {
 .map-swatch--selected {
   background: #1d4ed8;
   border: 1px solid var(--accent);
+}
+
+.map-islands {
+    pointer-events: none;
+}
+
+.map-island circle {
+    fill: #0d47a1;
+    stroke: #fff;
+    stroke-width: 1;
+}
+
+.map-island text {
+    fill: #17365d;
+    font: 600 12px system-ui, sans-serif;
+    paint-order: stroke;
+    stroke: #f7fbff;
+    stroke-width: 3px;
+    stroke-linejoin: round;
+}
+
+.map-island--archipelago circle,
+.map-island--archipelago text {
+    fill: #b71c1c;
 }
 
 .student-map__islands {

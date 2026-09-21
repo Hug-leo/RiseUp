@@ -1,0 +1,268 @@
+{
+  "note": "Representative island/archipelago positions in WGS84, rounded for national-scale symbols; not island outlines or maritime boundaries. Historical positions use the hc-transform of vietnam-63-provinces-source.geo.json (UTM zone 48N).",
+  "sources": [
+    "https://en.wikipedia.org/wiki/List_of_islands_of_Vietnam",
+    "https://danang.gov.vn/vi/web/dng/w/ubnd-huyen-hoang-sa-i",
+    "https://svhttdl.khanhhoa.gov.vn/vi/di-tichdi-san-cap-quoc-gia/bia-chu-quyen-quan-dao-truong-sa-tai-dao-song-tu-tay-va-dao-nam-yet",
+    "https://phuquoc.angiang.gov.vn/tong-quan-ve-phu-quoc-0"
+  ],
+  "islands": [
+    {
+      "name": "Vân Đồn",
+      "position": [
+        107.42,
+        21.05
+      ],
+      "labelOffset": [
+        -8,
+        -15
+      ],
+      "position63": [
+        2633.62,
+        8164.67
+      ]
+    },
+    {
+      "name": "Cô Tô",
+      "position": [
+        107.77,
+        20.97
+      ],
+      "labelOffset": [
+        10,
+        -4
+      ],
+      "position63": [
+        2875.8,
+        8109.87
+      ]
+    },
+    {
+      "name": "Cát Bà",
+      "position": [
+        107.0,
+        20.8
+      ],
+      "labelOffset": [
+        -8,
+        16
+      ],
+      "position63": [
+        2346.57,
+        7977.22
+      ]
+    },
+    {
+      "name": "Bạch Long Vĩ",
+      "position": [
+        107.72,
+        20.13
+      ],
+      "labelOffset": [
+        10,
+        7
+      ],
+      "position63": [
+        2851.61,
+        7492.7
+      ]
+    },
+    {
+      "name": "Cồn Cỏ",
+      "position": [
+        107.34,
+        17.16
+      ],
+      "labelOffset": [
+        10,
+        -6
+      ],
+      "position63": [
+        2616.67,
+        5309.5
+      ]
+    },
+    {
+      "name": "Cù Lao Chàm",
+      "position": [
+        108.53,
+        15.95
+      ],
+      "labelOffset": [
+        10,
+        -6
+      ],
+      "position63": [
+        3471.93,
+        4433.74
+      ]
+    },
+    {
+      "name": "Lý Sơn",
+      "position": [
+        109.12,
+        15.38
+      ],
+      "labelOffset": [
+        10,
+        10
+      ],
+      "position63": [
+        3899.32,
+        4022.69
+      ]
+    },
+    {
+      "name": "Phú Quý",
+      "position": [
+        108.96,
+        10.53
+      ],
+      "labelOffset": [
+        10,
+        4
+      ],
+      "position63": [
+        3840.55,
+        458.47
+      ]
+    },
+    {
+      "name": "Côn Đảo",
+      "position": [
+        106.62,
+        8.68
+      ],
+      "labelOffset": [
+        10,
+        6
+      ],
+      "position63": [
+        2148.23,
+        -912.67
+      ]
+    },
+    {
+      "name": "Phú Quốc",
+      "position": [
+        103.97,
+        10.24
+      ],
+      "labelOffset": [
+        -8,
+        -12
+      ],
+      "position63": [
+        219.47,
+        229.0
+      ]
+    },
+    {
+      "name": "Hải Tặc",
+      "position": [
+        104.41,
+        10.32
+      ],
+      "labelOffset": [
+        8,
+        -16
+      ],
+      "position63": [
+        538.94,
+        286.82
+      ]
+    },
+    {
+      "name": "Hòn Sơn",
+      "position": [
+        104.63,
+        9.81
+      ],
+      "labelOffset": [
+        10,
+        0
+      ],
+      "position63": [
+        698.16,
+        -87.11
+      ]
+    },
+    {
+      "name": "Nam Du",
+      "position": [
+        104.35,
+        9.68
+      ],
+      "labelOffset": [
+        8,
+        18
+      ],
+      "position63": [
+        494.48,
+        -182.06
+      ]
+    },
+    {
+      "name": "Thổ Chu",
+      "position": [
+        103.48,
+        9.3
+      ],
+      "labelOffset": [
+        -8,
+        17
+      ],
+      "position63": [
+        -139.34,
+        -458.56
+      ]
+    },
+    {
+      "name": "Hòn Khoai",
+      "position": [
+        104.83,
+        8.43
+      ],
+      "labelOffset": [
+        -8,
+        17
+      ],
+      "position63": [
+        843.02,
+        -1098.32
+      ]
+    },
+    {
+      "name": "QĐ. Hoàng Sa",
+      "position": [
+        112.0,
+        16.5
+      ],
+      "labelOffset": [
+        0,
+        39
+      ],
+      "archipelago": true,
+      "position63": [
+        5928.23,
+        4902.09
+      ]
+    },
+    {
+      "name": "QĐ. Trường Sa",
+      "position": [
+        114.3,
+        10.0
+      ],
+      "labelOffset": [
+        0,
+        39
+      ],
+      "archipelago": true,
+      "position63": [
+        7749.84,
+        148.18
+      ]
+    }
+  ]
+}

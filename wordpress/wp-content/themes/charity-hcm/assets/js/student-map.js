@@ -15,7 +15,9 @@
   /* Keep the established WordPress enqueue handle while delegating presentation to modules. */
   var loaderScript = document.currentScript;
   if (loaderScript) {
-    import(new URL('./hbvl-map.js', loaderScript.src).href)
+    var moduleUrl = new URL('./hbvl-map.js', loaderScript.src);
+    moduleUrl.search = new URL(loaderScript.src).search;
+    import(moduleUrl.href)
       .then(function (module) { module.initHBVLMap(); })
       .catch(function () {
         var canvas = document.getElementById('student-map-canvas');

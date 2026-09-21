@@ -14,7 +14,8 @@ DATA = ROOT / "wordpress/wp-content/themes/charity-hcm/assets/data"
 def main() -> None:
     old_to_current = validate_mapping()
     members = json.loads((DATA / "hbvl-members.json").read_text(encoding="utf-8"))["members"]
-    geometry = json.loads((DATA / "vietnam-provinces.json").read_text(encoding="utf-8"))["modes"]
+    data = json.loads((DATA / "vietnam-provinces.json").read_text(encoding="utf-8"))
+    geometry = data["modes"]
     current_names = set(NEW_34_TO_OLD_63)
     old_names = set(old_to_current)
 
@@ -23,6 +24,16 @@ def main() -> None:
     assert {feature["properties"]["name"] for feature in geometry["34"]} == current_names
     assert {feature["properties"]["name"] for feature in geometry["63"]} == old_names
     assert len(geometry["34"]) == 34 and len(geometry["63"]) == 63
+    assert len(data["islands"]) == 17
+    assert {island["name"] for island in data["islands"] if island.get("archipelago")} == {"QĐ. Hoàng Sa", "QĐ. Trường Sa"}
+    regions = json.loads((ROOT / "data-source/vietnam-63-islands.json").read_text(encoding="utf-8"))["regions"]
+    for region in regions:
+        province = next(feature for feature in geometry["63"] if feature["properties"]["name"] == region["province"])
+        assert all(polygon in province["geometry"]["coordinates"] for polygon in region["polygons"]), region["province"]
+    for name in ("Đà Nẵng", "Khánh Hòa", "Kiên Giang"):
+        province = next(feature for feature in geometry["63"] if feature["properties"]["name"] == name)
+        assert province["geometry"]["type"] == "MultiPolygon"
+        assert len(province["geometry"]["coordinates"]) > 10, f"Missing islands: {name}"
     assert all(NEW_34_TO_OLD_63[name] for name in current_names)
     assert all(member["oldProvince"] in old_names for member in members)
     assert all(old_to_current[member["oldProvince"]] == member["currentProvince"] for member in members)

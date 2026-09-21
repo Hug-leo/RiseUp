@@ -15,7 +15,7 @@ OUTPUT = ROOT / "wordpress/wp-content/themes/charity-hcm/assets/img/vietnam-34-p
 VIEW_WIDTH = 620
 VIEW_HEIGHT = 760
 PADDING = 34
-BOUNDS = {"min_x": 102, "max_x": 110.8, "min_y": 8, "max_y": 23.6}
+BOUNDS = {"min_x": 102, "max_x": 118.4, "min_y": 6.8, "max_y": 23.6}
 
 
 def project(point: list[float]) -> tuple[float, float]:
@@ -43,7 +43,8 @@ def geometry_path(geometry: dict) -> str:
 
 
 def main() -> None:
-    geometry = json.loads((DATA / "vietnam-provinces.json").read_text(encoding="utf-8"))["modes"]["34"]
+    data = json.loads((DATA / "vietnam-provinces.json").read_text(encoding="utf-8"))
+    geometry = data["modes"]["34"]
     members = json.loads((DATA / "hbvl-members.json").read_text(encoding="utf-8"))["members"]
     counts = Counter(member["currentProvince"] for member in members)
     assert len(geometry) == 34
@@ -58,23 +59,35 @@ def main() -> None:
             f'd="{geometry_path(feature["geometry"])}"><title>{escape(name)}: {count} thành viên HBVL</title></path>'
         )
 
+    islands = []
+    for island in data["islands"]:
+        x, y = project(island["position"])
+        dx, dy = island["labelOffset"]
+        archipelago = island.get("archipelago", False)
+        anchor = "middle" if archipelago else "end" if dx < 0 else "start"
+        dots = [] if archipelago else [(0, 0)]
+        markers = "".join(f'<circle cx="{cx}" cy="{cy}" r="3"/>' for cx, cy in dots)
+        country = f'<text y="{dy + 17}" text-anchor="middle">VIỆT NAM</text>' if archipelago else ""
+        islands.append(
+            f'<g class="island{" archipelago" if archipelago else ""}" transform="translate({x:.2f},{y:.2f})">'
+            f'<title>{escape(island["name"])}</title>{markers}'
+            f'<text x="{dx}" y="{dy}" text-anchor="{anchor}">{escape(island["name"])}</text>{country}</g>'
+        )
+
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {VIEW_WIDTH} {VIEW_HEIGHT}" role="img" aria-labelledby="map-title map-desc">
   <title id="map-title">Bản đồ 34 tỉnh, thành hiện hành của Việt Nam</title>
-  <desc id="map-desc">Bản đồ địa lý dùng màu xanh để thể hiện tỉnh, thành có thành viên HBVL.</desc>
+  <desc id="map-desc">Bản đồ tỉnh, thành có thành viên HBVL, cùng các đảo và quần đảo Hoàng Sa, Trường Sa của Việt Nam. Đảo và quần đảo được thể hiện bằng ký hiệu vị trí.</desc>
   <style>
     .province {{ stroke:#63839a;stroke-width:.9;vector-effect:non-scaling-stroke; }}
     .province--empty {{ fill:#e7eef2; }}
     .province--members {{ fill:#a7cce3; }}
     .province--members-high {{ fill:#5f9fc8; }}
-    .reference {{ fill:#4f6474;font:600 13px system-ui,sans-serif;letter-spacing:.04em; }}
-    .reference-line {{ stroke:#8da5b6;stroke-width:1;stroke-dasharray:3 4; }}
+    .island circle {{ fill:#0d47a1;stroke:#fff;stroke-width:1; }}
+    .island text {{ fill:#17365d;font:600 12px system-ui,sans-serif;paint-order:stroke;stroke:#f7fbff;stroke-width:3px;stroke-linejoin:round; }}
+    .archipelago circle, .archipelago text {{ fill:#b71c1c; }}
   </style>
   <g>{''.join(paths)}</g>
-  <g aria-hidden="true">
-    <line class="reference-line" x1="435" y1="445" x2="535" y2="445"/>
-    <text class="reference" x="435" y="468">HOÀNG SA · TRƯỜNG SA</text>
-    <text class="reference" x="435" y="488" style="font-size:10px;font-weight:500">Nhãn tham chiếu</text>
-  </g>
+  <g aria-label="Các đảo và quần đảo Việt Nam">{''.join(islands)}</g>
 </svg>'''
     OUTPUT.write_text(svg, encoding="utf-8")
     print(f"Built homepage preview: 34 units, {len(members)} members, {OUTPUT.stat().st_size} bytes")

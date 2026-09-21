@@ -136,6 +136,19 @@ def build_old(source_path: Path):
     names = [feature["properties"]["name"] for feature in features]
     if len(features) != 63 or set(names) != set(old_names) or len(names) != len(set(names)):
         raise ValueError("63-mode geometry does not match the canonical 63-unit set")
+    regions = json.loads((Path(__file__).resolve().parents[1] / "data-source/vietnam-63-islands.json").read_text(encoding="utf-8"))["regions"]
+    for feature in features:
+        additions = [region for region in regions if region["province"] == feature["properties"]["name"]]
+        if not additions:
+            continue
+        geometry = feature["geometry"]
+        polygons = [geometry["coordinates"]] if geometry["type"] == "Polygon" else geometry["coordinates"]
+        replaced = {index for region in additions for index in region["replacePolygonIndices"]}
+        feature["geometry"] = {
+            "type": "MultiPolygon",
+            "coordinates": [polygon for index, polygon in enumerate(polygons) if index not in replaced]
+            + [polygon for region in additions for polygon in region["polygons"]],
+        }
     return features
 
 
@@ -150,7 +163,8 @@ def main():
     old = build_old(args.old_source)
     if len(current) != 34 or {f["properties"]["name"] for f in current} != set(NEW_34_TO_OLD_63):
         raise ValueError("34-mode geometry does not match the canonical 34-unit set")
-    payload = {"type": "HBVLProvinceGeometry", "modes": {"34": current, "63": old}}
+    islands = json.loads((Path(__file__).resolve().parents[1] / "data-source/vietnam-islands.json").read_text(encoding="utf-8"))["islands"]
+    payload = {"type": "HBVLProvinceGeometry", "modes": {"34": current, "63": old}, "islands": islands}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"Validated geometry: {len(current)} current units, {len(old)} old units; {args.output.stat().st_size} bytes")

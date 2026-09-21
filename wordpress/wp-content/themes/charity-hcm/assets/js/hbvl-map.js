@@ -81,9 +81,11 @@ function validateData(members, geometry) {
 export async function initHBVLMap() {
   const canvas = document.getElementById('student-map-canvas');
   if (!canvas) return;
+  const geometryUrl = new URL('vietnam-provinces.json', DATA_ROOT);
+  geometryUrl.search = new URL(import.meta.url).search;
   const [memberResponse, geometryResponse] = await Promise.all([
     fetch(new URL('hbvl-members.json', DATA_ROOT)),
-    fetch(new URL('vietnam-provinces.json', DATA_ROOT))
+    fetch(geometryUrl)
   ]);
   if (!memberResponse.ok || !geometryResponse.ok) throw new Error('Không thể tải dữ liệu bản đồ.');
   const memberData = await memberResponse.json();
@@ -158,8 +160,11 @@ export async function initHBVLMap() {
     /* The current source uses geographic coordinates; the historical source uses
      * the map publisher's projected coordinate space, so each mode needs its own extent. */
     const projectionBounds = state.mode === '34'
-      ? { minX: 102, maxX: 110.8, minY: 8, maxY: 23.6 }
+      ? { minX: 102, maxX: 118.4, minY: 6.8, maxY: 23.6 }
       : bounds(features);
+    if (state.mode === '63') {
+      projectionBounds.maxX += 200;
+    }
     const project = projector(projectionBounds);
     features.forEach((feature) => {
       const name = feature.properties.name;
@@ -187,6 +192,40 @@ export async function initHBVLMap() {
       path.addEventListener('blur', hideTooltip);
       svg.append(path);
     });
+    const islands = document.createElementNS(SVG_NS, 'g');
+    islands.setAttribute('class', 'map-islands');
+    islands.setAttribute('role', 'group');
+    islands.setAttribute('aria-label', 'Các đảo và quần đảo Việt Nam');
+    geometry.islands.forEach((island) => {
+      const [x, y] = project(state.mode === '34' ? island.position : island.position63);
+      const group = document.createElementNS(SVG_NS, 'g');
+      group.setAttribute('class', island.archipelago ? 'map-island map-island--archipelago' : 'map-island');
+      group.setAttribute('transform', `translate(${x},${y})`);
+      const title = document.createElementNS(SVG_NS, 'title');
+      title.textContent = island.name;
+      group.append(title);
+      const dots = island.archipelago ? [] : [[0,0]];
+      dots.forEach(([cx, cy]) => {
+        const dot = document.createElementNS(SVG_NS, 'circle');
+        dot.setAttribute('cx', cx); dot.setAttribute('cy', cy); dot.setAttribute('r', '3');
+        group.append(dot);
+      });
+      const label = document.createElementNS(SVG_NS, 'text');
+      label.setAttribute('x', island.labelOffset[0]);
+      label.setAttribute('y', island.labelOffset[1]);
+      label.setAttribute('text-anchor', island.archipelago ? 'middle' : island.labelOffset[0] < 0 ? 'end' : 'start');
+      label.textContent = island.name;
+      group.append(label);
+      if (island.archipelago) {
+        const country = document.createElementNS(SVG_NS, 'text');
+        country.setAttribute('y', island.labelOffset[1] + 17);
+        country.setAttribute('text-anchor', 'middle');
+        country.textContent = 'VIỆT NAM';
+        group.append(country);
+      }
+      islands.append(group);
+    });
+    svg.append(islands);
     canvas.replaceChildren(svg);
     state.selected = null;
     title.textContent = 'Chọn một tỉnh/thành';

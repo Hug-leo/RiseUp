@@ -4,6 +4,7 @@
 
 ## Đã sửa
 
+- Biển đảo: bổ sung 260 polygon đảo từ dữ liệu 34 tỉnh vào đúng tỉnh lịch sử trong bản 63 tỉnh; mở rộng khung nhìn để hiện Hoàng Sa, Trường Sa; thêm 17 nhãn đảo/quần đảo trên bản tương tác và ảnh trang chủ. Hình học lấy từ `data-source/vietnam-34-api`, chuyển sang hệ tọa độ của nguồn 63 tỉnh; các nhãn vị trí không tạo thêm tỉnh hoặc thành viên.
 - Chuyển ngôn ngữ: ghi cookie một lần ở `init`, trước khi xuất HTML; giá trị cookie ngoài `vi`/`en` dùng tiếng Việt.
 - Menu responsive: đóng menu và bỏ khóa cuộn khi đi qua điểm chuyển mobile/desktop; hỗ trợ Escape.
 - Đăng nhập/đăng ký: từ chối trường dạng mảng không hợp lệ; không biến email nhập sai thành email khác bằng cách tự xóa ký tự trước khi kiểm tra.
@@ -35,6 +36,7 @@ node scripts/test_feedback.cjs <duong-dan-goi-playwright>
 & C:\xampp\php\php.exe scripts/test_contact.php
 & C:\xampp\php\php.exe scripts/test_comment_permissions.php
 python scripts/validate_hbvl_map.py
+node scripts/test_map_islands.cjs <duong-dan-goi-playwright>
 ```
 
 Các bài kiểm tra tạo rồi xóa dữ liệu riêng của chúng. Không gửi email thử ra ngoài.
